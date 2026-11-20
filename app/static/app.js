@@ -43,39 +43,55 @@ function closeSheet() {
 }
 
 /* ---------------- 视图切换 ---------------- */
+// 四个一级入口：home / gen(学) / practice(练) / sources(资料) / settings(我的)
+// 次级视图（模考/错题/复习/计划/AI助手）通过「练」页内的 subnav 进入
 const VIEWS = {
-  home: { label: "🏠 首页", tabs: [] },
-  practice: { label: "✏️ 刷题", tabs: [] },
-  exam: { label: "📝 模考", tabs: [] },
-  mistakes: { label: "📕 错题本", tabs: [] },
-  review: { label: "⏰ 复习", tabs: [] },
-  plan: { label: "📅 计划", tabs: [] },
-  ai: { label: "🤖 AI 助手", tabs: [] },
-  gen: { label: "🛠️ 生成刷题", tabs: [] },
-  sources: { label: "🌐 资源中心", tabs: [] },
-  pan: { label: "📦 网盘搜", tabs: [] },
-  settings: { label: "👤 设置", tabs: [] },
+  home: { label: "🏠 首页" },
+  gen: { label: "📥 学" },
+  practice: { label: "✏️ 刷题" },
+  exam: { label: "📝 模考" },
+  mistakes: { label: "📕 错题本" },
+  review: { label: "⏰ 复习" },
+  plan: { label: "📅 计划" },
+  ai: { label: "🤖 AI 助手" },
+  sources: { label: "🌐 资料中枢" },
+  settings: { label: "👤 设置" },
 };
-// 底部导航之外的次要视图，通过首页快捷入口进入
-const MORE_VIEWS = ["exam", "mistakes", "review", "plan", "gen", "pan"];
+// 一级入口映射：次级视图归属到哪个底部 tab
+const PRIMARY_OF = {
+  home: "home", gen: "gen", practice: "practice", exam: "practice",
+  mistakes: "practice", review: "practice", plan: "practice", ai: "practice",
+  sources: "sources", settings: "settings",
+};
 let currentView = "home";
+
+// 已移除全局 11 项标签栏 —— 那是"菜单很乱"的根源。
+// 次级导航只在「练」页面内部出现，不会和底部导航重复打架。
+function renderTabs() {
+  // 兼容旧调用：现在只更新「练」页内的 subnav 高亮
+  document.querySelectorAll("#practiceSubnav button").forEach((b) => {
+    b.classList.toggle("on", b.dataset.v === currentView);
+  });
+}
 
 function go(view) {
   if (!VIEWS[view]) view = "home";
   currentView = view;
   document.querySelectorAll(".view").forEach((v) => v.classList.remove("on"));
   $("v-" + view).classList.add("on");
+  // 底部一级导航高亮（次级视图归到所属一级）
+  const primary = PRIMARY_OF[view] || "home";
   document.querySelectorAll(".botnav button").forEach((b) => {
-    b.classList.toggle("on", b.dataset.v === view || (view === "gen" && b.dataset.v === "ai"));
+    b.classList.toggle("on", b.dataset.v === primary);
   });
   renderTabs();
   const loaders = {
     home: loadHome, practice: loadPracticeInit, exam: () => {}, mistakes: loadMistakes,
-    review: loadReview, plan: loadPlan, ai: loadAiInit, gen: () => {},
-    sources: loadSources, pan: loadPan, settings: loadSettings,
+    review: loadReview, plan: loadPlan, ai: loadAiInit, gen: loadGen,
+    sources: loadHub, settings: loadSettings,
   };
   (loaders[view] || (() => { }))();
-  // 同步地址栏与记忆当前页：PWA 快捷方式、刷新、后退都能回到这里
+  // 同步地址栏与记忆当前页
   try {
     history.replaceState(null, "", "#" + view);
     localStorage.setItem("eb_view", view);
@@ -83,23 +99,103 @@ function go(view) {
   window.scrollTo({ top: 0 });
 }
 
-function renderTabs() {
-  const bar = $("tabs");
-  const items = [
-    { v: "home", t: "🏠 首页" }, { v: "practice", t: "✏️ 刷题" },
-    { v: "mistakes", t: "📕 错题" }, { v: "review", t: "⏰ 复习" },
-    { v: "plan", t: "📅 计划" }, { v: "ai", t: "🤖 AI" },
-    { v: "gen", t: "🛠️ 生成" }, { v: "exam", t: "📝 模考" },
-    { v: "sources", t: "🌐 资源" }, { v: "pan", t: "📦 网盘" },
-    { v: "settings", t: "⚙️ 设置" },
-  ];
-  bar.innerHTML = items.map((i) =>
-    `<button class="${i.v === currentView ? "on" : ""}" data-v="${i.v}">${i.t}</button>`).join("");
-  bar.querySelectorAll("button").forEach((b) => (b.onclick = () => go(b.dataset.v)));
+/* ============ v2：首启身份引导 ============ */
+let obState = { stage: "", goal: "", major: "", has_material: null, target_date: "", step: 1 };
+let obProfileData = null;  // 缓存 /api/profile 返回的阶段与选项
+
+async function startOnboard() {
+  if (!obProfileData) obProfileData = await api("/api/profile");
+  obState = { stage: "", goal: "", major: "", has_material: null, target_date: "", step: 1 };
+  const prof = obProfileData.profile || {};
+  if (prof.onboarded) {
+    obState = { stage: prof.stage || "", goal: prof.goal || "", major: prof.major || "",
+      has_material: prof.has_material, target_date: prof.target_date || "", step: 1 };
+  }
+  renderObStages();
+  showObStep(1);
+  $("onboard").style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+function closeOnboard() { $("onboard").style.display = "none"; document.body.style.overflow = ""; }
+function renderObStages() {
+  $("obStages").innerHTML = (obProfileData.stages || []).map((s) =>
+    `<button class="ob-choice ${obState.stage === s.id ? "sel" : ""}" data-stage="${s.id}">
+       <span class="ob-ic">${s.icon}</span><b>${s.label}</b><span class="note">${s.desc}</span></button>`).join("");
+  $("obStages").querySelectorAll("[data-stage]").forEach((b) => b.onclick = () => {
+    obState.stage = b.dataset.stage; renderObStages();
+  });
+}
+function renderObGoals() {
+  const goals = (obProfileData.goals || {})[obState.stage] || [];
+  $("obGoals").innerHTML = goals.map((g) =>
+    `<button class="ob-choice ${obState.goal === g ? "sel" : ""}" data-goal="${esc(g)}">${esc(g)}</button>`).join("");
+  $("obGoals").querySelectorAll("[data-goal]").forEach((b) => b.onclick = () => {
+    obState.goal = b.dataset.goal; $("obGoalCustom").value = ""; renderObGoals();
+  });
+}
+function showObStep(n) {
+  obState.step = n;
+  for (let i = 1; i <= 3; i++) $("obStep" + i).style.display = (i === n ? "block" : "none");
+  $("obBack").style.display = n > 1 ? "inline-block" : "none";
+  $("obNext").textContent = n === 3 ? "完成，开始用 →" : "下一步";
+  if (n === 2) { renderObGoals(); $("obGoalCustom").value = obState.goal && !((obProfileData.goals||{})[obState.stage]||[]).includes(obState.goal) ? obState.goal : ""; }
+  if (n === 3) {
+    $("obMajor").value = obState.major || "";
+    $("obDate").value = obState.target_date || "";
+  }
+}
+async function finishOnboard() {
+  const custom = $("obGoalCustom").value.trim();
+  if (custom) obState.goal = custom;
+  obState.major = $("obMajor").value.trim();
+  obState.target_date = $("obDate").value.trim();
+  const d = await api("/api/profile", POST({ ...obState, onboarded: true }));
+  if (d.error) { toast(d.error); return; }
+  // 重新拉一次完整 profile（含服务端算好的 greeting）
+  obProfileData = await api("/api/profile");
+  closeOnboard();
+  toast("设置好了，这就按你的情况来");
+  go("home");
+}
+// 在 bind() 之外单独绑定引导按钮（元素始终存在）
+function bindOnboard() {
+  $("obNext").onclick = async () => {
+    if (obState.step === 1) {
+      if (!obState.stage) { toast("先选一个你的身份"); return; }
+      showObStep(2); return;
+    }
+    if (obState.step === 2) {
+      if (!obState.goal && !$("obGoalCustom").value.trim()) { toast("选一个目标，或自己写一个"); return; }
+      showObStep(3); return;
+    }
+    await finishOnboard();
+  };
+  $("obBack").onclick = () => showObStep(Math.max(1, obState.step - 1));
+  $("obGoalCustom").oninput = (e) => { if (e.target.value.trim()) obState.goal = ""; };
+  document.querySelectorAll(".ob-choice[data-mat]").forEach((b) => b.onclick = () => {
+    obState.has_material = b.dataset.mat === "yes";
+    document.querySelectorAll(".ob-choice[data-mat]").forEach((x) => x.classList.remove("sel"));
+    b.classList.add("sel");
+  });
 }
 
-/* ---------------- 首页 ---------------- */
+/* ============ 首页（按画像个性化） ============ */
+function obIcon(stage) {
+  const s = (obProfileData?.stages || []).find((x) => x.id === stage);
+  return s ? s.icon : "🎯";
+}
+function obLabel(stage) {
+  const s = (obProfileData?.stages || []).find((x) => x.id === stage);
+  return s ? s.label : "学习者";
+}
 async function loadHome() {
+  if (!obProfileData) obProfileData = await api("/api/profile");
+  const prof = obProfileData.profile || {};
+  $("heroAvatar").textContent = obLabel(prof.stage);
+  $("heroTitle").textContent = prof.onboarded
+    ? `${obLabel(prof.stage)} · ${prof.goal || "备考中"}` : "先认识一下你";
+  $("heroGreeting").textContent = obProfileData.greeting || "先告诉我你的情况。";
+  renderHomeRecommend(prof);
   const [s, rev] = await Promise.all([api("/api/stats"), api("/api/review")]);
   const st = [
     { n: s.total_answered || 0, l: "已答题", c: "" },
@@ -109,48 +205,212 @@ async function loadHome() {
   ];
   $("homeStats").innerHTML = st.map((x) =>
     `<div class="stat"><div class="n ${x.c}">${x.n}</div><div class="l">${x.l}</div></div>`).join("");
-
-  renderAdvice(s, rev);
-  renderKnowledge(s.knowledge);
-  renderStreak(s.streak || 0);
+  window._homeStats = { s, rev };
+  loadHomeAdvice();
 }
-
-function renderAdvice(s, rev) {
+function renderHomeRecommend(prof) {
+  const box = $("recommendActions");
+  if (!prof.onboarded) {
+    box.innerHTML = `<div class="note">还没设置身份和目标。先花 30 秒设置，我才知道给你什么内容。</div>
+      <button class="btn mt8" id="recOnboard">🎯 30 秒设置我的情况</button>`;
+    $("recOnboard").onclick = startOnboard;
+    return;
+  }
+  const acts = [];
+  if (prof.has_material) acts.push({ i:"📥", t:"导入我的资料", d:"传 PDF/Word/图片，AI 按你的资料出题并标出处", v:"gen" });
+  else acts.push({ i:"🌐", t:"帮我找资料", d:"官方源 + 全网检索，找到的都是能核对出处的", v:"sources" });
+  acts.push({ i:"✏️", t:"先做几题摸底", d:"系统会据此算出薄弱点，推荐才准", v:"practice" });
+  box.innerHTML = acts.map((a) => `<div class="kv"><div><b>${a.i} ${a.t}</b><div class="note">${a.d}</div></div>
+    <button class="btn xs" data-go="${a.v}">去</button></div>`).join("");
+  box.querySelectorAll("[data-go]").forEach((b) => b.onclick = () => go(b.dataset.go));
+}
+function loadHomeAdvice() {
+  const { s, rev } = window._homeStats || {};
+  if (!s) return;
   const list = [];
   if (!s.total_answered) {
     list.push({ i: "🚀", t: "先做 5 题摸清底子", d: "系统会据此算出你的薄弱科目，之后的推荐才准", a: ["去刷题", "practice"] });
   } else {
-    if ((rev.total_due || 0) > 0) list.push({ i: "⏰", t: `今天有 ${rev.total_due} 题到期复习`, d: "按记忆曲线复习，比刷新题更划算", a: ["去复习", "review"] });
+    if ((rev.total_due || 0) > 0) list.push({ i: "⏰", t: `今天有 ${rev.total_due} 题到期复习`, d: "按 FSRS 记忆曲线复习，比刷新题更划算", a: ["去复习", "review"] });
     if ((s.mistakes_pending || 0) > 0) list.push({ i: "📕", t: `${s.mistakes_pending} 道错题待消灭`, d: "同一道题错两次以上，说明方法没掌握", a: ["去错题本", "mistakes"] });
     if (s.weakest && s.weakest.prob < 0.6) list.push({ i: "🎯", t: `最薄弱：${s.weakest.subject}（${Math.round(s.weakest.prob * 100)}%）`, d: "建议用「只刷薄弱」定向补这块", a: ["刷薄弱", "practice"] });
     if (!s.weakest || (s.weakest.prob >= 0.6 && !rev.total_due && !s.mistakes_pending)) {
-      list.push({ i: "📈", t: "基础不错，可以上强度", d: "试试限时模考，或让 AI 按你的资料出一套模拟卷", a: ["去模考", "exam"] });
+      list.push({ i: "📈", t: "基础不错，可以上强度", d: "试试限时模考，或用你的资料让 AI 出模拟卷", a: ["去模考", "exam"] });
     }
   }
-  if (!list.length) list.push({ i: "👋", t: "从抽一题开始", d: "行测、申论、考研、四六级都在题库里", a: ["去刷题", "practice"] });
   $("adviceList").innerHTML = list.map((x) => `
     <div class="kv"><div><b>${esc(x.t)}</b><div class="note">${esc(x.d)}</div></div>
     <button class="btn xs" data-go="${x.a[1]}">${x.a[0]}</button></div>`).join("");
   $("adviceList").querySelectorAll("[data-go]").forEach((b) => (b.onclick = () => go(b.dataset.go)));
 }
 
-function renderKnowledge(k) {
-  const box = $("homeKnowledge");
-  const items = Object.entries(k || {}).sort((a, b) => a[1].prob - b[1].prob);
-  if (!items.length) { box.innerHTML = '<div class="empty">还没有学习记录，先去刷几题</div>'; return; }
-  box.innerHTML = items.slice(0, 12).map(([name, v]) => {
-    const pct = Math.round(v.prob * 100);
-    const color = pct >= 80 ? "var(--ok)" : pct >= 60 ? "var(--warn)" : "var(--err)";
-    return `<div class="bar-line"><span style="flex:0 0 84px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(name)}</span>
-      <span class="track"><i style="width:${pct}%;background:${color}"></i></span>
-      <span class="num">${pct}%</span></div>`;
-  }).join("") + (items.length > 12 ? `<div class="note">…共 ${items.length} 个科目</div>` : "");
+/* ============ v2：资料导入 + 溯源出题 ============ */
+async function loadGen() {
+  const d = await api("/api/materials");
+  const mats = d.materials || [];
+  $("matList").innerHTML = mats.length
+    ? mats.map((m) => `<div class="kv"><div><b>${esc(m.name)}</b>
+        <div class="note">${m.char_count} 字 · ${m.exam || "未分类"} · ${esc((m.created||"").slice(0,10))}</div></div>
+        <button class="btn xs ghost" data-del="${m.id}">删除</button></div>`).join("")
+    : '<div class="empty">还没导入资料。上面粘贴或上传一份试试。</div>';
+  $("matList").querySelectorAll("[data-del]").forEach((b) => b.onclick = async () => {
+    if (!confirm("删除这份资料？")) return;
+    await api("/api/material/" + b.dataset.del, { method: "DELETE" });
+    toast("已删除"); loadGen();
+  });
+  $("genMatId").innerHTML = mats.length
+    ? mats.map((m) => `<option value="${m.id}">${esc(m.name)}</option>`).join("")
+    : '<option value="">（先导入资料）</option>';
+  if (!obProfileData) obProfileData = await api("/api/profile");
+  if (!$("genSubject").value && obProfileData.profile?.goal) $("genSubject").value = obProfileData.profile.goal;
+}
+async function onFileSelected(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  $("matFileStatus").textContent = `已选：${f.name}（${(f.size/1024).toFixed(0)} KB），正在提取文字…`;
+  $("matFileStatus").classList.remove("err");
+  if (!$("matName").value) $("matName").value = f.name.replace(/\.[^.]+$/, "");
+  try {
+    const text = await extractFileText(f);
+    $("matText").value = text;
+    const d = await api("/api/analyze-file", POST({ filename: f.name, text }));
+    $("matPassageCount").textContent = d.ok ? `提取 ${d.char_count} 字 / ${d.passages} 段` : "";
+    $("matFileStatus").textContent = d.ok
+      ? `✅ 提取完成，请在下方校对后点「导入」（${d.char_count} 字）`
+      : (d.error || "提取完成，请校对");
+  } catch (err) {
+    $("matFileStatus").textContent = "提取失败：" + err.message + "。可直接把文字粘贴到下方。";
+    $("matFileStatus").classList.add("err");
+  }
+}
+async function extractFileText(file) {
+  const name = file.name.toLowerCase();
+  if (name.endsWith(".pdf")) return pdfToText(file);
+  if (/\.(docx|doc)$/.test(name)) return docxToText(file);
+  if (name.endsWith(".txt") || name.endsWith(".md")) return file.text();
+  if (/\.(png|jpg|jpeg|webp)$/.test(name)) return imageToText(file);
+  throw new Error("暂不支持该格式，请用 PDF/Word/TXT/图片，或粘贴文字");
+}
+async function loadScript(src) {
+  await new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+}
+async function pdfToText(file) {
+  if (!window.pdfjsLib) await loadScript("https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs");
+  const buf = await file.arrayBuffer();
+  const pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
+  let out = "";
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const tc = await page.getTextContent();
+    out += `\n【第${i}页】\n` + tc.items.map((x) => x.str).join(" ") + "\n";
+  }
+  return out.trim();
+}
+async function docxToText(file) {
+  if (!window.mammoth) await loadScript("https://cdn.jsdelivr.net/npm/mammoth@1.9.0/mammoth.browser.min.js");
+  const buf = await file.arrayBuffer();
+  const r = await window.mammoth.extractRawText({ arrayBuffer: buf });
+  return r.value.trim();
+}
+async function imageToText(file) {
+  if (!window.Tesseract) await loadScript("https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js");
+  $("matFileStatus").textContent = "图片 OCR 识别中（首次较慢）…";
+  const { data } = await window.Tesseract.recognize(file, "chi_sim+eng", {
+    logger: (m) => { if (m.status === "recognizing text") $("matFileStatus").textContent = `OCR 识别中 ${Math.round(m.progress*100)}%`; }
+  });
+  return data.text.trim();
+}
+async function importMaterial() {
+  const text = $("matText").value.trim();
+  if (text.length < 20) { toast("资料太短（至少 20 字），请粘贴或上传"); return; }
+  const d = await api("/api/materials", POST({
+    name: $("matName").value.trim(), text,
+    exam: $("genSubject").value.trim(),
+  }));
+  if (d.error) { toast(d.error); return; }
+  toast(`${d.action === "updated" ? "已更新" : "已导入"}：${d.passages} 段`);
+  $("matText").value = ""; $("matFile").value = "";
+  loadGen();
+}
+async function generateFromMaterial() {
+  const mid = $("genMatId").value;
+  if (!mid) { toast("先导入并选择一份资料"); return; }
+  const btn = $("btnMatGen"); const old = btn.textContent;
+  btn.textContent = "生成中…（免费模型较慢，请等一会儿）"; btn.disabled = true;
+  $("genResult").innerHTML = '<div class="note">AI 正在按你的资料出题，逐句标出处，通常需要 30 秒～2 分钟…</div>';
+  const d = await api(`/api/material/${mid}/generate`, POST({
+    count: +$("genCount").value || 5, subject: $("genSubject").value.trim() || "综合",
+  }));
+  btn.textContent = old; btn.disabled = false;
+  if (d.error) { $("genResult").innerHTML = `<div class="tag err">${esc(d.error)}</div>`; return; }
+  const pv = d.provenance || {};
+  const qs = d.questions || [];
+  const tagOf = { material: ["🟢","来自资料","ok"], ai: ["🟡","AI补充","warn"], generated: ["⚠️","AI生成","err"] };
+  $("genResult").innerHTML = `
+    <div class="note mb8">生成 ${d.count} 题 · 🟢资料 ${pv.material||0} / 🟡补充 ${pv.ai||0} / ⚠️生成 ${pv.generated||0}</div>
+    ${qs.map((q,i) => {
+      const t = tagOf[q.provenance] || tagOf.generated;
+      return `<div class="gen-q"><div class="row nowrap"><span class="tag ${t[2]}">${t[0]} ${t[1]}</span>
+        ${q.source_para ? `<span class="tag plain">出处 ${esc(q.source_para)}</span>` : ""}</div>
+        <div class="mt8"><b>${i+1}. ${esc(q.question)}</b></div>
+        <div class="note mt8">${esc(q.explanation||"")}</div></div>`;
+    }).join("")}
+    <div class="row mt8"><a class="btn sm sec" href="/api/export">下载离线包（含这些题）</a></div>`;
 }
 
-function renderStreak(days) {
-  $("homeStreak").innerHTML = days > 0
-    ? `<div class="row"><span class="tag ok">🔥 连续 ${days} 天</span><span class="note">保持住，别断在今天</span></div>`
-    : `<div class="note">还没有打卡记录，答完题会自动记录当天</div>`;
+/* ============ v2：资料中枢 ============ */
+let hubData = null;
+async function loadHub() {
+  hubData = await api("/api/sources/hub");
+  const rec = hubData.recommended || [];
+  $("hubRecommended").innerHTML = rec.length
+    ? rec.map((s) => sourceCard(s)).join("")
+    : '<div class="note">还没设置目标。设置后这里会按你的考试推荐官方源。</div>';
+  $("hubOfficial").innerHTML = (hubData.official || []).map((s) => sourceCard(s)).join("");
+  loadHubFavs();
+}
+function sourceCard(s) {
+  const verified = s.verified === true ? '<span class="tag ok">已核验</span>'
+    : s.verified === false ? '<span class="tag err">不可达</span>' : '<span class="tag plain">待核验</span>';
+  return `<div class="kv"><div><b>${esc(s.name)}</b> ${verified}
+    <div class="note">${esc(s.exam||"")} · ${esc(s.provides||"")}</div>
+    <div class="note mono" style="word-break:break-all">${esc(s.url)}</div></div>
+    ${s.url ? `<a class="btn xs" href="${esc(s.url)}" target="_blank" rel="noopener">打开</a>` : ""}</div>`;
+}
+function renderHubSearch() {
+  const kw = $("hubKw").value.trim();
+  if (!kw) { toast("输入关键词"); return; }
+  const links = (hubData.search || []).filter((s) => s.base).map((s) => {
+    const url = s.base + encodeURIComponent(s.tpl.replace("{kw}", kw));
+    return `<a class="btn sm sec" style="display:inline-block;margin:4px 6px 0 0" href="${url}" target="_blank" rel="noopener">${esc(s.name)} ↗</a>`;
+  }).join("");
+  $("hubSearchLinks").innerHTML = links;
+  $("hubSearchNote").textContent = `已生成「${kw}」的检索入口，点开后请核对来源可靠性。`;
+}
+async function loadHubFavs() {
+  const d = await api("/api/pan-search");
+  const favs = d.favorites || [];
+  $("panFavList").innerHTML = favs.length
+    ? favs.map((f) => `<div class="kv"><div><b>${esc(f.title)}</b><div class="note mono">${esc(f.url)}</div></div>
+        <a class="btn xs" href="${esc(f.url)}" target="_blank" rel="noopener">打开</a></div>`).join("")
+    : '<div class="note">还没有收藏。找到好资料可存这里。</div>';
+}
+
+/* ---------------- 首页 ---------------- */
+function loadHomeAdvice() {
+  const { s, rev } = window._homeStats || {};
+  if (!s) return;
+  const list = [];
+  if (!s.total_answered) {
+    list.push({ i: "🚀", t: "先做 5 题摸清底子", d: "系统会据此算出你的薄弱科目，之后的推荐才准", a: ["去刷题", "practice"] });
+  } else {
+    if ((rev.total_due || 0) > 0) list.push({ i: "⏰", t: `今天有 ${rev.total_due} 题到期复习`, d: "按 FSRS 记忆曲线复习，比刷新题更划算", a: ["去复习", "review"] });
+    if ((s.mistakes_pending || 0) > 0) list.push({ i: "📕", t: `${s.mistakes_pending} 道错题待消灭`, d: "同一道题错两次以上，说明方法没掌握", a: ["去错题本", "mistakes"] });
+  }
+  $("adviceList").innerHTML = list.map((x) => `
+    <div class="kv"><div><b>${esc(x.t)}</b><div class="note">${esc(x.d)}</div></div>
+    <button class="btn xs" data-go="${x.a[1]}">${x.a[0]}</button></div>`).join("");
+  $("adviceList").querySelectorAll("[data-go]").forEach((b) => (b.onclick = () => go(b.dataset.go)));
 }
 
 /* ---------------- AI 状态条 ---------------- */
@@ -164,20 +424,9 @@ async function refreshAiChip() {
     if (active) {
       chip.classList.remove("off");
       $("aiChipText").textContent = active.label + (active.anon ? "" : " ✓");
-      $("aiStateTag").textContent = "已就绪";
-      $("aiStateTag").className = "tag ok";
-      $("aiStateText").textContent = `当前使用：${active.label}（${active.desc}）。AI 助手、出题、讲解都能直接用，不需要额外配置。`;
-      $("aiStateActs").innerHTML = `<button class="btn sm" onclick="go('ai')">去提问</button>
-        <button class="btn sm ghost" onclick="go('gen')">用资料出题</button>
-        <button class="btn sm ghost" onclick="openProviderSheet()">换模型</button>`;
     } else {
       chip.classList.add("off");
       $("aiChipText").textContent = "AI 未就绪";
-      $("aiStateTag").textContent = "未就绪";
-      $("aiStateTag").className = "tag err";
-      $("aiStateText").textContent = d.hint || "没有检测到可用模型。检查网络，或在「设置 → 模型接入」手动填写服务地址。";
-      $("aiStateActs").innerHTML = `<button class="btn sm" onclick="go('settings')">去设置</button>
-        <button class="btn sm ghost" onclick="refreshAi()">重新扫描</button>`;
     }
   } catch (e) {
     $("aiChipText").textContent = "离线";
@@ -912,6 +1161,7 @@ async function resetData() {
 /* ---------------- 绑定 ---------------- */
 function bind() {
   document.querySelectorAll(".botnav button").forEach((b) => (b.onclick = () => go(b.dataset.v)));
+  document.querySelectorAll("#practiceSubnav button").forEach((b) => (b.onclick = () => go(b.dataset.v)));
   $("btnPick1").onclick = () => drawQuestions(1);
   $("btnPick5").onclick = () => drawQuestions(5);
   $("btnPick10").onclick = () => drawQuestions(10);
@@ -923,18 +1173,18 @@ function bind() {
   $("btnPlanGen").onclick = genPlan;
   $("btnChatSend").onclick = sendChat;
   $("chatInput").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } });
-  $("btnGenAi").onclick = genFromText;
-  $("btnGenAnalyze").onclick = analyzeMaterial;
-  $("btnGenJson").onclick = () => importJson(false);
-  $("btnGenJsonQuiz").onclick = () => importJson(true);
-  $("btnAddSource").onclick = addSourceSheet;
-  $("btnPanSearch").onclick = panSearch;
-  $("panKw").addEventListener("keydown", (e) => { if (e.key === "Enter") panSearch(); });
-  $("panService").onchange = renderPanDetail;
+  // —— v2 新增：画像 / 资料 / 溯源出题 / 资料中枢 ——
+  $("btnEditProfile").onclick = startOnboard;
+  $("btnRefreshAdvice").onclick = loadHomeAdvice;
+  $("btnMatImport").onclick = importMaterial;
+  $("matFile").onchange = onFileSelected;
+  $("btnMatGen").onclick = generateFromMaterial;
+  $("btnHubSearch").onclick = renderHubSearch;
+  $("hubKw").addEventListener("keydown", (e) => { if (e.key === "Enter") renderHubSearch(); });
   $("btnPanFav").onclick = async () => {
     const d = await api("/api/pan-search", POST({ action: "add", title: $("panFavTitle").value.trim(), url: $("panFavUrl").value.trim() }));
     if (d.error) { toast(d.error); return; }
-    $("panFavTitle").value = ""; $("panFavUrl").value = ""; toast("已收藏"); loadPan();
+    $("panFavTitle").value = ""; $("panFavUrl").value = ""; toast("已收藏"); loadHubFavs();
   };
   $("btnRescan").onclick = async () => { await refreshAi(); await loadSettings(); toast("扫描完成"); };
   $("btnLlmSave").onclick = saveLlm;
@@ -948,12 +1198,6 @@ function bind() {
     document.querySelectorAll("#mkFilter button").forEach((x) => x.className = "btn xs sec");
     b.className = "btn xs";
     loadMistakes();
-  }));
-  document.querySelectorAll("#srcFilter button").forEach((b) => (b.onclick = () => {
-    srcFilter = b.dataset.c;
-    document.querySelectorAll("#srcFilter button").forEach((x) => x.className = "btn xs sec");
-    b.className = "btn xs";
-    renderSources();
   }));
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeSheet();
@@ -982,7 +1226,15 @@ function viewFromHash() {
 
 (async function boot() {
   bind();
+  bindOnboard();
   renderTabs();
+  // 先加载画像，决定是否弹引导
+  obProfileData = await api("/api/profile");
+  const prof = obProfileData.profile || {};
+  if (!prof.onboarded) {
+    startOnboard();   // 首启：先问身份，不上来刷题
+    return;
+  }
   // 入口优先级：地址栏 hash（PWA 快捷方式）> 上次停留页 > 首页
   let start = viewFromHash();
   if (!start) { try { start = localStorage.getItem("eb_view"); } catch (e) { } }

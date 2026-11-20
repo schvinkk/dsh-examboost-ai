@@ -67,6 +67,8 @@ export function apply(ctx) {
       const mistakes = readJson('mistakes.json', [])
       const cards = readJson('cards.json', [])
       const knowledge = readJson('knowledge.json', {})
+      const profile = readJson('profile.json', {})
+      const materials = readJson('materials.json', [])
       const today = new Date().toISOString().slice(0, 10)
       const due = cards.filter((c) => (c.due || today) <= today)
       const pending = mistakes.filter((m) => m.status !== '已消灭')
@@ -75,7 +77,7 @@ export function apply(ctx) {
       const weak = Object.entries(knowledge)
         .filter(([, v]) => v && typeof v.prob === 'number' && v.prob < 0.6)
         .sort((a, b) => a[1].prob - b[1].prob)
-      return { today, total, correct: stats.correct || 0, acc, mistakes, pending, cards, due, knowledge, weak, byDay: stats.by_day || {}, dir: findDataDir() }
+      return { today, total, correct: stats.correct || 0, acc, mistakes, pending, cards, due, knowledge, weak, byDay: stats.by_day || {}, dir: findDataDir(), profile, materials }
     }
 
     // ---------- 抽题 ----------
@@ -108,9 +110,16 @@ export function apply(ctx) {
 
     function formatQuestion(q, isZh) {
       const opts = (q.options || []).map((o, i) => `  ${String.fromCharCode(65 + i)}. ${String(o).replace(/^\s*[A-F]\s*[..、)）]\s*/, '')}`).join('\n')
+      // 三级溯源标签：让用户知道这题的依据来自哪里
+      const PV = { material: ['🟢', isZh ? '来自你的资料' : 'from your material'], ai: ['🟡', isZh ? 'AI补充' : 'AI added'], generated: ['⚠️', isZh ? 'AI生成·请核对' : 'AI made up · verify'] }
+      const pv = PV[q.provenance]
+      const provenanceLine = pv
+        ? `\n${pv[0]} ${pv[1]}${q.source_para ? ' ' + q.source_para : ''}\n`
+        : ''
       return [
         isZh ? `请出这道题让我练习，等我作答后再判分并讲解（${q.subject || q.stage || '综合'} · ${q.knowledge || '知识点'}）：`
              : `Have me practise this question; grade and explain only after I answer (${q.subject || q.stage} · ${q.knowledge}):`,
+        provenanceLine,
         '', q.question, opts, '',
         isZh ? `（标准答案：${q.answer || '—'}，题目 ID：${q.id || '—'}）` : `(answer: ${q.answer || '—'}, id: ${q.id || '—'})`,
       ].join('\n')
@@ -150,7 +159,8 @@ export function apply(ctx) {
         id: `c_${Date.now()}`, key, qid: item.qid || '', subject: item.subject || '',
         knowledge: item.knowledge || '', question: item.question || '',
         answer: item.correct_answer || '', explanation: item.explanation || '',
-        repetitions: 0, interval: 1, ease: 2.5, due: today, created: new Date().toISOString(),
+        provenance: item.provenance || '', source_material: item.source_material || '',
+        reps: 0, lapses: 0, due: today, created: new Date().toISOString(),
       })
       return writeJson('cards.json', cards)
     }
@@ -249,9 +259,19 @@ export function apply(ctx) {
           }
         }
         const days = Object.keys(s.byDay).sort().slice(-7)
-        const children = [
-          { type: 'row', children: [
-            { type: 'metric', label: isZh ? '已答题' : 'Answered', value: String(s.total) },
+        const STAGE_LABEL = { primary:'小学生', middle:'中学生', high:'高中生', college:'大学生', kaoyan:'考研', kaogong:'考公考编', cert:'考证', adult:'在职/自学' }
+        const children = []
+        if (s.profile && s.profile.onboarded) {
+          children.push({ type: 'callout', tone: 'info', text: isZh
+            ? `你的目标：${STAGE_LABEL[s.profile.stage] || ''} · ${s.profile.goal || ''}${s.profile.major ? ' · ' + s.profile.major : ''}${s.profile.has_material ? ' · 已导入资料 ' + s.materials.length + ' 份' : ' · 还没导入资料'}`
+            : `Your goal: ${s.profile.goal || ''}${s.profile.major ? ' · ' + s.profile.major : ''}` })
+        } else {
+          children.push({ type: 'callout', tone: 'warn', text: isZh
+            ? '还没设置你的考试目标。去独立网页版首页花 30 秒设置，出题和找资料才会按你的情况来。'
+            : 'Set your exam goal in the web app first.' })
+        }
+        children.push({ type: 'row', children: [
+          { type: 'metric', label: isZh ? '已答题' : 'Answered', value: String(s.total) },
             { type: 'metric', label: isZh ? '正确率' : 'Accuracy', value: `${s.acc}%`, tone: s.acc >= 80 ? 'good' : s.acc >= 60 ? 'warn' : 'bad' },
             { type: 'metric', label: isZh ? '待复习' : 'Due today', value: String(s.due.length), tone: s.due.length ? 'warn' : 'good' },
           ] },
@@ -259,8 +279,7 @@ export function apply(ctx) {
             { type: 'metric', label: isZh ? '错题待消灭' : 'Open mistakes', value: String(s.pending.length), tone: s.pending.length ? 'bad' : 'good' },
             { type: 'metric', label: isZh ? '复习卡' : 'Cards', value: String(s.cards.length) },
             { type: 'metric', label: isZh ? '科目数' : 'Subjects', value: String(Object.keys(s.knowledge).length) },
-          ] },
-        ]
+          ] })
         if (days.length) {
           children.push({
             type: 'chart', kind: 'bar',
@@ -416,8 +435,8 @@ export function apply(ctx) {
           const c = s.due[0]
           const q = c.qid ? findQuestion(c.qid) : null
           const text = isZh
-            ? `带我复习这道到期卡片，先只给题干等我答，再判分并按 SM-2 调整下次间隔：\n\n${c.question}\n（知识点：${c.knowledge || '—'}，答案：${q ? q.answer : c.answer || '—'}，卡片 ID：${c.id}）`
-            : `Review this due card with me: show the stem first, grade after I answer, then adjust the SM-2 interval.\n\n${c.question}\n(concept: ${c.knowledge || '—'}, answer: ${q ? q.answer : c.answer || '—'}, card: ${c.id})`
+            ? `带我复习这道到期卡片，先只给题干等我答，再判分并按 FSRS-5 调整下次间隔（忘记/吃力/良好/轻松四档）：\n\n${c.question}\n（知识点：${c.knowledge || '—'}，答案：${q ? q.answer : c.answer || '—'}，卡片 ID：${c.id}）`
+            : `Review this due card with me: show the stem first, grade after I answer, then reschedule with FSRS-5 (again/hard/good/easy).\n\n${c.question}\n(concept: ${c.knowledge || '—'}, answer: ${q ? q.answer : c.answer || '—'}, card: ${c.id})`
           return { insert: text.slice(0, 2000) }
         },
         show: (scope, event) => {

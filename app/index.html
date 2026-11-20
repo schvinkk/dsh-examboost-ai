@@ -14,45 +14,88 @@
 </head>
 <body>
 
+<!-- ============ 首启身份引导（先问清楚，不上来塞题） ============ -->
+<div id="onboard" class="onboard" style="display:none">
+  <div class="ob-card">
+    <div class="ob-head">
+      <div class="ob-logo">📚</div>
+      <h1>先认识一下你</h1>
+      <p class="note">30 秒告诉我你的情况，我再给你合适的内容。<br>不会一上来就让你刷题。</p>
+    </div>
+    <div class="ob-step" id="obStep1">
+      <h3>1️⃣ 你是哪一类学习者？</h3>
+      <div class="ob-grid" id="obStages"></div>
+    </div>
+    <div class="ob-step" id="obStep2" style="display:none">
+      <h3>2️⃣ 你要考什么 / 学什么？</h3>
+      <div class="ob-grid" id="obGoals"></div>
+      <input id="obGoalCustom" class="mt8" placeholder="没找到？自己写，如：职称英语">
+    </div>
+    <div class="ob-step" id="obStep3" style="display:none">
+      <h3>3️⃣ 你的专业 / 方向（可选）</h3>
+      <input id="obMajor" placeholder="如：会计、计算机、临床医学、法学…">
+      <h3 class="mt16">4️⃣ 你手上有复习资料吗？</h3>
+      <div class="ob-choices">
+        <button class="ob-choice" data-mat="yes">📄 有，我想传进来让它帮我出题</button>
+        <button class="ob-choice" data-mat="no">🔍 没有，帮我找带出处的资料</button>
+      </div>
+      <h3 class="mt16">目标考试日期（可选）</h3>
+      <input type="date" id="obDate">
+    </div>
+    <div class="ob-actions">
+      <button class="btn ghost" id="obBack" style="display:none">上一步</button>
+      <span class="sp"></span>
+      <button class="btn" id="obNext">下一步</button>
+    </div>
+  </div>
+</div>
+
 <header class="topbar">
   <div class="row">
     <div>
       <h1>📚 ExamBoost AI</h1>
       <div class="sub" id="topSub">综合备考学习引擎</div>
     </div>
-    <div class="ai-chip" id="aiChip" onclick="go('settings')">
+    <div class="ai-chip" id="aiChip" onclick="go('me')">
       <span class="dot"></span><span id="aiChipText">检测中</span>
     </div>
   </div>
 </header>
 
-<div class="tabs" id="tabs"></div>
-
 <main>
   <!-- ============ 首页 ============ -->
   <section class="view on" id="v-home">
+    <div class="card hero-card" id="profileHero">
+      <div class="row nowrap">
+        <div class="hero-avatar" id="heroAvatar">🎯</div>
+        <div style="flex:1">
+          <h3 id="heroTitle">开始你的备考</h3>
+          <p class="note" id="heroGreeting">先花 30 秒告诉我你的情况。</p>
+        </div>
+        <button class="btn xs ghost" id="btnEditProfile">修改</button>
+      </div>
+    </div>
+    <div class="card" id="recommendCard">
+      <h3>👉 你现在该做什么</h3>
+      <div id="recommendActions"></div>
+    </div>
     <div class="grid c4" id="homeStats"></div>
-    <div class="card" id="homeAiCard">
-      <h3>🤖 AI 状态<span class="sp"></span><span class="tag plain" id="aiStateTag">—</span></h3>
-      <p id="aiStateText">正在检测可用模型…</p>
-      <div class="row mt8" id="aiStateActs"></div>
-    </div>
     <div class="card">
-      <h3>🎯 今日建议</h3>
+      <h3>🎯 今日建议<span class="sp"></span><button class="btn xs ghost" id="btnRefreshAdvice">换一换</button></h3>
       <div id="adviceList"></div>
-    </div>
-    <div class="card">
-      <h3>📈 掌握度<span class="sp"></span><span class="note">答对会上升，答错会下降</span></h3>
-      <div id="homeKnowledge"></div>
-    </div>
-    <div class="card">
-      <h3>🔥 连续打卡</h3>
-      <div id="homeStreak"></div>
     </div>
   </section>
 
   <!-- ============ 刷题 ============ -->
   <section class="view" id="v-practice">
+    <div class="subnav" id="practiceSubnav">
+      <button class="on" data-v="practice">✏️ 刷题</button>
+      <button data-v="exam">📝 模考</button>
+      <button data-v="mistakes">📕 错题</button>
+      <button data-v="review">⏰ 复习</button>
+      <button data-v="plan">📅 计划</button>
+      <button data-v="ai">🤖 AI助手</button>
+    </div>
     <div class="card tight" id="practiceFilter">
       <h3>⚙️ 选题条件</h3>
       <div class="grid c2">
@@ -165,73 +208,68 @@
     </div>
   </section>
 
-  <!-- ============ 生成刷题 ============ -->
+  <!-- ============ 学 ============ -->
   <section class="view" id="v-gen">
     <div class="card">
-      <h3>🛠️ 资料 → 刷题工具</h3>
-      <p>把知识点、考纲、笔记粘进来，AI 自动出题，并生成<b>单文件离线刷题网页</b>。</p>
-      <label>试卷标题</label>
-      <input id="genTitle" value="模拟试卷">
-      <div class="grid c2">
-        <div><label>科目/学段</label><input id="genSubject" value="公务员行测" placeholder="如：考研政治"></div>
-        <div><label>题量</label><input type="number" id="genCount" value="10" min="1" max="50"></div>
+      <h3>📥 导入你的资料</h3>
+      <p class="note">支持粘贴文本，或上传 PDF / Word / 图片。导入后可对照原文校对，AI 出题会逐句标出处。</p>
+      <label>资料名称</label>
+      <input id="matName" placeholder="如：行测常识笔记、XX考纲">
+      <label class="mt8">上传文件（PDF / Word / TXT / 图片）</label>
+      <input type="file" id="matFile" accept=".pdf,.docx,.doc,.txt,.md,.png,.jpg,.jpeg,.webp">
+      <div class="note mt8" id="matFileStatus">选择文件后会自动提取文字（图片需 OCR）。也可直接在下面粘贴。</div>
+      <label class="mt8">资料内容（可粘贴 / 上传后在此校对修改）</label>
+      <textarea id="matText" rows="7" placeholder="把考纲、笔记、真题解析粘贴到这里；或上传文件后，在这里核对提取的文字是否正确…"></textarea>
+      <div class="row mt8">
+        <button class="btn" id="btnMatImport">✅ 校对并导入</button>
+        <span class="tag plain" id="matPassageCount">—</span>
       </div>
-      <label>题型</label>
-      <select id="genType"><option>单选题</option><option>多选题（按最佳单选）</option><option>判断题（转成单选）</option><option>概念辨析</option><option>计算题</option></select>
-      <label>学习资料（粘贴文本）</label>
-      <textarea id="genText" rows="7" placeholder="把知识点、考纲、笔记、真题解析文本粘贴到这里…"></textarea>
+    </div>
+    <div class="card">
+      <h3>📚 我已导入的资料</h3>
+      <div id="matList"></div>
+    </div>
+    <div class="card">
+      <h3>🤖 按我的资料出题（逐句溯源）</h3>
       <div class="row">
-        <button class="btn" id="btnGenAi">🤖 AI 出题</button>
-        <button class="btn sec" id="btnGenAnalyze">🔍 先拆知识点</button>
+        <div style="flex:1"><label>选择资料</label><select id="genMatId"></select></div>
+        <div style="width:90px"><label>题量</label><input type="number" id="genCount" value="5" min="1" max="20"></div>
       </div>
+      <label class="mt8">科目</label>
+      <input id="genSubject" placeholder="如：行测、考研政治">
+      <div class="row mt8"><button class="btn" id="btnMatGen">🤖 生成（带出处）</button></div>
       <div id="genResult" class="mt8"></div>
     </div>
-    <div class="card">
-      <h3>📋 手动导入题目</h3>
-      <p class="note">已有题目 JSON？直接粘进来入库，之后可在「刷题」里抽到。</p>
-      <textarea id="genJson" rows="5" placeholder='[{"question":"题干…","options":["A. x","B. y","C. z","D. w"],"answer":"B","explanation":"解析","knowledge":"知识点"}]'></textarea>
-      <div class="row">
-        <button class="btn sec" id="btnGenJson">导入 JSON</button>
-        <button class="btn ghost" id="btnGenJsonQuiz">导入并生成离线包</button>
-      </div>
-      <div id="genJsonResult" class="mt8"></div>
-    </div>
   </section>
 
-  <!-- ============ 资料 ============ -->
+  <!-- ============ 资料中枢 ============ -->
   <section class="view" id="v-sources">
-    <div class="card tight">
-      <div class="row">
-        <div style="display:flex;gap:7px;flex-wrap:wrap" id="srcFilter">
-          <button class="btn xs" data-c="">全部</button>
-          <button class="btn xs sec" data-c="官方">官方平台</button>
-          <button class="btn xs sec" data-c="培训机构">培训机构</button>
-          <button class="btn xs sec" data-c="自定义">自定义</button>
-        </div>
-        <span class="sp"></span>
-        <button class="btn xs ghost" id="btnAddSource">＋ 添加</button>
-      </div>
-    </div>
-    <div id="sourceList"></div>
-  </section>
-
-  <section class="view" id="v-pan">
-    <div class="card">
-      <h3>📦 网盘资料检索</h3>
-      <p>输入关键词，直达公开网盘搜索服务，找到资料后可收藏到下面备用。</p>
-      <div class="row nowrap mt8">
-        <input id="panKw" placeholder="如：考研数学 真题 解析" style="margin:0;flex:1">
-        <button class="btn" id="btnPanSearch" style="flex:0 0 auto">搜索</button>
-      </div>
-      <label class="mt8">搜索服务</label>
-      <select id="panService"></select>
-      <div id="panSvcDetail" class="note mt8"></div>
+    <div class="card hero-card">
+      <h3>🌐 资料中枢</h3>
+      <p class="note">官方考试源逐个核验，检索直达真实平台，结果都能核对出处——不编造资料。</p>
     </div>
     <div class="card">
-      <h3>🔖 我的收藏<span class="sp"></span><span class="tag plain" id="panFavCount">0</span></h3>
+      <h3>⭐ 为你推荐（按你的目标）</h3>
+      <div id="hubRecommended"></div>
+    </div>
+    <div class="card">
+      <h3>🔍 找资料（带出处）</h3>
+      <div class="row nowrap">
+        <input id="hubKw" placeholder="如：行测 真题 考纲" style="margin:0;flex:1">
+        <button class="btn" id="btnHubSearch" style="flex:0 0 auto">搜索</button>
+      </div>
+      <div class="note mt8" id="hubSearchNote">输入关键词后，选择下面的渠道打开真实搜索结果。</div>
+      <div id="hubSearchLinks" class="mt8"></div>
+    </div>
+    <div class="card">
+      <h3>🏛️ 官方考试平台</h3>
+      <div id="hubOfficial"></div>
+    </div>
+    <div class="card">
+      <h3>🔖 我收藏的资料</h3>
       <div class="row">
-        <input id="panFavTitle" placeholder="资料名称" style="flex:1;min-width:130px">
-        <input id="panFavUrl" placeholder="网盘链接" style="flex:2;min-width:160px">
+        <input id="panFavTitle" placeholder="资料名称" style="flex:1;min-width:120px">
+        <input id="panFavUrl" placeholder="链接" style="flex:2;min-width:150px">
         <button class="btn sm sec" id="btnPanFav">收藏</button>
       </div>
       <div id="panFavList" class="mt8"></div>
@@ -287,8 +325,8 @@
 
 <nav class="botnav">
   <button class="on" data-v="home"><span class="ic">🏠</span>首页</button>
-  <button data-v="practice"><span class="ic">✏️</span>刷题</button>
-  <button data-v="ai"><span class="ic">🤖</span>AI</button>
+  <button data-v="gen"><span class="ic">📥</span>学</button>
+  <button data-v="practice"><span class="ic">✏️</span>练</button>
   <button data-v="sources"><span class="ic">🌐</span>资料</button>
   <button data-v="settings"><span class="ic">👤</span>我的</button>
 </nav>

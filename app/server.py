@@ -13,6 +13,7 @@ import argparse
 import json
 import os
 import random
+import re
 import socket
 import sys
 import threading
@@ -26,10 +27,12 @@ import edata
 import ellm
 import eqbank
 import eqiz
+import core
+import fsrs
 
 APP_DIR = Path(__file__).resolve().parent
 DATA_DIR = APP_DIR / "data"
-VERSION = "1.0.0"
+VERSION = "2.0.0"
 DEFAULT_PORT = 3000
 
 STORE = edata.Store(DATA_DIR)
@@ -213,15 +216,14 @@ def record_mistake(q, chosen, reason):
 
 
 def enqueue_card(q):
-    """答错 → 进入 SM-2 复习队列。"""
+    """答错 → 进入 FSRS 复习队列（新卡首评时初始化 stability/difficulty）。"""
     if not q.get("id"):
         return
     def mutate(cards):
         for c in cards:
             if c.get("qid") == q["id"]:
-                c["due"] = edata.add_days(edata.today(), 1)
-                c["repetitions"] = 0
-                c["interval"] = 1
+                c["due"] = edata.today()
+                c["reps"] = 0
                 return cards
         cards.append({
             "id": edata.uid("c"),
@@ -231,9 +233,10 @@ def enqueue_card(q):
             "question": q.get("question", ""),
             "answer": q.get("answer", ""),
             "explanation": q.get("explanation", ""),
-            "repetitions": 0,
-            "interval": 1,
-            "ease": 2.5,
+            "provenance": q.get("provenance", ""),
+            "source_material": q.get("source_material", ""),
+            "reps": 0,
+            "lapses": 0,
             "due": edata.today(),
             "created": edata.now_iso(),
         })
@@ -536,6 +539,33 @@ class Handler(SimpleHTTPRequestHandler):
                 self.send_json({"builtin": BANK.builtin_count(),
                                 "user": len(BANK.user_questions()),
                                 "total": len(BANK.all_questions())})
+            elif p == "/api/profile":
+                prof = STORE.load(edata.F_PROFILE, {})
+                self.send_json({"profile": prof, "stages": core.STAGES,
+                                "goals": core.EXAM_GOALS,
+                                "greeting": core.profile_greeting(prof)})
+            elif p == "/api/materials":
+                mats = STORE.load(edata.F_MATERIALS, [])
+                # 列表不返回全文，只返回摘要
+                brief = [{k: m[k] for k in ("id", "name", "exam", "source_url",
+                                            "char_count", "created") if k in m}
+                         for m in mats]
+                self.send_json({"materials": brief, "total": len(brief)})
+            elif p.startswith("/api/material/"):
+                mid = p.rsplit("/", 1)[-1]
+                mats = STORE.load(edata.F_MATERIALS, [])
+                m = next((x for x in mats if x.get("id") == mid), None)
+                self.send_json(m or {"error": "资料不存在"}, 200 if m else 404)
+            elif p == "/api/sources/hub":
+                prof = STORE.load(edata.F_PROFILE, {})
+                self.send_json({"official": core.OFFICIAL_SOURCES,
+                                "search": core.RESOURCE_SEARCH,
+                                "recommended": core.profile_recommend_sources(prof),
+                                "provenance": core.PROVENANCE})
+            elif p == "/api/fsrs/status":
+                cards = STORE.load(edata.F_CARDS, [])
+                self.send_json({"total": len(cards), "due": fsrs.due_count(cards),
+                                "algorithm": "FSRS-5 (py-fsrs 官方公式)"})
             else:
                 self.send_json({"error": "未知接口", "path": p}, 404)
         except Exception as e:
@@ -596,6 +626,20 @@ class Handler(SimpleHTTPRequestHandler):
                 self.handle_generate_tool(body)
             elif p == "/api/questions/import":
                 self.handle_import_questions(body)
+            elif p == "/api/profile":
+                self.handle_save_profile(body)
+            elif p == "/api/analyze-file":
+                # 前端已提取好文本，这里做分段预览与字数统计（不落库，供校对页显示）
+                text = str(body.get("text") or "").strip()
+                mat = core.make_material(str(body.get("filename") or "文件"), text)
+                self.send_json({"ok": True, "char_count": mat["char_count"],
+                                "passages": len(mat["passages"]),
+                                "preview": [p["text"][:60] for p in mat["passages"][:5]]})
+            elif p == "/api/materials":
+                self.handle_add_material(body)
+            elif p.endswith("/generate") and p.startswith("/api/material/"):
+                mid = p[len("/api/material/"):-len("/generate")]
+                self.handle_material_generate(mid, body)
             elif p == "/api/reset":
                 self.handle_reset(body)
             else:
@@ -614,6 +658,12 @@ class Handler(SimpleHTTPRequestHandler):
                 notes = [n for n in STORE.load(edata.F_NOTES, []) if n.get("id") != nid]
                 STORE.save(edata.F_NOTES, notes)
                 self.send_json({"ok": True})
+            elif p.startswith("/api/material/"):
+                mid = p.rsplit("/", 1)[-1]
+                mats = STORE.load(edata.F_MATERIALS, [])
+                left = [m for m in mats if m.get("id") != mid]
+                STORE.save(edata.F_MATERIALS, left)
+                self.send_json({"ok": True, "deleted": len(mats) - len(left)})
             else:
                 self.send_json({"error": "未知接口"}, 404)
         except Exception as e:
@@ -778,31 +828,31 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_json({"ok": True, "stats": build_stats()})
 
     def handle_submit_review(self, body):
+        """复习提交：FSRS-5 调度（旧 quality 0-5 兼容映射到 1-4 评级）。"""
         cid = body.get("id", "")
         try:
             quality = max(0, min(5, int(body.get("quality", 3))))
         except (TypeError, ValueError):
             quality = 3
-        def mutate(cards):
-            for c in cards:
-                if c.get("id") == cid:
-                    reps, interval, ease = edata.sm2_review(
-                        c.get("repetitions", 0), c.get("interval", 0), c.get("ease", 2.5), quality)
-                    c["repetitions"] = reps
-                    c["interval"] = interval
-                    c["ease"] = ease
-                    c["due"] = edata.add_days(edata.today(), interval)
-                    c["last_review"] = edata.now_iso()
-                    if quality >= 4:
-                        c["mastered"] = reps >= 4
-                    return cards
-            return None
-        result = STORE.mutate(edata.F_CARDS, mutate)
-        card = next((c for c in result if c.get("id") == cid), None) if isinstance(result, list) else None
-        if not card:
+        rating = body.get("rating")
+        if rating is not None:
+            try:
+                rating = max(1, min(4, int(rating)))
+            except (TypeError, ValueError):
+                rating = fsrs.GOOD
+        else:
+            # quality 0-1→忘记, 2→吃力, 3→良好, 4-5→轻松
+            rating = fsrs.AGAIN if quality <= 1 else fsrs.HARD if quality == 2 \
+                else fsrs.EASY if quality >= 4 else fsrs.GOOD
+        cards = STORE.load(edata.F_CARDS, [])
+        idx = next((i for i, c in enumerate(cards) if c.get("id") == cid), None)
+        if idx is None:
             self.send_json({"error": "卡片不存在"}, 404)
             return
-        self.send_json({"ok": True, "card": card})
+        cards[idx] = fsrs.review(cards[idx], rating)
+        cards[idx]["mastered"] = cards[idx]["reps"] >= 4 and cards[idx].get("stability", 0) >= 21
+        STORE.save(edata.F_CARDS, cards)
+        self.send_json({"ok": True, "card": cards[idx], "algorithm": "FSRS-5"})
 
     def handle_add_knowledge(self, body):
         subject = str(body.get("subject") or "").strip()
@@ -1026,6 +1076,116 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_json({"ok": True, "added": added, "skipped": skipped,
                         "total": len(BANK.all_questions())})
 
+    # ---------- v2 统一内核：画像 / 资料 / 溯源出题 ----------
+    def handle_save_profile(self, body):
+        prof = core.normalize_profile(body)
+        STORE.save(edata.F_PROFILE, prof)
+        self.send_json({"ok": True, "profile": prof,
+                        "greeting": core.profile_greeting(prof)})
+
+    def handle_add_material(self, body):
+        """导入资料：文本 → 分段 → 带稳定 id 存库。支持去重。"""
+        name = str(body.get("name") or "").strip()
+        text = str(body.get("text") or "").strip()
+        source_url = str(body.get("source_url") or "").strip()
+        exam = str(body.get("exam") or "").strip()
+        if len(text) < 20:
+            self.send_json({"error": "资料太短（至少 20 字），请粘贴或上传后确认内容"}, 400)
+            return
+        mat = core.make_material(name or "未命名资料", text, source_url, exam)
+        mats = STORE.load(edata.F_MATERIALS, [])
+        dup = next((i for i, m in enumerate(mats) if m.get("id") == mat["id"]), None)
+        if dup is not None:
+            # 重复导入：更新而非新增
+            mats[dup] = {**mat, "created": mats[dup].get("created", mat["created"])}
+            action = "updated"
+        else:
+            mats.append(mat)
+            action = "added"
+        STORE.save(edata.F_MATERIALS, mats)
+        self.send_json({"ok": True, "action": action, "id": mat["id"],
+                        "name": mat["name"], "passages": len(mat["passages"]),
+                        "char_count": mat["char_count"], "total": len(mats)})
+
+    def handle_material_generate(self, mid, body):
+        """从溯源资料出题：强制逐句标注来源，写回题库。"""
+        mats = STORE.load(edata.F_MATERIALS, [])
+        mat = next((m for m in mats if m.get("id") == mid), None)
+        if not mat:
+            self.send_json({"error": "资料不存在，请先导入"}, 404)
+            return
+        count = _int(body.get("count"), 5, 1, 20)
+        subject = str(body.get("subject") or mat.get("exam") or "综合").strip()
+        qtype = str(body.get("type") or "单选题").strip()
+        prompt = core.build_grounded_generate_prompt(mat, count, subject, qtype)
+        # token 按题量动态给，避免固定 8000 拖慢生成
+        max_tok = min(4096, 320 + count * 220)
+        ok, raw, used, errs = ellm.chat_chain(
+            provider_chain(),
+            [{"role": "system", "content": core.grounded_system_prompt()},
+             {"role": "user", "content": prompt}],
+            temperature=0.3, timeout=120, max_tokens=max_tok)
+        if not ok:
+            self.send_json({"error": "出题失败：" + "；".join(errs[-3:])}, 502)
+            return
+        questions = _parse_questions(raw)
+        if not questions:
+            self.send_json({"error": "模型返回无法解析成题目，请缩短资料或降低题量",
+                            "raw": raw[:1500]}, 502)
+            return
+        # 补全溯源字段 + 来源资料 id + 写回题库
+        # 容错：模型常把溯源写进 explanation 文本而非结构化字段，这里反解回来
+        prof = STORE.load(edata.F_PROFILE, {})
+        for i, q in enumerate(questions):
+            expl = str(q.get("explanation") or "")
+            # 文本证据优先：解析里明确标了标签就以文本为准，
+            # 因为模型常把溯源写进 explanation 而没有填结构化字段。
+            if "🟢" in expl or "来自资料" in expl or "来自你的资料" in expl:
+                prov = "material"
+            elif "🟡" in expl or "AI补充" in expl or "AI 补充" in expl:
+                prov = "ai"
+            elif "⚠️" in expl or "AI生成" in expl or "AI 生成" in expl:
+                prov = "generated"
+            else:
+                # 文本没标，再看结构化字段
+                field = str(q.get("provenance") or "").strip().lower()
+                prov = field if field in ("material", "ai", "generated") else "generated"
+            q["provenance"] = prov
+            para = str(q.get("source_para") or "").strip()
+            if not para:
+                m = re.search(r"资料\s*\[?(\d+)\]?\s*(段|原文|指出|列举)", expl)
+                if m:
+                    para = f"[{m.group(1)}]"
+            if not para and prov == "material":
+                # 反查：题目/解析与哪个资料段落最相似，用共同字符覆盖率定位
+                para = _match_paragraph(mat, q.get("question", "") + " " + expl)
+            q["source_para"] = para[:20]
+            q["source_material"] = mid
+            q["id"] = q.get("id") or f"g_{abs(hash((mid, i, q['question']))) % 10**8}"
+            q.setdefault("subject", subject)
+            q.setdefault("stage", prof.get("goal") or subject)
+        added, skipped = BANK.add_user_questions(questions, "grounded")
+        prov_count = {k: sum(1 for q in questions if q["provenance"] == k)
+                      for k in ("material", "ai", "generated")}
+        html = eqiz.make_quiz_html(f"{mat['name']}·溯源练习", subject, questions)
+        self.send_json({"ok": True, "material_id": mid, "subject": subject,
+                        "count": len(questions), "questions": questions,
+                        "provenance": prov_count, "added": added, "skipped": skipped,
+                        "html": html, "provider": used})
+
+    def handle_submit_review_fsrs(self, body):
+        """FSRS 复习提交：用评级 1-4 更新卡片调度。"""
+        cards = STORE.load(edata.F_CARDS, [])
+        cid = str(body.get("id") or "")
+        rating = _int(body.get("rating"), fsrs.GOOD, 1, 4)
+        idx = next((i for i, c in enumerate(cards) if c.get("id") == cid), None)
+        if idx is None:
+            self.send_json({"error": "卡片不存在"}, 404)
+            return
+        cards[idx] = fsrs.review(cards[idx], rating)
+        STORE.save(edata.F_CARDS, cards)
+        self.send_json({"ok": True, "card": cards[idx]})
+
     def handle_add_source(self, body):
         name = str(body.get("name") or "").strip()
         url = str(body.get("url") or "").strip()
@@ -1124,6 +1284,27 @@ SYSTEM_PROMPT = (
 # ------------------------------------------------------------------
 #  工具函数
 # ------------------------------------------------------------------
+def _bigrams(text):
+    s = re.sub(r"[\s，。、；：（）()\[\]《》“”\"']", "", str(text or ""))
+    return {s[i:i + 2] for i in range(len(s) - 1)}
+
+
+def _match_paragraph(material, text):
+    """把一段文本反查到资料里最相似的段落，返回 [N]。用于补全 AI 漏标的溯源定位。"""
+    target = _bigrams(text)
+    if not target:
+        return ""
+    best_i, best_score = 0, 0.0
+    for i, p in enumerate(material.get("passages", []), 1):
+        grams = _bigrams(p.get("text", ""))
+        if not grams:
+            continue
+        score = len(target & grams) / len(grams)  # 覆盖段落的比例
+        if score > best_score:
+            best_i, best_score = i, score
+    return f"[{best_i}]" if best_score > 0.08 else ""
+
+
 def _read_json(path: Path, default):
     try:
         return json.loads(Path(path).read_text(encoding="utf-8"))

@@ -24,10 +24,12 @@ F_PAN_FAV = "pan_favorites.json"
 F_QCUSTOM = "questions_custom.json"
 F_QAI = "questions_ai.json"
 F_EXAMLOG = "exam_log.json"
+F_PROFILE = "profile.json"       # 学习者画像（谁/考什么/专业/有无资料）
+F_MATERIALS = "materials.json"   # 溯源资料库
 
 ALL_DATA_FILES = [
     F_STATS, F_MISTAKES, F_KNOWLEDGE, F_CARDS, F_PLAN, F_CHECKIN, F_NOTES,
-    F_SOURCES, F_PAN_FAV, F_QCUSTOM, F_QAI, F_EXAMLOG,
+    F_SOURCES, F_PAN_FAV, F_QCUSTOM, F_QAI, F_EXAMLOG, F_PROFILE, F_MATERIALS,
 ]
 
 _DEFAULTS = {
@@ -44,6 +46,8 @@ _DEFAULTS = {
     F_QCUSTOM: [],
     F_QAI: [],
     F_EXAMLOG: [],
+    F_PROFILE: {},
+    F_MATERIALS: [],
 }
 
 
