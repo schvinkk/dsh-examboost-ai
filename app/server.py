@@ -32,7 +32,7 @@ import fsrs
 
 APP_DIR = Path(__file__).resolve().parent
 DATA_DIR = APP_DIR / "data"
-VERSION = "2.0.2"
+VERSION = "2.0.3"
 DEFAULT_PORT = 3000
 
 STORE = edata.Store(DATA_DIR)
@@ -1031,7 +1031,8 @@ class Handler(SimpleHTTPRequestHandler):
         )
         ok, raw, used, errs = ellm.chat_chain(
             provider_chain(), [{"role": "user", "content": prompt}],
-            temperature=0.4, timeout=240, max_tokens=8000)
+            temperature=0.4, timeout=240,
+            max_tokens=min(16000, 600 + count * 420))
         if not ok:
             self.send_json({"error": "出题失败：" + "；".join(errs[-3:])}, 502)
             return
@@ -1120,13 +1121,14 @@ class Handler(SimpleHTTPRequestHandler):
         subject = str(body.get("subject") or mat.get("exam") or "综合").strip()
         qtype = str(body.get("type") or "单选题").strip()
         prompt = core.build_grounded_generate_prompt(mat, count, subject, qtype)
-        # token 按题量动态给，避免固定 8000 拖慢生成
-        max_tok = min(4096, 320 + count * 220)
+        # 带溯源引用的题每题约 350-450 token（题干+选项+原文引用+段落号），
+        # 旧预算 320+220*n 会把输出切在半路导致整批解析失败，这里给足。
+        max_tok = min(8000, 600 + count * 480)
         ok, raw, used, errs = ellm.chat_chain(
             provider_chain(),
             [{"role": "system", "content": core.grounded_system_prompt()},
              {"role": "user", "content": prompt}],
-            temperature=0.3, timeout=120, max_tokens=max_tok)
+            temperature=0.3, timeout=180, max_tokens=max_tok)
         if not ok:
             self.send_json({"error": "出题失败：" + "；".join(errs[-3:])}, 502)
             return
@@ -1390,7 +1392,40 @@ def _parse_json_array(text):
                     return data
             except json.JSONDecodeError:
                 continue
-    return []
+    # 抢救被截断的输出：模型按顺序吐对象，把每个闭合的 {...} 单独抽出来
+    # （输出被 max_tokens 切在半路时，前面的题目其实已经完整，不能整批丢弃）
+    salvaged = []
+    depth = 0
+    start = None
+    in_str = False
+    esc = False
+    for i, ch in enumerate(s):
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+            continue
+        if ch == '"':
+            in_str = True
+        elif ch == "{":
+            if depth == 0:
+                start = i
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0 and start is not None:
+                frag = s[start:i + 1]
+                try:
+                    obj = json.loads(frag)
+                    if isinstance(obj, dict):
+                        salvaged.append(obj)
+                except json.JSONDecodeError:
+                    pass
+                start = None
+    return salvaged
 
 
 def _parse_questions(content):

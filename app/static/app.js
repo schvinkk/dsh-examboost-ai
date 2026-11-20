@@ -218,7 +218,7 @@ function renderHomeRecommend(prof) {
   }
   const acts = [];
   if (prof.has_material) acts.push({ i:"📥", t:"导入我的资料", d:"传 PDF/Word/图片，AI 按你的资料出题并标出处", v:"gen" });
-  else acts.push({ i:"🌐", t:"帮我找资料", d:"官方源 + 全网检索，找到的都是能核对出处的", v:"sources" });
+  else acts.push({ i:"🌐", t:"帮我找资料", d:"官方平台直达 + 全网检索（外链都实测过能不能开）", v:"sources" });
   acts.push({ i:"✏️", t:"先做几题摸底", d:"系统会据此算出薄弱点，推荐才准", v:"practice" });
   box.innerHTML = acts.map((a) => `<div class="kv"><div><b>${a.i} ${a.t}</b><div class="note">${a.d}</div></div>
     <button class="btn xs" data-go="${a.v}">去</button></div>`).join("");
@@ -383,9 +383,10 @@ async function loadHub() {
   loadHubFavs();
 }
 function sourceCard(s) {
-  const verified = s.verified === true ? '<span class="tag ok">已核验</span>'
-    : s.verified === false ? '<span class="tag err">不可达</span>' : '<span class="tag plain">待核验</span>';
-  return `<div class="kv"><div><b>${esc(s.name)}</b> ${verified}
+  const verified = s.verified === true ? '<span class="tag ok">实测可达</span>'
+    : s.verified === false ? '<span class="tag err">当前打不开</span>' : '<span class="tag plain">未测</span>';
+  const when = s.checked ? `<span class="note"> · 测于 ${esc(s.checked)}</span>` : "";
+  return `<div class="kv"><div><b>${esc(s.name)}</b> ${verified}${when}
     <div class="note">${esc(s.exam||"")} · ${esc(s.provides||"")}</div>
     <div class="note mono" style="word-break:break-all">${esc(s.url)}</div></div>
     ${s.url ? `<a class="btn xs" href="${esc(s.url)}" target="_blank" rel="noopener">打开</a>` : ""}</div>`;

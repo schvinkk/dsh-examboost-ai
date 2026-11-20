@@ -284,6 +284,9 @@ function renderDo(){
   $('doMeta').innerHTML='<span class="tag">'+(cur+1)+' / '+order.length+'</span> '+
     (q.knowledge?'<span class="tag g">'+esc(q.knowledge)+'</span>':'')+
     (q.subject?'<span class="tag">'+esc(q.subject)+'</span>':'')+
+    (q.provenance==='material'?'<span class="tag g">🟢 来自资料'+(q.source_para?' '+esc(q.source_para):'')+'</span>':'')+
+    (q.provenance==='ai'?'<span class="tag w">🟡 AI补充</span>':'')+
+    (q.provenance==='generated'?'<span class="tag r">⚠️ AI生成</span>':'')+
     (S.flags[i]?' <span class="tag w">🚩 已标记</span>':'');
   $('doQ').textContent=q.question;
   const box=$('doOpts');box.innerHTML='';
@@ -519,6 +522,9 @@ def make_quiz_html(title, subject, questions, quiz_id=None):
             "explanation": str(q.get("explanation") or "").strip(),
             "knowledge": str(q.get("knowledge") or "").strip(),
             "subject": str(q.get("subject") or subject or "").strip(),
+            # 溯源信息要一起带走，否则离线题库里看不出哪句来自资料
+            "provenance": str(q.get("provenance") or "").strip(),
+            "source_para": str(q.get("source_para") or "").strip(),
         })
     if not quiz_id:
         quiz_id = "q_" + str(abs(hash((title, len(clean), clean[0]["question"] if clean else ""))))[:9]

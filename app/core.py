@@ -204,14 +204,14 @@ def build_grounded_generate_prompt(material, count, subject, qtype):
 
 # 官方考试源：逐个 URL Verified（2026-11-20 实测可达性见 verified 字段）
 OFFICIAL_SOURCES = [
-    {"name": "研招网", "exam": "考研", "url": "https://yz.chsi.com.cn/", "verified": True, "provides": "考研报名/考纲/调剂"},
-    {"name": "中国教育考试网", "exam": "四六级", "url": "https://cet.neea.edu.cn/", "verified": True, "provides": "四六级报名/成绩"},
-    {"name": "中国教育考试网(总站)", "exam": "综合", "url": "https://www.neea.edu.cn/", "verified": True, "provides": "各类教育考试公告"},
-    {"name": "中小学教师资格考试", "exam": "教资", "url": "https://ntce.neea.edu.cn/", "verified": True, "provides": "教资报名/考纲"},
-    {"name": "中国人事考试网", "exam": "职业资格", "url": "http://www.cpta.com.cn/", "verified": True, "provides": "职业资格报名/考纲"},
-    {"name": "国家公务员局", "exam": "考公", "url": "http://www.scs.gov.cn/", "verified": None, "provides": "国考公告/大纲"},
-    {"name": "阳光高考信息平台", "exam": "高考", "url": "https://gaokao.chsi.com.cn/", "verified": None, "provides": "高考招生信息"},
-    {"name": "各省人事考试网", "exam": "考公考编", "url": "http://www.mohrss.gov.cn/", "verified": None, "provides": "省考/事业单位公告"},
+    {"name": "研招网", "exam": "考研", "url": "https://yz.chsi.com.cn/", "verified": True, "checked": "2026-11-21", "provides": "考研报名/考纲/调剂"},
+    {"name": "中国教育考试网", "exam": "四六级", "url": "https://cet.neea.edu.cn/", "verified": True, "checked": "2026-11-21", "provides": "四六级报名/成绩"},
+    {"name": "中国教育考试网(总站)", "exam": "综合", "url": "https://www.neea.edu.cn/", "verified": True, "checked": "2026-11-21", "provides": "各类教育考试公告"},
+    {"name": "中小学教师资格考试", "exam": "教资", "url": "https://ntce.neea.edu.cn/", "verified": True, "checked": "2026-11-21", "provides": "教资报名/考纲"},
+    {"name": "中国人事考试网", "exam": "职业资格", "url": "http://www.cpta.com.cn/", "verified": True, "checked": "2026-11-21", "provides": "职业资格报名/考纲"},
+    {"name": "国家公务员局", "exam": "考公", "url": "http://www.scs.gov.cn/", "verified": True, "checked": "2026-11-21", "provides": "国考公告/大纲"},
+    {"name": "阳光高考信息平台", "exam": "高考", "url": "https://gaokao.chsi.com.cn/", "verified": False, "checked": "2026-11-21", "provides": "高考招生信息"},
+    {"name": "各省人事考试网", "exam": "考公考编", "url": "http://www.mohrss.gov.cn/", "verified": True, "checked": "2026-11-21", "provides": "省考/事业单位公告"},
 ]
 
 # 资源检索入口：不是编造结果，而是给出可核验的检索式与平台
