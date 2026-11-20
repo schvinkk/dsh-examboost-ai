@@ -32,7 +32,7 @@ import fsrs
 
 APP_DIR = Path(__file__).resolve().parent
 DATA_DIR = APP_DIR / "data"
-VERSION = "2.0.1"
+VERSION = "2.0.2"
 DEFAULT_PORT = 3000
 
 STORE = edata.Store(DATA_DIR)
