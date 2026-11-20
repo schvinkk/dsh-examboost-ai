@@ -1,55 +1,97 @@
-# 架构说明（Architecture）
+# 架构说明
 
-## 综合型架构
+## 分层
+
+后端按职责切成五个模块，每个都能单独读懂：
 
 ```
-┌─────────────────────────────────────────┐
-│        通用学习引擎（所有人群都用）        │
-│  资料解析 · 知识点 · 间隔复习(SM-2)       │
-│  掌握度(BKT) · 错题本 · 刷题判分          │
-│  学习计划 · 进度持久化                    │
-└──────────────────┬──────────────────────┘
+app/
+├── server.py    HTTP 服务 + API 路由 + 业务编排
+├── edata.py     存储层（JSON 读写、原子替换、损坏自愈）+ SM-2 / BKT 算法
+├── eqbank.py    题库层（内置 + 自定义 + AI 生成，统一 normalize 与筛选抽题）
+├── ellm.py      模型层（通道探测、优先级回落、限流冷却）
+└── eqiz.py      离线刷题包生成器（单 HTML 模板 + 数据注入）
+```
+
+前端是 `index.html` + `static/style.css` + `static/app.js`，无构建步骤，无框架。
+
+## 模型接入
+
+这是「部署完打开就能用 AI」的关键，按顺序探测，第一个能用的先用，失败自动换下一个：
+
+| 顺序 | 通道 | 条件 | 说明 |
+|------|------|------|------|
+| 1 | 自定义服务 | 设置页填了 Base URL | 用户自己的 DeepSeek / Kimi / Ollama 等 OpenAI 兼容端点 |
+| 2 | 本机免费模型（转发） | `dsh-our-free-model` 插件已装且开了「本地转发」 | 读 `~/.dsh/our-free-model/settings.json` 里的 `forwardKey`，端口默认 18899 |
+| 3 | 本机免费模型（独立服务） | 18900 端口在听 | 同上插件的独立形态 |
+| 4 | **Kilo 免费网关** | 联网即可 | `ai-gateway.kilo.ai`，无需 Key 无需登录，29 个免费模型，默认实际生效的通道 |
+| 5 | Pollinations 匿名池 | 联网即可 | 备用；同 IP 约 45 秒一次 |
+
+限流处理：识别 HTTP 402/429 与 `Retry-After`（也解析响应文本里的 `Retry after Ns`），给该通道登记冷却时间戳，冷却期内直接跳过换下一个，而不是原地干等。所以用户看到的效果是「多等几秒但一定有结果」。
+
+探测结果缓存 60 秒，避免每个请求都去探一遍。改配置会立即失效缓存。
+
+## 学习闭环
+
+```
+抽题 ──▶ 作答 ──▶ 判分
                    │
         ┌──────────┴──────────┐
+        │ 答对                │ 答错
         ▼                     ▼
-┌──────────────────┐  ┌──────────────────┐
-│ 考试适配层（按需） │  │ 效率增强（通用）   │
-│ 考公/考研/四六级   │  │ 真题分析·薄弱点    │
-│ 期末/证书/面试    │  │ 进度可视化·打卡   │
-└──────────────────┘  └──────────────────┘
+   更新 BKT 掌握度       写错题本（重复错则累计 count）
+   更新统计/打卡          生成 SM-2 复习卡片（due=今天）
+                              │
+                              ▼
+                        复习页到期 → 自评质量 0-5
+                              │
+                              ▼
+                        SM-2 算新 interval → 推 due 日期
 ```
 
-## 三重形态
-
-| 形态 | 目录 | 用途 |
-|------|------|------|
-| DSH 插件 | `dsh-plugin/` | DeepSeek Harness 一键安装，提供工具+界面 |
-| Skill | `skills/examboost/` + `dist/examboost-full.md` | 所有 AI 应用可用，不装插件也能用 |
-| 独立软件 | `app/` | AI 自动部署到本地，浏览器/手机访问 |
-
-## 核心引擎模块
-
-| 模块 | 实现 | 借鉴来源 |
-|------|------|---------|
-| 间隔复习 SM-2 | `app/server.py` sm2_review() | StudyHub、lookatstudy、StudyBros |
-| 掌握度 BKT | `app/server.py` bkt_update() | dsh-plugin-lookatstudy |
-| 题库 | `SEED_QUESTIONS` + API | kaogong-shuati、exam-practice |
-| 错题本 | `mistakes.json` + API | daan、kaogong-study-tracker |
-| 学习计划 | `plan.json` + API | workbuddy、study-coach |
-| 统计 | `stats.json` + API | study-coach |
+错题本按 `qid` 去重：同一道题再次答错不新增条目，只把 `count` 加一并更新错因，避免错题本被刷爆。
 
 ## 数据存储
 
-- 位置：`app/data/`（本地，不上传）
-- 文件：`stats.json`（答题统计）、`mistakes.json`（错题本）、`knowledge.json`（BKT 掌握度）、`cards.json`（SM-2 复习卡）、`plan.json`（学习计划）、`state.json`（插件状态）、`llm_config.json`（本地 AI 配置）、`sources_custom.json`（自定义信息源）、`pan_favorites.json`（网盘搜收藏）
+位置 `app/data/`，全部 JSON，可 `--data-dir` 指到程序目录外以免升级覆盖。
 
-## 技术栈
+| 文件 | 内容 |
+|------|------|
+| `stats.json` | 总答题数、正确数、分科目、分日期 |
+| `mistakes.json` | 错题本（含完整题目与选项，可重做） |
+| `knowledge.json` | 各科目 BKT 掌握概率 |
+| `cards.json` | SM-2 复习卡片 |
+| `plan.json` | 学习计划 |
+| `checkin.json` | 打卡记录 |
+| `notes.json` | 学习笔记 |
+| `questions_custom.json` | 用户导入的题目 |
+| `questions_ai.json` | AI 生成并入库的题目 |
+| `llm_config.json` | 模型配置（权限 0600，接口只回显指纹） |
+| `sources_custom.json` | 自定义信息源 |
+| `pan_favorites.json` | 网盘收藏 |
 
-- 后端：Python 3 标准库 `http.server`（无第三方依赖，开箱即用）
-- 前端：原生 HTML/CSS/JS（无构建，响应式 + PWA）
-- 部署：`app/deploy.sh`（AI 自动执行）
+写入策略：临时文件 + `os.replace` 原子替换，进程内 `RLock` 串行化；读到损坏 JSON 时把坏文件改名备份再返回默认值，不让服务崩掉。
 
-## 手机/平板支持
+内置题库在 `app/data_bank/`（随仓库分发，只读），与 `data/` 分开，升级不会覆盖用户数据，也不会把用户数据当题库。
 
-- 局域网访问：server.py 绑定 `0.0.0.0`，手机同 WiFi 访问 `http://电脑IP:3000`
-- PWA：`manifest.json` + `sw.js`，可添加到主屏，离线可用
+## 并发
+
+`ThreadingHTTPServer`，每请求一线程。AI 出题这类长请求（可达 2-4 分钟）不会阻塞其他页面操作。写文件靠上面的锁保护。
+
+## 安全边界
+
+- 只监听本机或局域网，不主动对外
+- `/data/` 路径 HTTP 直接访问返回 403
+- API 不回显完整 Key，只给 `sk-a…z9` 形式的指纹
+- 清空数据需要显式 `confirm=YES`
+- 无任何遥测、无自动更新、不外传学习内容
+
+## 三重形态的关系
+
+| 形态 | 载体 | 数据来源 |
+|------|------|----------|
+| 独立软件 | `app/` | `app/data/` |
+| dsh-go 插件 | `dsh-go-plugin/` | 直接读同一份 `app/data/`，不另存副本 |
+| Skill | `skills/examboost/` | 由 AI 自己维护会话内状态 |
+
+插件不重复实现业务逻辑，只做「读文件 + 画原生视图 + 把题目塞进输入框」，因此独立软件改了算法，插件显示的数据自然跟着变，不存在两边不一致。

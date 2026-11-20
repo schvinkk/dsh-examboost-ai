@@ -5,8 +5,8 @@ description: |
 license: MIT
 metadata:
   author: ExamBoost AI
-  version: "0.2.1"
-  homepage: github.com/yourname/dsh-examboost-ai
+  version: "1.0.0"
+  homepage: github.com/schvinkk/dsh-examboost-ai
   language: zh-CN
 ---
 
@@ -147,19 +147,36 @@ metadata:
 
 ## 部署模式（独立软件形态）
 
-用户要求"部署 ExamBoost 到本地"时：
-1. 自动完成：环境检查 → 依赖安装 → 数据初始化 → 启动本地服务 → 打开浏览器
-2. 告知本机地址 `http://localhost:3000` 和手机/平板地址 `http://电脑IP:3000`
-3. 手机/平板同一 WiFi 可访问，支持 PWA 添加到主屏
+用户要求"部署 ExamBoost 到本地"时，读 `scripts/deploy.md` 照做，一次做完不要中途让用户装别的东西。要点：
 
-## 本地 AI 算力（独立软件不依赖 AI 应用）
+1. 只需要 Python 3.8+，后端纯标准库，**不需要 pip 安装任何依赖**
+2. `bash app/deploy.sh` 一条命令完成检查、复制、启动、开浏览器；端口占用会自动改用邻近端口
+3. 部署完必须实测：`/api/health`、`/api/status`、`/api/ai/providers` 三个接口都返回正常再告诉用户成功
+4. 告知本机地址与手机/平板局域网地址（同一 WiFi），并说明 `kill $(cat ~/ExamBoost/server.pid)` 可停止
 
-独立部署的软件可通过 **dsh-our-free-model**（Ebony-Vinyl，MIT）自行调用免费大模型（DeepSeek V4.1 Flash、Kimi K3 等），无需登录/Key：
-- 方式 A：`dsh-our-free-model` 仓库运行 `npm run start:standalone`（默认端口 18900）
-- 方式 B：DSH 插件启用「本地转发」（默认端口 18899）
-- ExamBoost「设置」页配置服务地址 → 测试连接 → 选模型 → 保存 → 「AI 助手」使用
-- 接口：OpenAI 兼容 `/v1/chat/completions`、`/v1/models`
-- 注意：免费池可能记录 prompt（Kilo 池明确声明），请勿发送敏感内容
+## AI 能力：开箱即用，不要让用户先装插件
+
+独立软件自己会找模型，按顺序探测并自动回落，**默认无需任何配置、无需注册、无需 Key**：
+
+| 顺序 | 通道 | 说明 |
+|------|------|------|
+| 1 | 用户自填服务 | 设置里填了 Base URL 时最优先 |
+| 2 | 本机 `dsh-our-free-model` 本地转发 | 装了该插件且开关已开时自动使用（会读它落盘的 forwardKey） |
+| 3 | 本机 `dsh-our-free-model` 独立服务 | 127.0.0.1:18900 |
+| 4 | **Kilo 免费网关** | `ai-gateway.kilo.ai`，无需凭据，29 个免费模型 —— 这是默认实际生效的路径 |
+| 5 | Pollinations 匿名池 | 备用，同 IP 约 45 秒一次 |
+
+因此**不要**再要求用户"先启动 dsh-our-free-model 才能用 AI"。那是可选优化，不是前置条件。
+
+遇到 AI 报错时的排查顺序：
+1. 访问 `/api/ai/providers` 看每一路的 `available` 与 `error`
+2. 全是 `连不上` → 检查外网
+3. 出现"限流" → 正常现象，会自动换通道，让用户稍等
+4. 用户想用自己的模型 → 设置里填 OpenAI 兼容 Base URL
+
+接口统一为 OpenAI 兼容 `/v1/chat/completions`、`/v1/models`。
+
+> **隐私提醒**：匿名免费通道会把请求经第三方网关，这类服务通常记录 prompt。不要引导用户把身份证号、账号密码等敏感内容粘进资料或对话。介意这一点就换成自己的模型服务。
 
 ## 边界
 
@@ -172,7 +189,7 @@ metadata:
 
 ## 参考来源
 
-功能设计参考并致谢以下开源项目（均为开源协议，完整 40 个详见 `CREDITS.md`）：
+功能设计参考并致谢以下开源项目（均为开源协议，完整 47 个详见 `CREDITS.md`）：
 - 考公考编：kaogong-skill（KeWang0622）、xingce-review-pro（liuyuexi1987）、shenlun-review-pro（liuyuexi1987）、daan（wookat）、kaogong-study-tracker（KaguraNanaga）、workbuddy-civil-service-exam-prep（bettermen）、kaogong-review-skill（zheng489）、kaogong-shuati（ERRRC）、civil-service-exam（NanjingHJLP）、civil-service-exam（kuriv）、ai-agent-gwy（jiangqiang1996）、gongkao-search（gewen1022）、gongkao（zhangwei-dot）
 - 通用学习：StudyHub（EricWang1358）、dsh-plugin-lookatstudy（Kaiji-Z）、dsh-bili-study（jin-ni）、dsh-learning-hub（ZBC-QRLA）、dsh-study-mode（waspqj）、dsh-learning-quirky-stuff（EndWithHyphen）、study-coach（geyadawang-boop）、study-assistant-skills（2362094903-ops）、StudyBros（Kirneill）、RetainCraft（kaixiad）、PAIDEIA（OPTIMETA）、learn-anything、EduGraph Learning、study-skills（jacquardlabs）
 - 刷题/考试：dsh-plugins-exam-practice（cypher-yht）、dsh-interview（codingayice）、dsh-exam-countdown（zimai233）、dsh-cx-learn（forgotfish）
@@ -180,8 +197,6 @@ metadata:
 - 网盘检索：PanSeek（huanyu-a）、PanHub（caiysmy 等）、PanSou（GailZhangJY）、盘小子（towelong）
 
 **向所有开源作者致敬。**
-
----
 
 ## 参考：baokao
 

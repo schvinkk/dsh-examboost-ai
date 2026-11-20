@@ -1,76 +1,138 @@
-#!/bin/bash
-# ExamBoost AI 部署脚本
-# 由 AI 自动执行：把 app/ 部署到用户本地，启动服务，打开浏览器
+#!/usr/bin/env bash
+# ExamBoost AI 一键部署（Linux / macOS / Android proot / WSL）
+# 用法：bash deploy.sh [--port 3000] [--data-dir 路径] [--no-open]
+set -u
 
-set -e
-
-# 配置
 APP_NAME="ExamBoost"
-INSTALL_DIR="${HOME}/${APP_NAME}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PORT=3000
+DATA_DIR=""
+OPEN_BROWSER=1
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --port) PORT="${2:-3000}"; shift 2 ;;
+    --data-dir) DATA_DIR="${2:-}"; shift 2 ;;
+    --no-open) OPEN_BROWSER=0; shift ;;
+    -h|--help) sed -n '1,8p' "$0"; exit 0 ;;
+    *) echo "未知参数：$1（可用：--port --data-dir --no-open）"; exit 1 ;;
+  esac
+done
 
 echo "======================================"
 echo "  ExamBoost AI 部署"
 echo "======================================"
 
-# Step 1: 检查环境
-echo "[1/6] 检查环境..."
-if command -v python3 &> /dev/null; then
-    echo "  ✓ Python3: $(python3 --version)"
+# [1/5] 环境检查
+echo "[1/5] 检查运行环境…"
+PY=""
+for c in python3 python; do
+  if command -v "$c" >/dev/null 2>&1; then
+    if "$c" -c 'import sys; sys.exit(0 if sys.version_info >= (3,8) else 1)' 2>/dev/null; then
+      PY="$c"; break
+    fi
+  fi
+done
+if [ -z "$PY" ]; then
+  echo "  ✗ 需要 Python 3.8 及以上。"
+  echo "    Debian/Ubuntu : sudo apt-get install -y python3"
+  echo "    macOS         : brew install python3"
+  echo "    Windows       : 用 start.bat，或到 python.org 下载安装"
+  exit 1
+fi
+echo "  ✓ $("$PY" --version 2>&1)（纯标准库，无需 pip 安装任何依赖）"
+
+# [2/5] 选择安装目录
+echo "[2/5] 准备程序目录…"
+INSTALL_DIR="${HOME}/${APP_NAME}"
+if [ "$SCRIPT_DIR" = "$INSTALL_DIR" ]; then
+  echo "  · 已在目标目录中，跳过复制"
 else
-    echo "  ✗ 未找到 Python3，请安装 Python 3.8+"
-    exit 1
+  mkdir -p "$INSTALL_DIR" || { echo "  ✗ 无法创建 $INSTALL_DIR"; exit 1; }
+  for item in server.py edata.py ellm.py eqbank.py eqiz.py index.html sw.js \
+              manifest.json sources.json pan_search.json static data_bank; do
+    if [ -e "$SCRIPT_DIR/$item" ]; then
+      rm -rf "$INSTALL_DIR/$item"
+      cp -R "$SCRIPT_DIR/$item" "$INSTALL_DIR/" || { echo "  ✗ 复制 $item 失败"; exit 1; }
+    fi
+  done
+  echo "  ✓ 已复制到 $INSTALL_DIR"
 fi
 
-# Step 2: 复制文件
-echo "[2/6] 复制文件到 ${INSTALL_DIR}..."
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-mkdir -p "${INSTALL_DIR}"
-cp -r "${SCRIPT_DIR}"/* "${INSTALL_DIR}/" 2>/dev/null || true
-cp "${SCRIPT_DIR}/index.html" "${INSTALL_DIR}/" 2>/dev/null || true
-cp -r "${SCRIPT_DIR}/static" "${INSTALL_DIR}/" 2>/dev/null || true
-mkdir -p "${INSTALL_DIR}/data"
-
-# Step 3: 检查依赖
-echo "[3/6] 检查依赖..."
-echo "  ✓ 后端使用 Python 标准库 http.server，无需安装任何第三方依赖"
-
-# Step 4: 初始化数据
-echo "[4/6] 初始化数据..."
-if [ ! -f "${INSTALL_DIR}/data/init.json" ]; then
-    echo '{"initialized": true, "created": "'$(date)'"}' > "${INSTALL_DIR}/data/init.json"
+# 数据目录：默认放在程序目录内；可用 --data-dir 指到别处（避免升级覆盖）
+if [ -n "$DATA_DIR" ]; then
+  DATA_ARG=(--data-dir "$DATA_DIR")
+  mkdir -p "$DATA_DIR"
+else
+  DATA_ARG=()
+  DATA_DIR="$INSTALL_DIR/data"
 fi
-echo "  ✓ 数据目录就绪"
+mkdir -p "$DATA_DIR"
+echo "  · 学习数据目录：$DATA_DIR"
 
-# Step 5: 启动服务
-echo "[5/6] 启动服务 (http://localhost:${PORT})..."
-cd "${INSTALL_DIR}"
-nohup python3 server.py --port ${PORT} > "${INSTALL_DIR}/server.log" 2>&1 &
-SERVER_PID=$!
-echo "  ✓ 服务启动 PID: ${SERVER_PID}"
-
-# Step 6: 打开浏览器
-
-echo "[6/6] 打开浏览器..."
-sleep 1
-if command -v xdg-open &> /dev/null; then
-    xdg-open "http://localhost:${PORT}" &
-elif command -v open &> /dev/null; then
-    open "http://localhost:${PORT}"
-elif command -v start &> /dev/null; then
-    start "http://localhost:${PORT}"
+# [3/5] 端口检查
+echo "[3/5] 检查端口 $PORT…"
+if command -v "$PY" >/dev/null 2>&1; then
+  IN_USE=$("$PY" -c "
+import socket,sys
+s=socket.socket();s.settimeout(0.6)
+print('1' if s.connect_ex(('127.0.0.1',$PORT))==0 else '0')
+s.close()")
+  if [ "$IN_USE" = "1" ]; then
+    echo "  ⚠ 端口 $PORT 已被占用，server.py 会自动改用邻近端口"
+  else
+    echo "  ✓ 端口可用"
+  fi
 fi
 
-# 获取局域网 IP（手机/平板可访问）
-LAN_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
-if [ -z "$LAN_IP" ]; then
-    LAN_IP="127.0.0.1"
+# [4/5] 启动服务
+echo "[4/5] 启动服务…"
+cd "$INSTALL_DIR"
+PID_FILE="$INSTALL_DIR/server.pid"
+if [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
+  echo "  · 已有实例在运行（PID $(cat "$PID_FILE")），先停止它"
+  kill "$(cat "$PID_FILE")" 2>/dev/null; sleep 1
+fi
+setsid "$PY" server.py --port "$PORT" "${DATA_ARG[@]}" > "$INSTALL_DIR/server.log" 2>&1 < /dev/null &
+echo $! > "$PID_FILE"
+sleep 2
+if ! kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
+  echo "  ✗ 启动失败，日志如下："
+  tail -20 "$INSTALL_DIR/server.log"
+  exit 1
+fi
+ACTUAL_PORT=$(grep -oE 'http://localhost:[0-9]+' "$INSTALL_DIR/server.log" | head -1 | grep -oE '[0-9]+$')
+ACTUAL_PORT=${ACTUAL_PORT:-$PORT}
+echo "  ✓ 已启动（PID $(cat "$PID_FILE")，端口 $ACTUAL_PORT）"
+
+# [5/5] 访问信息
+echo "[5/5] 访问地址…"
+LAN_IP=$("$PY" -c "
+import socket
+try:
+    s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);s.settimeout(1.5)
+    s.connect(('8.8.8.8',80));print(s.getsockname()[0]);s.close()
+except Exception:
+    print('127.0.0.1')" 2>/dev/null || echo "127.0.0.1")
+
+if [ "$OPEN_BROWSER" = "1" ]; then
+  for opener in xdg-open open termux-open-url; do
+    if command -v "$opener" >/dev/null 2>&1; then
+      "$opener" "http://localhost:$ACTUAL_PORT" >/dev/null 2>&1 &
+      echo "  ✓ 已调用浏览器（$opener）"
+      break
+    fi
+  done
 fi
 
 echo "======================================"
-echo "  ✅ ExamBoost 部署完成！"
-echo "  本机访问: http://localhost:${PORT}"
-echo "  手机/平板访问(同一WiFi): http://${LAN_IP}:${PORT}"
-echo "  数据目录: ${INSTALL_DIR}/data"
-echo "  关闭服务: kill ${SERVER_PID}"
+echo "  ✅ 部署完成"
+echo "  本机     : http://localhost:$ACTUAL_PORT"
+echo "  手机/平板: http://$LAN_IP:$ACTUAL_PORT  （需同一 WiFi）"
+echo "  日志     : $INSTALL_DIR/server.log"
+echo "  数据     : $DATA_DIR"
+echo "  停止服务 : kill \$(cat $PID_FILE)"
+echo "  重启服务 : bash $SCRIPT_DIR/deploy.sh --port $PORT"
+echo ""
+echo "  提示：浏览器菜单里选「添加到主屏」，就能当独立 App 用。"
 echo "======================================"

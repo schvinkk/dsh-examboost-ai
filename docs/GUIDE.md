@@ -7,7 +7,7 @@
 ## 目录
 
 1. [文件速查表（每个文件在哪用）](#一文件速查表)
-2. [形态一：DSH 插件怎么装怎么用](#形态一dsh-插件)
+2. [形态一：dsh-go 插件怎么装怎么用](#二形态一dsh-go-插件)
 3. [形态二：Skill 怎么用（不装插件）](#形态二skill-怎么用)
 4. [形态三：独立软件怎么部署（含手机）](#形态三独立软件)
 5. [各平台安装教程](#各平台安装教程)
@@ -40,31 +40,40 @@
 
 > **核心理解**：SKILL.md 是"说明书"，references/ 是"各科资料库"，AI 按任务需要自动读取对应文件，用户不用手动打开。
 
-### 📦 DSH 插件文件（仅 DeepSeek Harness 用）
+### 📦 dsh-go 插件文件（DSH 手机 App 原生界面用）
 
 | 文件 | 在哪用 | 怎么用 |
 |------|--------|--------|
-| `dsh-plugin/package.json` | DSH 插件安装 | 插件清单，声明插件信息 |
-| `dsh-plugin/cordis.patch.yml` | DSH 插件挂载 | 告诉 DSH 如何挂载本插件 |
-| `dsh-plugin/index.js` | DSH 宿主端 | 提供工具、HTTP 接口（服务端） |
-| `dsh-plugin/client.js` | DSH 客户端 | 客户端界面入口（界面开发中，当前为占位） |
+| `dsh-go-plugin/package.json` | 插件清单 | 声明胶囊、菜单项、状态条、面板与图标 |
+| `dsh-go-plugin/cordis.patch.yml` | 挂载配置 | 告诉 DSH 引擎挂载本插件 |
+| `dsh-go-plugin/lib/index.js` | 宿主端逻辑 | 读学习数据文件、画原生视图、处理点按 |
 
-> **用法**：这三个形态文件**不需要手动打开**，通过 `dsh plugin add github:yourname/dsh-examboost-ai` 一键安装。
+> **用法**：不需要手动打开这些文件，用 `dsh plugin --profile web add <目录>` 一键安装。插件直接读独立软件写在 `app/data/` 的数据，两边同一份，不需要同步。
 
 ### 🖥️ 独立软件文件（本地/浏览器/手机用）
 
 | 文件 | 在哪用 | 怎么用 |
 |------|--------|--------|
-| `app/server.py` | 本地服务器 | 启动本地服务，提供 Web 界面（AI 自动调用） |
-| `app/index.html` | 浏览器/手机 | Web 界面，浏览器自动打开 |
-| `app/deploy.sh` | AI 部署脚本 | AI 执行它来自动部署整个软件 |
-| `app/manifest.json` | 手机 PWA | 手机"添加到主屏"用 |
-| `app/sw.js` | 离线缓存 | 断网也能用 |
-| `app/sources.json` | 资源中心 | 内置 11 个考试信息源（公告/考纲/培训） |
-| `app/pan_search.json` | 网盘搜 | 内置 4 个网盘搜索服务及自建命令 |
-| `app/static/icon.svg` | 手机/浏览器图标 | 应用图标 |
+| `app/deploy.sh` | 部署入口 | `bash deploy.sh` 一条命令装好并启动 |
+| `app/server.py` | 后端服务 | HTTP 服务与 API 路由（纯标准库） |
+| `app/edata.py` | 存储层 | JSON 读写与原子替换，含 SM-2 / BKT 算法 |
+| `app/eqbank.py` | 题库层 | 题库加载、筛选、防重复抽题 |
+| `app/ellm.py` | 模型层 | 自动探测可用模型并逐级回落 |
+| `app/eqiz.py` | 离线包生成 | 把题目打包成单 HTML 文件 |
+| `app/index.html` + `static/` | 界面 | 浏览器打开即用，手机自适应 |
+| `app/data_bank/*.json` | 内置题库 | 320 道题，只读，升级不覆盖用户数据 |
+| `app/sources.json` | 资源中心 | 官方平台与培训机构入口 |
+| `app/pan_search.json` | 网盘搜 | 4 个网盘搜索服务及自建命令 |
+| `app/manifest.json` + `sw.js` | PWA | 手机「添加到主屏」，断网可开 |
+| `app/data/` | 学习数据 | 运行时自动生成，不上传 |
 
-> **用法**：`deploy.sh` 是总入口，AI 执行它就会自动装好一切。用户不用手动操作。
+> **用法**：`deploy.sh` 是总入口，用户只需要它；其余文件由服务自己调用。
+
+### 🛠️ 开发工具
+
+| 文件 | 用途 |
+|------|------|
+| `tools/validate_bank.py` | 校验内置题库（字段、选项前缀、答案与解析一致性、去重）：`python3 tools/validate_bank.py` |
 
 ### 📤 发布文件（给用户看的）
 
@@ -80,34 +89,57 @@
 
 ---
 
-## 二、形态一：DSH 插件
+## 二、形态一：dsh-go 插件
 
-> 适用：使用 **DeepSeek Harness（DSH）** 的用户。安装后插件集成到 DSH，提供工具 + 界面。
+> 适用：使用 **DSH 手机 App（dsh-go）** 的用户。装完在原生界面里就能抽题、看进度、记错题，不用切到网页版。
 
 ### 怎么装（3 步）
 
-**第 1 步：确认已装 DSH**
-```
-如果还没装 DSH，先按官方教程装好（需要 Node.js 20+）
+**第 1 步：拿到项目目录**
+
+```bash
+git clone https://github.com/schvinkk/dsh-examboost-ai.git
 ```
 
 **第 2 步：安装插件**
-```bash
-# Web 版
-dsh plugin --profile web add github:yourname/dsh-examboost-ai
 
-# 桌面版
-dsh plugin --profile desktop add github:yourname/dsh-examboost-ai
+在 DSH 的本机环境里执行（路径换成你 clone 的位置）：
+
+```bash
+dsh plugin --profile web add /绝对路径/dsh-examboost-ai/dsh-go-plugin
 ```
 
-**第 3 步：重启并验证**
-- 重启 DSH（Web 版强制刷新浏览器 Ctrl+F5）
-- 侧边栏出现「ExamBoost」入口 = 安装成功
+装上即生效，不用重启引擎。
+
+**第 3 步：验证**
+
+- 输入框上方出现「抽一题」「讲这题」两个胶囊 = 成功
+- 长按 AI 助手的回复，菜单里出现「记入错题本」
+- 「全部功能」里能看到「学习看板」「错题本」「今日复习」
 
 ### 怎么用
-- 侧边栏点「ExamBoost」进入学习面板
-- 对话中直接说：「帮我出一道行测数量题」
-- 或输入 `/examboost` 命令
+
+| 想做什么 | 操作 |
+|----------|------|
+| 随手练一题 | 点「抽一题」，题目自动填进输入框，发送即可 |
+| 让 AI 讲当前这题 | 把题目放在输入框，点「讲这题」 |
+| 做错的题记下来 | 长按 AI 的讲解回复 →「记入错题本」 |
+| 看今天该复习什么 | 点输入框上方的状态条，打开学习看板 |
+
+### 数据从哪来
+
+插件不自己存数据，直接读独立软件写在 `app/data/` 的 JSON 文件。所以：
+
+1. 先部署独立软件（见第四节），或
+2. 用环境变量指定数据位置：`export EXAMBOOST_DATA=/你的路径/data`，然后在 App「引擎」页重启引擎
+
+没找到数据时，面板会明确提示「还没有找到学习数据」，不会显示假数字。
+
+### 卸载
+
+```bash
+dsh plugin --profile web remove local-examboost
+```
 
 ---
 
@@ -133,7 +165,7 @@ dsh plugin --profile desktop add github:yourname/dsh-examboost-ai
 
 ```bash
 # 1. 下载项目
-git clone github.com/yourname/dsh-examboost-ai.git
+git clone github.com/schvinkk/dsh-examboost-ai.git
 cd dsh-examboost-ai
 
 # 2. 安装 Skill
@@ -146,7 +178,7 @@ cp -r skills/examboost ~/.agents/skills/
 
 1. 打开 Kimi Work → 插件市场
 2. 点「创建插件」→「从 GitHub 导入」
-3. 填仓库地址：`github.com/yourname/dsh-examboost-ai`
+3. 填仓库地址：`github.com/schvinkk/dsh-examboost-ai`
 4. 导入完成即可用
 
 ### 用法 D：豆包（电脑版）
@@ -180,38 +212,43 @@ cp -r skills/examboost ~/.agents/skills/
 
 **第 3 步：AI 自动完成**
 ```
-[1/6] 检查环境（Python 3.8+）
-[2/6] 复制文件到 ~/ExamBoost/
-[3/6] 安装依赖
-[4/6] 初始化数据目录
-[5/6] 启动服务 http://localhost:3000
-[6/6] 自动打开浏览器
-✅ 部署完成！
-本机访问: http://localhost:3000
-手机/平板访问(同一WiFi): http://192.168.x.x:3000
+[1/5] 检查运行环境…
+  ✓ Python 3.12（纯标准库，无需 pip 安装任何依赖）
+[2/5] 准备程序目录…
+  ✓ 已复制到 /root/ExamBoost
+  · 学习数据目录：/root/ExamBoost/data
+[3/5] 检查端口 3000…
+  ✓ 端口可用
+[4/5] 启动服务…
+  ✓ 已启动（PID 12345，端口 3000）
+[5/5] 访问地址…
+======================================
+  ✅ 部署完成
+  本机     : http://localhost:3000
+  手机/平板: http://192.168.x.x:3000  （需同一 WiFi）
+  停止服务 : kill $(cat /root/ExamBoost/server.pid)
+======================================
 ```
 
 **完成！** 浏览器自动打开 ExamBoost 界面，像独立软件一样用。
 
-### 使用 AI 助手（本地免费模型）
+### AI 功能：开箱即用，不用配置
 
-独立软件默认不带 AI 算力。要让它**自己调用大模型**分析辅助（不依赖 AI 应用），接入免费模型：
+ExamBoost 会自己找能用的模型，按这个顺序探测，哪路通用哪路，失败自动换下一路：
 
-**第 1 步：启动 dsh-our-free-model 独立服务**
-- 方式 A（推荐）：在 `dsh-our-free-model` 仓库目录运行 `npm run start:standalone`（默认端口 18900）
-- 方式 B：在 DSH 里装好该插件，启用「本地转发」（默认端口 18899）
+| 顺序 | 通道 | 需要做什么 |
+|------|------|-----------|
+| 1 | 你自己填的服务 | 可选。设置里填 Base URL 就排到最前 |
+| 2 | 本机 `dsh-our-free-model` 本地转发（18899） | 装了该插件并打开开关时自动用 |
+| 3 | 本机 `dsh-our-free-model` 独立服务（18900） | 同上 |
+| 4 | **Kilo 免费网关** | 什么都不用装，联网就能用（29 个免费模型） |
+| 5 | Pollinations 匿名池 | 备用，同 IP 约 45 秒一次 |
 
-**第 2 步：在 ExamBoost 设置页配置**
-1. 打开 ExamBoost → 点「⚙️ 设置」
-2. 服务地址填：`http://127.0.0.1:18900/v1`（或转发端口 18899）
-3. 点「测试连接」→ 看到模型列表即成功
-4. 选一个模型（如 deepseek-v4.1-flash），点「保存」
+所以**部署完直接就能用**：AI 助手对话、资料出题、知识点拆解、逐题讲解都不需要注册、不需要 Key、不需要先装别的插件。顶栏右侧的紫色小条会显示当前实际生效的是哪一路。
 
-**第 3 步：使用**
-- 点「🤖 AI 助手」→ 直接提问
-- AI 会用免费模型分析、出题、讲解、批改
+想换成自己的模型（DeepSeek、Kimi、本地 Ollama 等任何 OpenAI 兼容端点）：设置 → 模型接入 → 填 Base URL → 测试连接 → 保存。
 
-> **意义**：这样 ExamBoost 独立部署后也能自行调用大模型，不必依赖某个 AI 应用。
+> **提醒**：匿名免费通道会把请求经过第三方网关，这类服务通常会记录 prompt。不要把身份证号、账号密码等敏感内容粘进去。介意就换成自己的模型服务。
 
 ### 手动部署（如果 AI 没自动做）
 
@@ -232,7 +269,7 @@ bash app/deploy.sh
 
 1. **搜索**：输入关键词（如「考研数学 真题」「公务员 行测」「高中物理」），选择搜索服务，点「搜索」直达结果（新标签页打开）
 2. **内置服务**：PanSeek、PanHub、PanSou、盘小子，覆盖阿里云盘、夸克、百度、115、迅雷等全平台网盘
-3. **自建服务**：想完全自己掌控，按页面里给出的 Docker 命令一键部署本地网盘搜索（默认 `localhost:4000`），部署后在服务下拉框选「本地部署」即可
+3. **自建服务**：想完全自己掌控，页面里给出了每个服务的 Docker 部署命令，本机跑起来后直接访问它的地址即可（这些服务都是开源项目，见 `app/pan_search.json` 里的仓库链接）
 4. **收藏**：搜到有用的资料，复制分享链接填到「我的网盘资料收藏」，方便以后随时打开
 5. **资料→刷题闭环**：找到的资料文本，粘贴到「🛠️ 生成刷题工具」，AI 自动出题生成离线刷题网页，保存后即可刷题（见下）
 
@@ -250,7 +287,8 @@ bash app/deploy.sh
 
 | 平台 | 支持形态 | 安装方式 |
 |------|---------|---------|
-| **DeepSeek Harness** | 插件 + Skill | `dsh plugin add github:yourname/dsh-examboost-ai` |
+| **DSH 手机 App（dsh-go）** | 原生插件 + Skill + 独立软件 | `dsh plugin --profile web add ./dsh-go-plugin` |
+| **DSH 网页版 / 桌面版** | Skill + 独立软件 | 复制 `dist/examboost-full.md`，或跑 `app/deploy.sh` |
 | **Kimi Work** | 插件（GitHub导入）+ Skill | 插件市场→从 GitHub 导入 |
 | **豆包（电脑版）** | 插件 + Skill | 上传技能包 |
 | **通义千问** | 插件（MCP）+ Skill | 上传技能 / MCP |
@@ -305,30 +343,52 @@ bash app/deploy.sh
 
 ## 七、常见问题（FAQ）
 
-**Q1：DHS 插件装不上？**
-- 确认 DSH 版本 ≥ 0.2，Node.js ≥ 20
-- 重启 DSH 后再试
+**Q1：dsh-go 插件装不上？**
+- 路径要用绝对路径：`dsh plugin --profile web add /绝对路径/dsh-examboost-ai/dsh-go-plugin`
+- 装完不用重启引擎；改了 `lib/index.js` 才需要在 App「引擎」页重启
+- 面板显示「还没有找到学习数据」时，先部署独立软件，或设 `EXAMBOOST_DATA` 指向数据目录
 
 **Q2：Skill 发给 AI 后没反应？**
-- 确认复制了**完整全文**（从 `---` 开头到结尾）
+- 确认复制了**完整全文**（从第一行 `---` 到结尾）
 - 加一句明确指令：`请按这些规则辅导我备考`
 
 **Q3：手机访问不了电脑上的 ExamBoost？**
 - 确认手机和电脑连**同一个 WiFi**
-- 确认电脑防火墙放行 3000 端口
-- 用部署完成时显示的地址（不是 localhost）
+- 确认电脑防火墙放行该端口
+- 用部署完成时显示的局域网地址（不是 localhost）
+- 路由器开了「AP 隔离」要关掉，否则设备之间不通
 
 **Q4：端口 3000 被占用？**
-- 修改 `app/deploy.sh` 里的 `PORT=3001`
-- 或改 `app/server.py` 的 `--port`
+- `deploy.sh` 会自动改用邻近端口并在日志里打印实际端口
+- 想固定住：`bash deploy.sh --port 8080`
 
 **Q5：部署时提示没 Python？**
-- 安装 Python 3.8+：`python.org/downloads`
-- 或改用 Node 版（后续提供）
+- Debian/Ubuntu：`sudo apt-get install -y python3`
+- macOS：`brew install python3`
+- Windows：去 python.org 装，然后 `python server.py`
 
-**Q6：想卸载 ExamBoost？**
-- 独立软件：删除 `~/ExamBoost/` 目录，`kill` 对应进程
-- DSH 插件：`dsh plugin --profile web remove dsh-examboost-ai`
+**Q6：AI 功能完全没反应 / 顶栏显示「AI 未就绪」？**
+- 先看服务启动日志最后一行，它写了当前用的是哪路模型
+- 浏览器里访问 `http://localhost:3000/api/ai/providers`，会列出每一路的可用性与失败原因
+- 最常见是没有外网：匿名通道需要联网
+- 有网络还不行就在设置里填自己的服务地址
+
+**Q7：AI 出题转很久？**
+- 匿名免费池高峰期排队，10-60 秒属正常；资料长、题量大更久
+- 想快就在设置里换成自己的模型服务
+
+**Q8：改了代码刷新页面还是旧的？**
+- 已修：页面导航走网络优先，不再被 Service Worker 缓存挡住
+- 仍异常就强制刷新（Ctrl+Shift+R）
+
+**Q9：想卸载 ExamBoost？**
+- 独立软件：`kill $(cat ~/ExamBoost/server.pid)` 然后删 `~/ExamBoost/`
+- 数据想留就先备份：浏览器访问 `http://localhost:3000/api/export` 下载完整学习数据
+- dsh-go 插件：`dsh plugin --profile web remove local-examboost`
+
+**Q10：题目是真考题吗？**
+- 不是。内置 320 题全部标注「模拟原创题」，按考纲编写，不冒充真题，也不提供所谓真题回忆版
+- 想练自己的题：生成页粘贴 JSON 导入，或让 AI 根据你的资料出题后「存进我的题库」
 
 ---
 

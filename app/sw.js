@@ -1,46 +1,65 @@
-/* ExamBoost AI Service Worker - 离线缓存，手机/平板可用 */
-const CACHE_NAME = 'examboost-v1';
-const ASSETS = [
+/* ExamBoost AI Service Worker
+ * 策略：导航与 HTML 走网络优先（改了立刻生效，断网才回落缓存）；
+ *       静态资源走缓存优先 + 后台更新；/api/ 一律不缓存，保证数据实时。
+ */
+const CACHE = 'examboost-v3';
+const CORE = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/sw.js',
   '/static/style.css',
-  '/static/icon.svg'
+  '/static/app.js',
+  '/static/icon.svg',
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
-  );
-  self.skipWaiting();
+self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
-  // API 请求不缓存、不读缓存，保证数据实时
-  if (event.request.url.includes('/api/')) {
-    event.respondWith(fetch(event.request));
+self.addEventListener('fetch', (e) => {
+  const req = e.request;
+  const url = new URL(req.url);
+
+  if (req.method !== 'GET') return;
+  if (url.origin !== self.location.origin) return;
+  // API 永不缓存
+  if (url.pathname.startsWith('/api/')) return;
+
+  // 页面导航：网络优先，失败回落缓存（离线可打开）
+  if (req.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('.html')) {
+    e.respondWith(
+      fetch(req)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put('/index.html', copy)).catch(() => {});
+          return res;
+        })
+        .catch(() => caches.match('/index.html').then((r) => r || caches.match('/')))
+    );
     return;
   }
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((response) => {
-        if (response.ok && event.request.method === 'GET') {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-        }
-        return response;
-      });
+
+  // 静态资源：缓存优先 + 后台刷新
+  e.respondWith(
+    caches.match(req).then((cached) => {
+      const network = fetch(req)
+        .then((res) => {
+          if (res && res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
+          }
+          return res;
+        })
+        .catch(() => cached);
+      return cached || network;
     })
   );
 });

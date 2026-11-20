@@ -1,0 +1,4 @@
+# ExamBoost —— dsh-go 原生插件挂载配置
+- insert:
+    - id: local-examboost
+      name: local-examboost

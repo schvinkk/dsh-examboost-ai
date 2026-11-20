@@ -1,0 +1,40 @@
+{
+  "name": "local-examboost",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "description": "ExamBoost 综合备考：在 dsh-go 原生界面里看学习进度、抽题练习、记错题、查复习到期",
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "dsh": ">=0.2.1-rc.2 <0.3.0-0"
+  },
+  "dshGo": {
+    "v": 1,
+    "title": { "zh": "ExamBoost 备考", "en": "ExamBoost" },
+    "icon": "book",
+    "wants": ["draft", "message"],
+    "contributes": {
+      "composer.actions": [
+        { "id": "eb-ask", "label": { "zh": "抽一题", "en": "Quiz me" }, "icon": "todo" },
+        { "id": "eb-explain", "label": { "zh": "讲这题", "en": "Explain" }, "icon": "lightbulb" }
+      ],
+      "message.actions": [
+        { "id": "eb-log", "label": { "zh": "记入错题本", "en": "Log mistake" }, "icon": "note" }
+      ],
+      "composer.strip": [
+        { "id": "eb-strip", "icon": "alarm", "panel": "eb-dash" }
+      ],
+      "panels": [
+        { "id": "eb-dash", "title": { "zh": "学习看板", "en": "Dashboard" }, "icon": "chart" },
+        { "id": "eb-mistakes", "title": { "zh": "错题本", "en": "Mistakes" }, "icon": "note" },
+        { "id": "eb-review", "title": { "zh": "今日复习", "en": "Review" }, "icon": "alarm" }
+      ]
+    }
+  }
+}

@@ -1,17 +1,33 @@
 {
-  "name": "ExamBoost AI",
+  "name": "ExamBoost AI 综合备考",
   "short_name": "ExamBoost",
-  "description": "综合备考学习引擎：覆盖小学、初中、高中、大学、考公考编、考研、四六级等全学段，通用学习 + 智能复习 + 资料检索 + 离线刷题",
+  "description": "综合备考学习引擎：考公考编、考研、四六级、K12、职业资格全学段。刷题、错题本、间隔复习、学习计划、AI 出题、离线刷题包生成。数据只存本机。",
+  "lang": "zh-CN",
+  "dir": "ltr",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f8fafc",
+  "orientation": "portrait",
+  "background_color": "#0b1120",
   "theme_color": "#4f46e5",
+  "categories": ["education", "productivity", "reference"],
   "icons": [
     {
       "src": "/static/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
+    },
+    {
+      "src": "/static/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
+  ],
+  "shortcuts": [
+    { "name": "刷题", "short_name": "刷题", "url": "/#practice", "description": "按学段与知识点抽题练习" },
+    { "name": "AI 助手", "short_name": "AI", "url": "/#ai", "description": "讲题、出题、拆资料" },
+    { "name": "错题本", "short_name": "错题", "url": "/#mistakes", "description": "查看并消灭错题" }
   ]
 }

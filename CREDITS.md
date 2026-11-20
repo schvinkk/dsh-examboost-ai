@@ -81,7 +81,9 @@
 
 | 项目 | 作者 | 说明 |
 |------|------|------|
-| [dsh-our-free-model](https://github.com/Ebony-Vinyl/dsh-our-free-model) | Ebony-Vinyl | **独立软件大模型算力提供方**（MIT）：无需登录/Key 的免费模型车道（DeepSeek V4.1 Flash、Kimi K3 等）；OpenAI 兼容本地转发端口 `/v1/chat/completions`；`packages/standalone` 独立本地服务（默认端口 18900，无需安装 DSH）——ExamBoost 独立软件通过它自行调用大模型，不依赖 AI 应用 |
+| [dsh-our-free-model](https://github.com/Ebony-Vinyl/dsh-our-free-model) | Ebony-Vinyl | **可选优先模型通道**（MIT）：本机若装了该插件并开启「本地转发」（默认 18899）或跑起独立服务（默认 18900），ExamBoost 会自动优先使用它，读其落盘的 forwardKey 完成鉴权。不是前置条件——没装也能用，会回落到下面的 Kilo 网关 |
+| [Kilo AI 网关](https://kilo.ai) | Kilo | **默认免费模型通道**（匿名 OpenAI 兼容网关，无需 Key 无需登录）：ExamBoost 内置调用 `ai-gateway.kilo.ai/api/v1`，实现「部署完打开就能用 AI」。该网关模型卡片已声明免费池可能记录请求内容，本项目在 README 与设置页同步提示了这一点 |
+| [Pollinations](https://pollinations.ai) | pollinations | 备用匿名模型通道，同 IP 约 45 秒一次，限流时自动跳过换通道 |
 | [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | DeepSeek AI | DSH 插件生态基础，"一切皆插件"架构 |
 | [SkillHub](https://github.com/Tencent/skillhub) | 腾讯 | AI Skills 社区平台 |
 | [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) | 社区 | DSH 插件精选列表 |

@@ -1,0 +1,2882 @@
+[
+  {
+    "id": "qt_001",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "马克思主义产生",
+    "question": "马克思主义产生的直接理论来源主要是",
+    "options": [
+      "A. 英法空想社会主义、德国古典哲学和英国古典政治经济学",
+      "B. 古希腊罗马哲学、近代经验论和唯理论",
+      "C. 法国唯物主义、俄国革命民主主义思想和德国历史学派经济学",
+      "D. 康德哲学、黑格尔哲学与孔德的实证主义"
+    ],
+    "answer": "B",
+    "explanation": "马克思主义的三个直接理论来源是：德国古典哲学（马克思批判继承黑格尔的辩证法与费尔巴哈的唯物主义）、英国古典政治经济学（亚当·斯密和大卫·李嘉图的劳动价值论）以及英法空想社会主义（圣西门、傅立叶、欧文）。其余选项所列学说均不构成其直接理论来源故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_002",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "哲学基本问题",
+    "question": "哲学的基本问题是",
+    "options": [
+      "A. 思维和存在、精神和物质的关系问题",
+      "B. 主观与客观的关系问题",
+      "C. 运动与静止的关系问题",
+      "D. 实践与认识的关系问题"
+    ],
+    "answer": "A",
+    "explanation": "恩格斯明确提出：全部哲学，特别是近代哲学的重大的基本问题，是思维和存在的关系问题。它包括两方面：一是思维和存在何者为本原（划分唯物主义与唯心主义的标准），二是思维和存在有无同一性（划分可知论与不可知论的标准）。其余选项都是哲学中的重要问题，但不是基本问题故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_003",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "物质与意识的关系",
+    "question": "「不唯上、不唯书、只唯实」这一著名论断体现的哲理主要是",
+    "options": [
+      "A. 意识是物质的反映，物质决定意识",
+      "B. 书本知识对实践没有指导意义",
+      "C. 感性经验比理性认识更可靠",
+      "D. 人的主观能动性可以任意改变规律"
+    ],
+    "answer": "A",
+    "explanation": "「只唯实」就是一切从客观实际出发，坚持物质第一性、意识第二性，物质决定意识，这正是唯物主义的根本要求。B项错误，正确的理论对实践有重要指导作用；C项错误，理性认识依赖感性认识但比感性认识更深刻；D项夸大了主观能动性，规律是客观的，不能被任意改变故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_004",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "具体问题具体分析",
+    "question": "「一刀切」的做法在哲学上的主要错误在于",
+    "options": [
+      "A. 否认了矛盾的普遍性",
+      "B. 否认了事物是运动变化的",
+      "C. 否认了矛盾的特殊性，没有做到具体问题具体分析",
+      "D. 夸大了内因的作用"
+    ],
+    "answer": "C",
+    "explanation": "「一刀切」用同一种办法处理所有不同的事物，无视不同事物的矛盾各有其特点，违背了矛盾特殊性原理和具体问题具体分析这一马克思主义活的灵魂。具体问题具体分析的依据是矛盾的特殊性，因此C项正确；该做法并不否认矛盾无处不在，A项不选故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_005",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "意识的能动作用",
+    "question": "「最蹩脚的建筑师从一开始就比最灵巧的蜜蜂高明的地方，是他在用蜂蜡建筑蜂房以前，已经在自己的头脑中把它建成了。」这段话说明",
+    "options": [
+      "A. 意识活动具有目的性和计划性",
+      "B. 意识能够直接改变物质世界",
+      "C. 动物的活动完全没有任何目的性",
+      "D. 建筑师的本领天生高于蜜蜂"
+    ],
+    "answer": "A",
+    "explanation": "马克思用这个比喻说明人的实践是在意识指导下有目的、有计划的活动，行动之前结果已在观念中被建构出来，体现了意识活动的目的性和计划性。B项错误，意识必须通过实践才能作用于物质；C项片面，动物的活动是本能活动；D项不是这段话的哲学含义故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_006",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "实践是检验真理的唯一标准",
+    "question": "实践之所以是检验认识真理性的唯一标准，这是由",
+    "options": [
+      "A. 实践的主观能动性决定的",
+      "B. 真理的本性和实践的特点决定的",
+      "C. 认识的反复性和无限性决定的",
+      "D. 社会意识的相对独立性决定的"
+    ],
+    "answer": "B",
+    "explanation": "真理的本性在于主观认识与客观实际相符合，检验真理就是判断这种符合程度；而实践是主观见之于客观的活动，具有直接现实性，能够把主观认识同客观结果对照起来。正是「真理的本性＋实践的直接现实性特点」共同决定了实践是唯一标准。其余选项与题干不构成因果故选B。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_007",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "社会存在与社会意识",
+    "question": "社会意识对社会存在的依赖性表现为",
+    "options": [
+      "A. 社会意识随着社会存在的变化而变化，但有时可能落后或超前",
+      "B. 社会意识与社会存在始终同步变化",
+      "C. 社会意识的发展变化完全不受社会存在制约",
+      "D. 任何社会意识都只能滞后于社会存在"
+    ],
+    "answer": "A",
+    "explanation": "社会存在决定社会意识，社会意识是社会存在的反映，并随社会存在的变化而变化。但由于社会意识具有相对独立性，它可能落后于社会存在，也可能凭借对社会发展规律的科学把握而预见未来、适度超前。B、D的「始终同步」「只能滞后」都过于绝对，C则否认了社会存在的决定作用故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_008",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "生产力的实体性要素",
+    "question": "马克思把机械性的劳动资料称为「生产的骨骼和肌肉」，把它们看作人的力的测量尺度。据此，衡量生产力发展水平的客观尺度是",
+    "options": [
+      "A. 劳动对象的广度和深度",
+      "B. 劳动者的劳动经验和技能",
+      "C. 生产工具（劳动资料）的先进程度",
+      "D. 科学技术的发展水平"
+    ],
+    "answer": "C",
+    "explanation": "生产力实体性要素包括劳动者、劳动资料和劳动对象。劳动资料中最重要的是生产工具，它是人的力量的延长，是衡量生产力发展水平的客观尺度，马克思称机械性的劳动资料为生产的「骨骼和肌肉」。劳动者是生产力中最活跃、起主导作用的因素；科学技术是渗透性要素而非实体性要素。故选C。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_009",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "经济基础与上层建筑",
+    "question": "下列关于经济基础与上层建筑关系的表述，正确的是",
+    "options": [
+      "A. 上层建筑对经济基础没有任何反作用",
+      "B. 上层建筑一定要适合经济基础发展状况",
+      "C. 经济基础对上层建筑没有任何反作用",
+      "D. 上层建筑总是促进经济基础的发展"
+    ],
+    "answer": "B",
+    "explanation": "经济基础决定上层建筑，上层建筑对经济基础具有能动的反作用：当它为先进的经济基础服务时促进社会发展，为落后的经济基础服务时则阻碍社会发展。「上层建筑一定要适合经济基础发展状况」是社会发展的基本规律之一。A、C否认反作用或决定作用的表述错误，D忽视了反作用的两重性故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_010",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "新民主主义革命理论",
+    "question": "中国革命的基本问题，也是无产阶级领导权的中心问题是",
+    "options": [
+      "A. 军队问题",
+      "B. 农民问题",
+      "C. 统一战线问题",
+      "D. 根据地问题"
+    ],
+    "answer": "B",
+    "explanation": "中国是农业大国，农民占人口绝大多数，是中国革命的主力军，中国革命实质上是党领导下的农民革命，因此农民问题是中国革命的基本问题，能否解决农民的土地问题是无产阶级领导权的中心问题。武装斗争和统一战线是革命的两大武器，但不是「中心问题」。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_011",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "党的思想路线",
+    "question": "我们党的思想路线的内容是一切从实际出发、理论联系实际、实事求是、在实践中检验真理和发展真理，其核心是",
+    "options": [
+      "A. 一切从实际出发",
+      "B. 理论联系实际",
+      "C. 实事求是",
+      "D. 在实践中检验真理和发展真理"
+    ],
+    "answer": "C",
+    "explanation": "党的思想路线的各部分相互联系，但核心和实质是「实事求是」，它是马克思主义中国化理论成果的精髓，其他内容是实事求是的展开和保证。一切从实际出发是实事求是的前提，理论联系实际是途径，实践检验是标准。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_012",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "新发展理念",
+    "question": "「创新、协调、绿色、开放、共享」五大新发展理念中，注重解决发展内外联动问题的是",
+    "options": [
+      "A. 创新发展理念",
+      "B. 协调发展理念",
+      "C. 开放发展理念",
+      "D. 绿色发展理念"
+    ],
+    "answer": "C",
+    "explanation": "开放发展注重解决发展内外联动问题，强调顺应我国经济深度融入世界经济的趋势，发展更高层次的开放型经济。创新解决发展动力问题，协调解决发展不平衡问题，绿色解决人与自然和谐问题，共享解决社会公平正义问题。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_013",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "中国特色社会主义",
+    "question": "中国特色社会主义最本质的特征是",
+    "options": [
+      "A. 中国共产党领导",
+      "B. 人民当家作主",
+      "C. 全面依法治国",
+      "D. 公有制为主体"
+    ],
+    "answer": "A",
+    "explanation": "「中国特色社会主义最本质的特征是中国共产党领导，中国特色社会主义制度的最大优势是中国共产党领导」，这是习近平新时代中国特色社会主义思想的重要内容，已写入宪法。人民当家作主是社会主义民主政治的本质要求，全面依法治国是基本方略。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_014",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "两个一百年奋斗目标",
+    "question": "到（  ）年底，我国现行标准下农村贫困人口全部脱贫，贫困县全部摘帽，脱贫攻坚战取得全面胜利，如期完成新时代脱贫攻坚目标任务。",
+    "options": [
+      "A. 2018",
+      "B. 2019",
+      "C. 2020",
+      "D. 2021"
+    ],
+    "answer": "C",
+    "explanation": "按党中央部署，脱贫攻坚目标任务锁定在2020年底完成。到2020年底，现行标准下9899万农村贫困人口全部脱贫、832个贫困县全部摘帽，历史性解决绝对贫困问题，第一个百年奋斗目标如期实现；2021年2月全国脱贫攻坚大会对这一胜利作出正式宣告。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_015",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "纲要·近代不平等条约",
+    "question": "中国近代史上第一个不平等条约是",
+    "options": [
+      "A. 1842年中英《南京条约》",
+      "B. 1844年中美《望厦条约》",
+      "C. 1844年中法《黄埔条约》",
+      "D. 1895年中日《马关条约》"
+    ],
+    "answer": "A",
+    "explanation": "1840年鸦片战争失败后，清政府于1842年8月签订中英《南京条约》，这是中国近代史上第一个不平等条约，割香港岛、赔款2100万银元、开放五口通商、协定关税。《望厦条约》《黄埔条约》紧随其后，《马关条约》签订于甲午战争后的1895年。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_016",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "纲要·辛亥革命",
+    "question": "下列关于辛亥革命历史地位的表述，正确的是",
+    "options": [
+      "A. 它结束了帝国主义对中国的侵略",
+      "B. 它完成了反帝反封建的历史任务",
+      "C. 它是一次比较完全意义上的资产阶级民主革命",
+      "D. 它使中国人民真正站了起来"
+    ],
+    "answer": "C",
+    "explanation": "辛亥革命有统一的革命政党（中国同盟会）领导、有比较完整的革命纲领（三民主义），推翻了清王朝、结束了延续两千多年的君主专制制度，因此被称为「一次比较完全意义上的资产阶级民主革命」。但它没有改变中国半殖民地半封建的社会性质，没有完成反帝反封建任务，B错；A、D的表述分别对应后来的历史进程。故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_017",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "纲要·遵义会议",
+    "question": "遵义会议在中国共产党历史上的重大意义主要是",
+    "options": [
+      "A. 事实上确立了以毛泽东为核心的党中央的正确领导，是党历史上一个生死攸关的转折点",
+      "B. 第一次提出了反帝反封建的民主革命纲领",
+      "C. 确立毛泽东思想为党的指导思想并写入党章",
+      "D. 作出了改革开放的历史性决策"
+    ],
+    "answer": "A",
+    "explanation": "1935年1月遵义会议在极端危急关头纠正了「左」倾军事错误，事实上确立了以毛泽东为核心的党中央的正确领导，挽救了党、红军和革命，是党的历史上一个生死攸关的转折点。第一次提出反帝反封建纲领是中共二大，确立毛泽东思想为指导思想是中共七大，改革开放是十一届三中全会。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_018",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "纲要·抗日战争",
+    "question": "1940年下半年，彭德怀指挥八路军总部组织105个团，在华北发动的一次大规模进攻作战是",
+    "options": [
+      "A. 平型关伏击战",
+      "B. 百团大战",
+      "C. 台儿庄战役",
+      "D. 长沙会战"
+    ],
+    "answer": "B",
+    "explanation": "百团大战是抗战期间八路军在华北敌后发动的参战兵力最多、规模最大、时间最长、战果最辉煌的一次进攻战役，因参战部队达105个团而得名。平型关大捷是1937年八路军115师的伏击战；台儿庄战役和长沙会战都属于国民党正面战场的作战。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_019",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "思修·法的规范作用",
+    "question": "人们可以根据法律预先估计到相互之间将怎样行为以及行为的法律后果，从而对自己的行为作出合理安排。这体现的法的作用属于",
+    "options": [
+      "A. 评价作用",
+      "B. 预测作用",
+      "C. 教育作用",
+      "D. 强制作用"
+    ],
+    "answer": "B",
+    "explanation": "法的规范作用包括指引、评价、预测、教育和强制五种。预测作用的对象是人们相互之间的行为，指凭借法律预先估计行为将产生何种法律后果；评价作用的对象是他人行为是否合法，教育作用的对象是一般人，强制作用的对象是违法者。题干关键词是「预先估计」，故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_020",
+    "stage": "考研",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "思修·人生观",
+    "question": "人生观包含着人生目的、人生态度和人生价值三个方面，其中处于核心地位、决定人生道路方向的是",
+    "options": [
+      "A. 人生目的",
+      "B. 人生态度",
+      "C. 人生价值",
+      "D. 人生理想"
+    ],
+    "answer": "A",
+    "explanation": "人生观三个方面相互配合、有机统一，其中人生问题是根本问题，处于核心地位：它决定人们走什么样的人生道路、以什么样的态度对待生活、用什么标准评价人生价值。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_021",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "词汇辨析",
+    "question": "The new method of measuring blood pressure is more ______ than the traditional one, and it can be used on elderly patients.",
+    "options": [
+      "A. fragile",
+      "B. precise",
+      "C. horrible",
+      "D. absurd"
+    ],
+    "answer": "B",
+    "explanation": "句意：这种新的血压测量方法比传统方法更____，而且可以用于老年患者。测量方法用于病人，「更精确」最合逻辑，precise 意为「精确的」。fragile「易碎的」、horrible「可怕的」、absurd「荒谬的」都不可与「测量方法」构成合理比较故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_022",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "介词用法",
+    "question": "______ the bad weather and budget cuts, the team completed the project on schedule.",
+    "options": [
+      "A. Notwithstanding of",
+      "B. In spite",
+      "C. Despite",
+      "D. Despite of"
+    ],
+    "answer": "C",
+    "explanation": "Despite 是介词，后直接跟名词短语，相当于 in spite of，表示「尽管」。A项多了 of 不合用法，B项缺 of（应为 in spite of），D项是常见错误搭配。句意：尽管天气恶劣、预算削减，团队仍如期完成项目。故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_023",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "形近词辨析",
+    "question": "The new evidence cast serious doubt on the ______ of his testimony.",
+    "options": [
+      "A. credulity",
+      "B. credibility",
+      "C. plurality",
+      "D. hostility"
+    ],
+    "answer": "B",
+    "explanation": "句意：新证据使人们严重怀疑他证词的____。cast doubt on the credibility of 意为「对……的可信度提出质疑」，credibility「可信度」为唯一合理选项。credulity 指「轻信」，用于人而非证词；plurality「多数」；hostility「敌意」故选B。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_024",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "动词词义",
+    "question": "The increasing number of private cars has ______ the city's air pollution problem.",
+    "options": [
+      "A. aggravated",
+      "B. alleviated",
+      "C. abbreviated",
+      "D. illustrated"
+    ],
+    "answer": "A",
+    "explanation": "句意：私家车数量不断增加____了城市的空气污染问题。aggravate 意为「使恶化、加重」，与 problem 搭配最恰当。alleviate「减轻」与 increasing 的语境相反；abbreviate「缩短」；illustrate「说明、给……绘图」。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_025",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "固定搭配",
+    "question": "All members, whether senior or junior, are ______ the same rules and regulations.",
+    "options": [
+      "A. subject to",
+      "B. objectionable to",
+      "C. liable for",
+      "D. relevant to"
+    ],
+    "answer": "A",
+    "explanation": "句意：所有成员，无论资历深浅，都要遵守同样的规章制度。be subject to 表示「受某事物约束、须服从」，是规范搭配。be liable for 后一般接赔偿责任，be relevant to 表示「与某事物相关」，均不符合句意。故选A。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_026",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "形容词词义",
+    "question": "Although offered several better ways to solve the problem, the student was ______ to change his approach.",
+    "options": [
+      "A. keen",
+      "B. reluctant",
+      "C. eager",
+      "D. careless"
+    ],
+    "answer": "B",
+    "explanation": "句意：尽管被提供了几种更好的解决方法，这个学生还是____改变自己的做法。Although 表示转折，说明他不愿改变，be reluctant to do 意为「不情愿做某事」。keen 和 eager 都是「热衷于」，与转折逻辑相反；careless「粗心的」与语境不合。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_027",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "动词短语",
+    "question": "In the dim light of the corridor, the passer-by ______ the old man for his son.",
+    "options": [
+      "A. took",
+      "B. made",
+      "C. put",
+      "D. brought"
+    ],
+    "answer": "A",
+    "explanation": "句意：走廊光线昏暗，路人把老人____成了他的儿子。take sb. for sb. 是固定短语，意为「把某人误认为某人」，过去式 took him for。make、put、bring 都不能构成此搭配。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_028",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "阅读方法·主旨把握",
+    "question": "在做考研英语阅读理解时，最恰当的第一步策略是",
+    "options": [
+      "A. 逐句精读全文，弄清每个生词的确切含义",
+      "B. 先把五个题目全部翻译成中文",
+      "C. 略读全文，重点抓住首段、各段首句以把握文章主旨和作者态度",
+      "D. 只看最后一段，因为它必定包含答案"
+    ],
+    "answer": "C",
+    "explanation": "阅读理解应遵循「整体—局部—整体」的次序：先略读，通过首段、各段主题句和末段把握文章大意与作者态度，再带着题目回原文精确定位。A、B 花费时间过多且抓不住主线，D 属于绝对化表述，都不符合解题规律。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_029",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "阅读方法·词义推断",
+    "question": "猜测生词词义时，最可靠的做法是",
+    "options": [
+      "A. 根据构词法（词根词缀）和上下文的逻辑线索进行推断",
+      "B. 凭个人经验任意猜测",
+      "C. 一律按该词最常用的中文释义代入",
+      "D. 直接跳过，认定题目不会涉及该词"
+    ],
+    "answer": "A",
+    "explanation": "词义推断题的正规解法是「构词法＋上下文」：利用词根词缀判断词性与词义范围，再用并列、转折、因果、指代、举例等线索确定其在文中的具体含义。C 项忽视一词多义和语境变化，B、D 都不是可操作的解题方法。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_030",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "阅读方法·例证题",
+    "question": "题干问「作者引用某项研究成果的例子主要是为了」，这类例证题的正确答案通常应指向",
+    "options": [
+      "A. 该研究的具体数据和实验过程",
+      "B. 例子所支撑的本段或上文观点",
+      "C. 该研究领域的发展历史",
+      "D. 研究人员的态度"
+    ],
+    "answer": "B",
+    "explanation": "例证题（example / illustration 题）考查的是论据与论点的关系：例子本身不是目的，作者举例是为了支撑某个观点，因此答案应在例子上方或本段的主题句中寻找，而不是重复例子细节。A、C、D 都停留在例子层面。故选B。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_031",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "阅读方法·推理判断",
+    "question": "关于阅读理解中的推理判断题，下列表述正确的是",
+    "options": [
+      "A. 推理可以脱离原文，凭常识展开联想",
+      "B. 答案必须基于原文的逻辑线索适度推断，既不能停留在字面，也不能过度推断",
+      "C. 凡出现 must、all、never 等绝对化词语的选项必然正确",
+      "D. 推理题就是原文同义改写题，照抄原文即可"
+    ],
+    "answer": "B",
+    "explanation": "推理判断题要求依据原文的言外之意作「一步推断」：既不能只复述字面信息，也不能脱离文本主观扩大，选项常以 possibly、may 等留有余地的措辞出现。绝对化词语往往是干扰信号，C、D 表述错误，A 违反「以原文为依据」的原则。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_032",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "阅读方法·主旨概括",
+    "question": "某篇文章先介绍了一种长期被接受的做法，随后用大量证据指出这一做法存在问题，并在结尾提出改进方案。该文的主旨最可能是",
+    "options": [
+      "A. 论证并推广一种传统做法",
+      "B. 介绍某一领域的研究历史",
+      "C. 批评某种流行做法并提出改进思路",
+      "D. 客观罗列不同学派的观点而不作评价"
+    ],
+    "answer": "C",
+    "explanation": "「先立靶、再反驳、最后给出建议」是考研英语文章常见的「提出问题—分析问题—解决问题」结构，作者态度是批评加建设性，故主旨应概括为批评流行做法并提出改进。A 与作者态度相反，B 只是细节，D 忽视文末的立场判断。故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_033",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "翻译技巧·被动语态",
+    "question": "在英译汉时处理英语被动句的通行做法是",
+    "options": [
+      "A. 一律保留「被」字，以体现原文结构",
+      "B. 一律改写为主动句并且必须补出施事者",
+      "C. 根据汉语表达习惯灵活处理：可译为「由、受、得到、加以」等形式，或译为无主句、主动句",
+      "D. 直接删去被动结构，只译关键词"
+    ],
+    "answer": "C",
+    "explanation": "汉语少用「被」字表示中性或褒义内容，英语被动句翻译须按汉语习惯灵活处理：可用「被、由、受、被加以」等，也可译为无主句或主动句，必要时才补出施事者。A、B、D 中的「一律」「直接删去」都不符合翻译原则。故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_034",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "翻译技巧·长难句",
+    "question": "翻译英语长句时，最稳妥的策略是",
+    "options": [
+      "A. 严格按原文语序逐词对译",
+      "B. 先理顺句子主干与修饰成分的逻辑关系，再按汉语习惯拆分成若干分句或调整语序",
+      "C. 只译出每个从句的首词，其余意译",
+      "D. 把整个句子压缩成一个概括性短语"
+    ],
+    "answer": "B",
+    "explanation": "长难句翻译的关键是「拆」与「序」：先抓主干（主谓宾），再理清定语、状语、同位语等修饰成分与主干的逻辑关系，然后按汉语从先到后、从因到果的表达顺序拆分或重组。A 是典型的「翻译腔」，C、D 会丢失信息。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_035",
+    "stage": "考研",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "完形填空·逻辑关系",
+    "question": "His grades were far from satisfactory; ______, his interest in the subject grew even stronger.",
+    "options": [
+      "A. thus",
+      "B. yet",
+      "C. therefore",
+      "D. in brief"
+    ],
+    "answer": "B",
+    "explanation": "分号前后语义相反：成绩不理想与兴趣更浓之间是转折关系，yet 表示「然而、却」，符合逻辑。thus 与 therefore 表因果，in brief 表总结，都与语境矛盾。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_036",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "函数的定义域",
+    "question": "函数 f(x) = ln(x - 1) + √(3 - x) 的定义域是",
+    "options": [
+      "A. (1, 3)",
+      "B. (1, 3]",
+      "C. [1, 3)",
+      "D. [3, +∞)"
+    ],
+    "answer": "B",
+    "explanation": "对数要求真数大于零：x - 1 > 0 即 x > 1；根式要求被开方数非负：3 - x ≥ 0 即 x ≤ 3。取交集得 1 < x ≤ 3，即 (1, 3]。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_037",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "极限计算",
+    "question": "极限 lim(x→0) (√(1 + x) - 1) / x 等于",
+    "options": [
+      "A. 0",
+      "B. 1",
+      "C. 1/2",
+      "D. 2"
+    ],
+    "answer": "C",
+    "explanation": "分子有理化：(√(1+x) - 1)/x = [(1+x) - 1] / [x(√(1+x) + 1)] = 1/(√(1+x) + 1)，令 x→0 得 1/2。也可用等价无穷小 √(1+x) - 1 ~ x/2 直接得到 1/2。故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_038",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "无穷小的比较",
+    "question": "当 x→0 时，x²·sin(1/x) 是 x 的",
+    "options": [
+      "A. 高阶无穷小",
+      "B. 低阶无穷小",
+      "C. 同阶但不等价的无穷小",
+      "D. 等价无穷小"
+    ],
+    "answer": "A",
+    "explanation": "计算 lim(x→0) [x²·sin(1/x)] / x = lim(x→0) x·sin(1/x)。由于 |sin(1/x)| ≤ 1，有 |x·sin(1/x)| ≤ |x| → 0，由夹逼定理该极限为 0，故 x²·sin(1/x) 是比 x 高阶的无穷小。注意 sin(1/x) 无极限，但乘上无穷小 x 后仍为无穷小。故选A。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_039",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "导数的定义",
+    "question": "设 f(x) 在 x = 2 处可导，且 f'(2) = 3，则 lim(Δx→0) [f(2 + 2Δx) - f(2)] / Δx 等于",
+    "options": [
+      "A. 3",
+      "B. 6",
+      "C. 3/2",
+      "D. 12"
+    ],
+    "answer": "B",
+    "explanation": "令 t = 2Δx，则原式 = lim(t→0) [f(2 + t) - f(2)] / (t/2) = 2 · lim(t→0) [f(2+t) - f(2)] / t = 2 f'(2) = 2 × 3 = 6。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_040",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "定积分计算",
+    "question": "定积分 ∫(0 到 1) x² dx 等于",
+    "options": [
+      "A. 1",
+      "B. 1/2",
+      "C. 1/3",
+      "D. 2/3"
+    ],
+    "answer": "C",
+    "explanation": "由牛顿—莱布尼茨公式，∫(0 到 1) x² dx = (x³/3) |(0 到 1) = 1/3 - 0 = 1/3。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_041",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "行列式的性质",
+    "question": "设 A 为 3 阶方阵且 |A| = 2，则 |2A| 等于",
+    "options": [
+      "A. 2",
+      "B. 4",
+      "C. 8",
+      "D. 16"
+    ],
+    "answer": "D",
+    "explanation": "n 阶方阵数乘的行列式公式为 |kA| = kⁿ|A|。此处 n = 3，k = 2，故 |2A| = 2³ × 2 = 8 × 2 = 16。常见错误是误用 |2A| = 2|A| = 4。故选D。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_042",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "矩阵的秩",
+    "question": "若 2×3 矩阵 A 经过初等行变换化为行阶梯形矩阵，其非零行的行数为 2，则 A 的秩为",
+    "options": [
+      "A. 1",
+      "B. 2",
+      "C. 3",
+      "D. 6"
+    ],
+    "answer": "B",
+    "explanation": "初等行变换不改变矩阵的秩，而阶梯形矩阵中非零行的行数就是矩阵的秩。题中非零行有 2 行，故 R(A) = 2。它既不是行数 2 与列数 3 的乘积，也不可能超过 min{2, 3}。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_043",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "特征值",
+    "question": "对角矩阵 diag(2, 5, -1) 的全部特征值是",
+    "options": [
+      "A. 1, 2, 3",
+      "B. 2, 5, -1",
+      "C. 6",
+      "D. 10"
+    ],
+    "answer": "B",
+    "explanation": "对角矩阵的特征多项式为 (2-λ)(5-λ)(-1-λ)，令其为零解得 λ = 2, 5, -1，即对角矩阵的特征值就是它的主对角线元素。可验证三个特征值之和 2 + 5 + (-1) = 6 恰等于矩阵的迹（主对角线元素之和）。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_044",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "向量的线性相关性",
+    "question": "下列命题正确的是",
+    "options": [
+      "A. 任意三个二维向量必线性相关",
+      "B. 任意两个三维向量必线性相关",
+      "C. 含零向量的向量组可能线性无关",
+      "D. 任意四个三维向量必线性无关"
+    ],
+    "answer": "A",
+    "explanation": "n 维空间中任意 n + 1 个向量必线性相关。二维空间中任意三个向量满足该条件，故必线性相关，A 正确。两个三维向量可能线性无关（如 (1,0,0) 与 (0,1,0)），B 错；含零向量的向量组一定线性相关，C 错；四个三维向量必线性相关，D 错。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_045",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "齐次线性方程组",
+    "question": "设 A 为 n 阶方阵，则齐次线性方程组 Ax = 0 有非零解的充分必要条件是",
+    "options": [
+      "A. |A| ≠ 0",
+      "B. |A| = 0",
+      "C. R(A) = n",
+      "D. A 是对称矩阵"
+    ],
+    "answer": "B",
+    "explanation": "由克莱姆法则与矩阵秩的关系：|A| ≠ 0 时 R(A) = n，Ax = 0 只有零解；|A| = 0 时 R(A) < n，未知数个数大于系数矩阵的秩，方程组有非零解。故有非零解的充要条件是 |A| = 0。对称性与解的个数无关。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_046",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "事件与概率",
+    "question": "甲、乙两人各独立地射击一次，命中率分别为 0.8 和 0.7，则两人都未命中的概率是",
+    "options": [
+      "A. 0.06",
+      "B. 0.24",
+      "C. 0.42",
+      "D. 0.94"
+    ],
+    "answer": "A",
+    "explanation": "甲未中的概率为 1 - 0.8 = 0.2，乙未中的概率为 1 - 0.7 = 0.3。两人独立，都未中的概率 = 0.2 × 0.3 = 0.06。0.94 是至少一人命中的概率，0.24 与 0.42 是错用加法或乘法的干扰项。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_047",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "分布函数的性质",
+    "question": "设 F(x) 是某随机变量的分布函数，则必有 lim(x→+∞) F(x) 等于",
+    "options": [
+      "A. 0",
+      "B. 1/2",
+      "C. 1",
+      "D. 不能确定"
+    ],
+    "answer": "C",
+    "explanation": "分布函数 F(x) = P(X ≤ x) 满足三条性质：单调不减、右连续、且 F(-∞) = 0，F(+∞) = 1。当 x→+∞ 时事件 {X ≤ x} 趋于必然事件，概率为 1。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_048",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "数学期望",
+    "question": "随机变量 X 的分布律为 P(X = 0) = 0.2，P(X = 1) = 0.5，P(X = 2) = 0.3，则 E(X) 等于",
+    "options": [
+      "A. 1",
+      "B. 1.1",
+      "C. 1.2",
+      "D. 1.3"
+    ],
+    "answer": "B",
+    "explanation": "E(X) = 0 × 0.2 + 1 × 0.5 + 2 × 0.3 = 0 + 0.5 + 0.6 = 1.1。同时可验证概率之和 0.2 + 0.5 + 0.3 = 1，分布律合法。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_049",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "导数的应用·最值",
+    "question": "函数 f(x) = x³ - 3x 在闭区间 [-2, 2] 上的最大值是",
+    "options": [
+      "A. -2",
+      "B. 0",
+      "C. 2",
+      "D. 4"
+    ],
+    "answer": "C",
+    "explanation": "f'(x) = 3x² - 3 = 3(x + 1)(x - 1)，驻点为 x = -1 与 x = 1。逐一计算驻点与端点的函数值：f(-2) = -8 + 6 = -2，f(-1) = -1 + 3 = 2，f(1) = 1 - 3 = -2，f(2) = 8 - 6 = 2。比较得最大值为 2（在 x = -1 与 x = 2 处同时取得），最小值为 -2。故选C。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_050",
+    "stage": "考研",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "定积分的应用·面积",
+    "question": "由曲线 y = x² 与直线 y = x 所围成平面图形的面积为",
+    "options": [
+      "A. 1/6",
+      "B. 1/3",
+      "C. 1/2",
+      "D. 2/3"
+    ],
+    "answer": "A",
+    "explanation": "两图象交点由 x² = x 得 x = 0 与 x = 1。在 (0, 1) 内 x > x²，故面积 S = ∫(0 到 1) (x - x²) dx = [x²/2 - x³/3](0 到 1) = 1/2 - 1/3 = 1/6。故选A。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_051",
+    "stage": "四六级",
+    "subject": "听力",
+    "type": "单选题",
+    "knowledge": "听力·长对话推理",
+    "question": "听力短对话中，男士说「I still haven't got my essay back. The deadline is tomorrow.」女士回答「Why not ask the professor for a two-day extension?」问：女士的意思是什么？（按题面文本作答）",
+    "options": [
+      "A. 她认为男士应该重写论文",
+      "B. 她建议男士向教授申请延期两天",
+      "C. 她要去问教授要回论文",
+      "D. 她确认教授已经批准了延期"
+    ],
+    "answer": "B",
+    "explanation": "「Why not + 动词原形」是典型的建议句式，问的是「为什么不向教授要两天的延期呢」，即建议男士去申请延期，答案选 B。A 未提及；C 曲解了动作主体；D 把建议当作已发生的事实，是听力题常见陷阱。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_052",
+    "stage": "四六级",
+    "subject": "听力",
+    "type": "单选题",
+    "knowledge": "听力·信号词",
+    "question": "在听力对话中，「but」「actually」「in fact」这类转折词之后的内容通常",
+    "options": [
+      "A. 只是补充无关信息",
+      "B. 是对前文的否定或修正，往往就是答案所在",
+      "C. 表明说话人改变了话题",
+      "D. 提示题目将无法作答"
+    ],
+    "answer": "B",
+    "explanation": "转折是听力最重要的信号之一：说话人先用常见说法铺垫，再用 but、actually、in fact 引出真实态度或事实，命题人几乎总在转折处设题。因此听时应「听到转折立即集中注意」。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_053",
+    "stage": "四六级",
+    "subject": "听力",
+    "type": "单选题",
+    "knowledge": "听力·短文主旨",
+    "question": "听力短文（Passage）的主旨题，最可靠的判断依据通常是",
+    "options": [
+      "A. 短文的最后一句话",
+      "B. 短文中出现次数最多的单词",
+      "C. 短文开头部分，尤其是第一、二句",
+      "D. 短文中提到的具体数字"
+    ],
+    "answer": "C",
+    "explanation": "四六级听力短文多采用「开门见山」结构，首句（或第一、二句）往往直接点明说明对象或论点，中间是展开的细节。因此主旨题应重点听开头，细节数字和重复词都只服务于主题。故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_054",
+    "stage": "四六级",
+    "subject": "听力",
+    "type": "单选题",
+    "knowledge": "听力·时间与事实推断",
+    "question": "短对话中，男士说「The concert was supposed to start at 7:30, but it didn't begin until eight.」女士回答「What a pity! We missed the opening speech.」问：音乐会实际是什么时间开始的？（按题面文本作答）",
+    "options": [
+      "A. 七点整",
+      "B. 七点半",
+      "C. 八点",
+      "D. 八点半"
+    ],
+    "answer": "C",
+    "explanation": "「didn't begin until eight」意为「直到八点才开始」，即实际开始时间是8:00；7:30 只是原定时间（was supposed to），属时间题最常见的干扰项。故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_055",
+    "stage": "四六级",
+    "subject": "听力",
+    "type": "单选题",
+    "knowledge": "听力·笔记策略",
+    "question": "关于听力中的记录方法，正确的做法是",
+    "options": [
+      "A. 力求逐字记下听到的全部内容",
+      "B. 只记最后一句话",
+      "C. 有选择地记关键信息：数字、时间、地点、人名、因果与转折词",
+      "D. 完全不记，只靠短时记忆"
+    ],
+    "answer": "C",
+    "explanation": "听力记忆容量有限，记笔记的原则是「少写多抓」：用缩写、符号记录数字、时间、地点、人物、因果和转折等命题点，而不是逐字听写。A 会挤占听的时间，B、D 容易漏掉关键信息。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_056",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·查读定位",
+    "question": "在做长篇阅读（段落匹配）和信息匹配题时，第一步应当做的是",
+    "options": [
+      "A. 从头到尾通读全文并背诵段落大意",
+      "B. 先读题干，划出专有名词、数字、时间等易辨认的定位词",
+      "C. 先找出全文最长的段落",
+      "D. 把每个生词都查字典后再开始"
+    ],
+    "answer": "B",
+    "explanation": "四六级阅读时间紧，正规解法是「题干先行」：先读各题干并标出大写词、数字、时间等定位词（这类词在原文中形式不变、易扫到），再回原文扫读定位，最后比对语义。A、D 耗时过大，C 与解题无关。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_057",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·同义替换",
+    "question": "匹配题中，正确选项与原文的关系通常是",
+    "options": [
+      "A. 完全照抄原文的同一句话",
+      "B. 对原文信息的同义替换或概括改写",
+      "C. 与原文毫不相干的推论",
+      "D. 只是把原文句子换成疑问形式"
+    ],
+    "answer": "B",
+    "explanation": "四六级阅读的命题核心是「同义替换」：正确项往往用不同的词、句式或概括方式表达原文某一句（或某几句）的意思；照抄原文的选项可能只与题干部分对应，反而是常见干扰手法。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_058",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·指示代词",
+    "question": "确定文中 this policy、such a trend 等指示表达所指时，正确的方法是",
+    "options": [
+      "A. 一律理解为文章标题提到的内容",
+      "B. 一律理解为下一段的第一句",
+      "C. 在其上文中寻找最近的名词性内容，代入原句检验是否语义通顺",
+      "D. 理解为作者本人的观点"
+    ],
+    "answer": "C",
+    "explanation": "指示代词、such、the former 等指代对象的判定原则是「词不离句、句不离篇」：先在其上文找最近的、性与数一致的名词或名词性短语，代入原句看是否讲得通；指代关系几乎不会跨到下文或整篇。故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_059",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·干扰项类型",
+    "question": "选项把原文中不同对象的特点张冠李戴、或把范围扩大，这种干扰方式属于",
+    "options": [
+      "A. 偷换概念与以偏概全",
+      "B. 无中生有",
+      "C. 答非所问",
+      "D. 因果倒置"
+    ],
+    "answer": "A",
+    "explanation": "四六级常见干扰手法包括：偷换概念（换主体、换特点）、以偏概全（把局部说成全部）、无中生有（原文根本没提）、答非所问（说法正确但不对应题干）、因果倒置等。题干所述「张冠李戴、扩大范围」正对应偷换概念与以偏概全。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_060",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·选词填空",
+    "question": "解答选词填空（15选10）题时，最有效的第一步是",
+    "options": [
+      "A. 直接从第一个空开始逐个尝试代入",
+      "B. 先把15个备选词按词性（名词、动词、形容词、副词等）分类",
+      "C. 先数一数每个词的字母个数",
+      "D. 先跳过全文，只看每个句子"
+    ],
+    "answer": "B",
+    "explanation": "选词填空的解法是「先分类、再填空」：把备选词按词性和形式（如第三人称单数动词、过去分词、复数名词）归类，然后判断每个空的语法需要什么词性，往往能一次排除大半选项，最后在同词性内部按语义和搭配定夺。A 效率低，C、D 无助于解题。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_061",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·篇章结构",
+    "question": "文章中出现「However, some researchers argue that ...」这样的段落，其功能最可能是",
+    "options": [
+      "A. 对上文所述作进一步举例说明",
+      "B. 提出与前文不同的观点，构成转折或反驳",
+      "C. 总结全文并给出结论",
+      "D. 引出文章背景信息"
+    ],
+    "answer": "B",
+    "explanation": "however、nevertheless、by contrast、some researchers argue 都是典型的观点转换标记，所在段落通常提出对立或限制性看法，是四六级出题密度最高的位置（常考作者态度题、细节推断题）。进一步举例常用 for example，总结常用 in conclusion，背景常在首段。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_062",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·事实细节题",
+    "question": "解答事实细节题时，最应遵循的原则是",
+    "options": [
+      "A. 凭自己的常识和背景知识作答",
+      "B. 选择看起来最全面、最「正确」的说法",
+      "C. 答案必须能在原文中找到对应依据，注意主语、范围、程度与原文一致",
+      "D. 选择含有 must、all、never 等绝对词的选项"
+    ],
+    "answer": "C",
+    "explanation": "细节题的原则是「忠于原文」：先按题干关键词定位，再核对选项的主语、数量范围、程度副词、时态是否与原文一致。B 中的「看起来更全面」往往是过度概括，D 中的绝对化用词通常是干扰标志，A 脱离原文。故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_063",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·判断题",
+    "question": "阅读判断题（True / Not Given）中，判为 Not Given 的情形是",
+    "options": [
+      "A. 原文表述与题干相反",
+      "B. 原文中找不到支持或否定题干说法的信息",
+      "C. 题干与原文完全一致",
+      "D. 题干是原文的同义改写"
+    ],
+    "answer": "B",
+    "explanation": "判断题的三分类标准是：Y（True）—原文有明确依据支持题干；N（False）—原文与题干内容矛盾；NG（Not Given）—原文未涉及或信息不足以判断，既不能肯定也不能否定。A 对应 N，C、D 对应 Y。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_064",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·猜词与句意",
+    "question": "遇到不影响做题的陌生生词时，正确做法是",
+    "options": [
+      "A. 立即停下查阅词典",
+      "B. 若能从语境判断大致含义就略过，不必逐词弄懂",
+      "C. 认定全文无法理解，直接放弃该题",
+      "D. 把该词一律当作贬义词处理"
+    ],
+    "answer": "B",
+    "explanation": "四六级阅读允许「生词不障碍做题」：文章约有几 percent 的词超出大纲是正常的，只要不影响答题信息点就应跳过；需要时用构词法和上下文估个大方向。A、C 都不符合考场策略，D 是无依据的臆断。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_065",
+    "stage": "四六级",
+    "subject": "阅读",
+    "type": "单选题",
+    "knowledge": "阅读·标题匹配",
+    "question": "为文章选择小标题（Heading 题）时，最合适的标题应",
+    "options": [
+      "A. 涵盖该段的主要内容而非某个细节",
+      "B. 包含该段中出现的所有数字",
+      "C. 使用与该段完全相同的词汇",
+      "D. 只反映第一句话"
+    ],
+    "answer": "A",
+    "explanation": "Heading 题考的是概括能力：正确标题必须覆盖段落的核心信息，既不能过窄（只对应某一句、某个细节）、也不能过宽（超出段落范围）。照抄原词、罗列数字都只是把细节搬进标题。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_066",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·词义辨析",
+    "question": "The hotel can ______ up to 500 guests during the holiday season.",
+    "options": [
+      "A. contain",
+      "B. accommodate",
+      "C. hold",
+      "D. include"
+    ],
+    "answer": "B",
+    "explanation": "句意：这家酒店假期期间最多能容纳五百名客人。accommodate 表示「为某人提供住宿、容纳」，与 hotel 和 guests 搭配最恰当。contain 与 hold 多用于物（容量、盛装），include 意为「包括」，不表示住宿。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_067",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·形近词",
+    "question": "The company plans to ______ its business into three overseas markets.",
+    "options": [
+      "A. expend",
+      "B. expand",
+      "C. expect",
+      "D. export"
+    ],
+    "answer": "B",
+    "explanation": "句意：公司计划把业务____到三个海外市场。expand 意为「扩大、拓展」，expand one's business into new markets 是常见搭配。expend「花费（金钱、精力）」，expect「期望」，export「出口」，均与语境不合。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_068",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·固定短语",
+    "question": "We tend to take electricity ______ , forgetting how much effort it takes to supply it.",
+    "options": [
+      "A. for granted",
+      "B. in advance",
+      "C. on purpose",
+      "D. at random"
+    ],
+    "answer": "A",
+    "explanation": "句意：我们往往把电力看作____，忘了供电要付出多少努力。take something for granted 是固定短语，意为「认为理所当然而不知珍惜」，与 forgetting 呼应。in advance「提前」，on purpose「故意」，at random「随机地」。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_069",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·动词短语",
+    "question": "She had to ______ the invitation to the dinner because of an unexpected meeting.",
+    "options": [
+      "A. turn up",
+      "B. turn down",
+      "C. turn on",
+      "D. turn into"
+    ],
+    "answer": "B",
+    "explanation": "句意：因为临时有会，她不得不____晚餐邀请。turn down 有「拒绝（请求、邀请）」之意，也与后面的原因相符。turn up「出现、调高」，turn on「打开」，turn into「变成」。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_070",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·动词短语",
+    "question": "The committee decided to ______ the meeting until next Monday.",
+    "options": [
+      "A. put off",
+      "B. put on",
+      "C. put up with",
+      "D. put away"
+    ],
+    "answer": "A",
+    "explanation": "句意：委员会决定把会议____到下周一。put off 意为「推迟」，与 until next Monday 搭配自然。put on「穿上、举办」，put up with「忍受」，put away「收起来」。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_071",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·形容词",
+    "question": "There has been a ______ improvement in his spoken English since last term.",
+    "options": [
+      "A. significant",
+      "B. sign",
+      "C. signature",
+      "D. signaling"
+    ],
+    "answer": "A",
+    "explanation": "句意：上学期以来他的英语口语有了____进步。此处需要形容词修饰 improvement，significant 意为「显著的、可观的」。sign 是名词「标记」，signature「签名」，signaling「发信号」。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_072",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·常用形容词",
+    "question": "Unfortunately, the tickets for that concert are no longer ______ online.",
+    "options": [
+      "A. available",
+      "B. accustomed",
+      "C. admirable",
+      "D. advisable"
+    ],
+    "answer": "A",
+    "explanation": "句意：遗憾的是，那场音乐会的票在网上已经不再____。available「可获得的、有售的」，tickets are available 是标准搭配。accustomed「习惯的」，admirable「令人钦佩的」，advisable「可取的、明智的」。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_073",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·形近动词",
+    "question": "He ______ that he had never seen the document, though witnesses said otherwise.",
+    "options": [
+      "A. asserted",
+      "B. alerted",
+      "C. arranged",
+      "D. assessed"
+    ],
+    "answer": "A",
+    "explanation": "句意：他____自己从未见过那份文件，尽管证人们说法不同。assert 意为「断言、坚称」，后接 that 从句，与「否认」语境吻合。alert「使警觉」，arrange「安排」，assess「评估」。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_074",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·多义词",
+    "question": "After long negotiations, the two sides finally reached an ______ on the wage issue.",
+    "options": [
+      "A. accident",
+      "B. account",
+      "C. agreement",
+      "D. amount"
+    ],
+    "answer": "C",
+    "explanation": "句意：经过长时间谈判，双方最终在工资问题上达成了____。reach an agreement on sth. 是固定搭配，意为「就某事项达成协议」。accident「事故」，account「账户、描述」，amount「数额」。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_075",
+    "stage": "四六级",
+    "subject": "词汇",
+    "type": "单选题",
+    "knowledge": "词汇·动词词义",
+    "question": "Sales of electric cars continued to ______ sharply during the first quarter.",
+    "options": [
+      "A. decline",
+      "B. define",
+      "C. design",
+      "D. devote"
+    ],
+    "answer": "A",
+    "explanation": "句意：第一季度电动车销量持续大幅____。四个词中只有 decline「下降、衰退」可与 sharply 搭配并描述销量变化。define「定义」，design「设计」，devote「致力于」。注意 decline 另有「婉拒」之义，属常考多义。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_076",
+    "stage": "四六级",
+    "subject": "写作与翻译",
+    "type": "单选题",
+    "knowledge": "写作·段落结构",
+    "question": "四六级作文中，关于主体段的段落展开，正确的做法是",
+    "options": [
+      "A. 每段第一句写主题句，随后用解释、举例或数据支撑",
+      "B. 把主题句藏在段末，前面全部举例",
+      "C. 一段中同时展开三四个不同的中心意思",
+      "D. 只用一句话成段以节省时间"
+    ],
+    "answer": "A",
+    "explanation": "标准英文段落是「主题句先行＋支撑句展开＋（可选）小结」，读者第一眼就能抓住段落中心，便于阅卷者定位。B 使段落头绪不清，C 违反「一段一意」，D 内容不足。故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_077",
+    "stage": "四六级",
+    "subject": "写作与翻译",
+    "type": "单选题",
+    "knowledge": "写作·连接成分",
+    "question": "下列连接表达中，用于表示因果关系的是",
+    "options": [
+      "A. in contrast",
+      "B. on the contrary",
+      "C. accordingly",
+      "D. in other words"
+    ],
+    "answer": "C",
+    "explanation": "accordingly 意为「因此、相应地」，表结果。in contrast 与 on the contrary 表对比或相反，in other words 表换言释义。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_078",
+    "stage": "四六级",
+    "subject": "写作与翻译",
+    "type": "单选题",
+    "knowledge": "翻译·增词法",
+    "question": "汉译英中的「增词法」是指",
+    "options": [
+      "A. 随意添加原文没有的内容以使句子更长",
+      "B. 根据英语语法结构和表达习惯，补出原文没有写出但英语要求具备的主语、冠词、介词等词语",
+      "C. 把中文里的每个量词都翻译成两个英文词",
+      "D. 在译文末尾增加自己的评论"
+    ],
+    "answer": "B",
+    "explanation": "汉语多省略、少形式标记，英语要求句子成分完整，因此汉译英常需补出主语、冠词、介词、连词以及重复的名词，这就是增词法。它必须以原文语义为依据，不是随意加内容。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_079",
+    "stage": "四六级",
+    "subject": "写作与翻译",
+    "type": "单选题",
+    "knowledge": "写作·结尾段",
+    "question": "议论文（观点型作文）结尾段的主要功能是",
+    "options": [
+      "A. 提出一个新的论点并展开论述",
+      "B. 补充大量新的数据作为证据",
+      "C. 总结全文并重申或升华自己的立场",
+      "D. 重新介绍文章背景"
+    ],
+    "answer": "C",
+    "explanation": "结尾段的职责是收束：用不同的措辞重申中心论点、概括主要理由，或提出建议、展望，使文章首尾呼应。引入新论点、新材料属于主体段任务，会使文章结构失衡。故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_080",
+    "stage": "四六级",
+    "subject": "写作与翻译",
+    "type": "单选题",
+    "knowledge": "翻译·汉语四字格",
+    "question": "翻译「改革开放、经济发展、社会和谐」这类中文并列短语时，比较妥当的处理是",
+    "options": [
+      "A. 逐字硬译成四个以上名词，用逗号堆在一起",
+      "B. 把整个短语一律音译",
+      "C. 按英语表达合并、调整语序并使用适当的介词与连词",
+      "D. 只译第一个词，其余内容一概不译"
+    ],
+    "answer": "C",
+    "explanation": "政论文本中的汉语并列结构往往意合、形式松散，英语需要形合：应识别其逻辑关系（因果、并列、方式），合并同类信息，用介词短语、定语从句或 and 连接，形成符合英语习惯的句子。A 生硬、B、D 丢失信息。故选C。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_081",
+    "stage": "K12",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "整数四则混合运算（小学）",
+    "question": "计算 3 + 4 × 2 的结果是",
+    "options": [
+      "A. 14",
+      "B. 11",
+      "C. 10",
+      "D. 9"
+    ],
+    "answer": "B",
+    "explanation": "混合运算中先算乘除、后算加减：4 × 2 = 8，再算 3 + 8 = 11。若错误地先算加法会得到 14，这是本题的主要陷阱。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_082",
+    "stage": "K12",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "分数的基本性质（小学）",
+    "question": "把分数 3/5 的分子和分母都加上同一个数，使新分数等于 5/7，所加的这个数是",
+    "options": [
+      "A. 2",
+      "B. 3",
+      "C. 4",
+      "D. 5"
+    ],
+    "answer": "A",
+    "explanation": "设加上的数为 x，则 (3 + x)/(5 + x) = 5/7。交叉相乘：7(3 + x) = 5(5 + x)，即 21 + 7x = 25 + 5x，解得 2x = 4，x = 2。验算：(3+2)/(5+2) = 5/7，成立。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_083",
+    "stage": "K12",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "初中·一元一次方程的解法",
+    "question": "方程 3x - 7 = 2x + 5 的解是",
+    "options": [
+      "A. x = 2",
+      "B. x = 7",
+      "C. x = 12",
+      "D. x = -12"
+    ],
+    "answer": "C",
+    "explanation": "移项：3x - 2x = 5 + 7，合并同类项得 x = 12。验算：左边 = 3×12 - 7 = 29，右边 = 2×12 + 5 = 29，两边相等。错选 x = 2 多为移项未变号所致故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_084",
+    "stage": "K12",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "小学·长方形周长与面积",
+    "question": "一个长方形的周长是 24 厘米，长是宽的 2 倍，它的面积是",
+    "options": [
+      "A. 32 平方厘米",
+      "B. 24 平方厘米",
+      "C. 48 平方厘米",
+      "D. 16 平方厘米"
+    ],
+    "answer": "A",
+    "explanation": "设宽为 x 厘米，则长为 2x 厘米，周长 2(x + 2x) = 6x = 24，解得 x = 4，长为 8 厘米。面积 = 4 × 8 = 32 平方厘米。错选 24 常是把周长直接当面积。故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_085",
+    "stage": "K12",
+    "subject": "数学",
+    "type": "单选题",
+    "knowledge": "高中·等差数列",
+    "question": "在等差数列 {aₙ} 中，a₁ = 2，a₄ = 11，则该数列的公差 d 为",
+    "options": [
+      "A. 2",
+      "B. 3",
+      "C. 4",
+      "D. 9"
+    ],
+    "answer": "B",
+    "explanation": "由通项公式 aₙ = a₁ + (n - 1)d，得 a₄ = a₁ + 3d，即 11 = 2 + 3d，解得 d = 3。错选 9 是把 a₄ - a₁ 当成一个公差故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_086",
+    "stage": "K12",
+    "subject": "语文",
+    "type": "单选题",
+    "knowledge": "小学高年级·「的、地、得」用法",
+    "question": "下列句子中「的、地、得」使用正确的一项是",
+    "options": [
+      "A. 他学习很努力，成绩提高的很快。",
+      "B. 操场上，同学们尽情地奔跑。",
+      "C. 妹妹长的很可爱。",
+      "D. 这是一件很高心地事情。"
+    ],
+    "answer": "B",
+    "explanation": "「地」用在动词前作状语，「尽情地奔跑」正确。A、C 中「提高得很快」「长得可爱」都是补语，应用「得」；D「高兴的事情」是名词性成分前的修饰语，应用「的」。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_087",
+    "stage": "K12",
+    "subject": "语文",
+    "type": "单选题",
+    "knowledge": "初中·病句辨析",
+    "question": "下列句子没有语病的一项是",
+    "options": [
+      "A. 通过这次活动，使我明白了团结的重要。",
+      "B. 我们要避免不再犯类似的错误。",
+      "C. 他的家乡是山东人。",
+      "D. 同学们都喜欢这项运动，连平时很少锻炼的同学也加入了进来。"
+    ],
+    "answer": "D",
+    "explanation": "A 介词结构开头导致句子缺主语，应删「通过」或「使」；B 「避免」与「不再」双重否定，意思变成「要犯错误」；C 主宾搭配不当，「家乡」不能是「人」。D 表意清楚、成分完整，没有语病故选D。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_088",
+    "stage": "K12",
+    "subject": "语文",
+    "type": "单选题",
+    "knowledge": "初中·成语使用",
+    "question": "下列句子中加点部分（成语）使用恰当的一项是",
+    "options": [
+      "A. 他讲解习题时滔滔不绝，同学们听得津津有味。",
+      "B. 班长品学兼优，在班里德高望重。",
+      "C. 他俩形影不离，相敬如宾。",
+      "D. 这道题很简单，他不费吹灰之力绞尽脑汁地做了出来。"
+    ],
+    "answer": "A",
+    "explanation": "「滔滔不绝」形容话多而连续不断，用于讲解习题恰当。B「德高望重」称颂年高而有名望的人，用于班长不恰当；C「相敬如宾」专指夫妻互相尊敬；D「绞尽脑汁」与「不费吹灰之力」矛盾故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_089",
+    "stage": "K12",
+    "subject": "语文",
+    "type": "单选题",
+    "knowledge": "初中·文学常识",
+    "question": "下列关于文学常识的表述，正确的一项是",
+    "options": [
+      "A. 《红楼梦》的作者是元代的关汉卿",
+      "B. 《水浒传》是我国第一部描写农民起义的长篇小说，作者是施耐庵",
+      "C. 《西游记》的作者是罗贯中",
+      "D. 《三国演义》是清代曹雪芹的作品"
+    ],
+    "answer": "B",
+    "explanation": "《水浒传》由元末明初的施耐庵所作，是我国第一部以农民起义为题材的长篇小说，B 正确。《红楼梦》作者是清代曹雪芹，《西游记》作者是明代吴承恩，《三国演义》作者是罗贯中，其余三项张冠李戴故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_090",
+    "stage": "K12",
+    "subject": "语文",
+    "type": "单选题",
+    "knowledge": "初中·经典名句出处",
+    "question": "「温故而知新，可以为师矣」一语出自",
+    "options": [
+      "A. 《孟子》",
+      "B. 《论语》",
+      "C. 《庄子》",
+      "D. 《荀子》"
+    ],
+    "answer": "B",
+    "explanation": "该句出自《论语·为政》，意思是温习学过的知识而有新的体会，这样的人就可以做老师了。《荀子》名篇为《劝学》，《庄子》属道家，《孟子》主打性善仁政，均非此句出处故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_091",
+    "stage": "K12",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "小学·冠词用法",
+    "question": "I saw ______ elephant at the zoo yesterday. ______ elephant was very big.",
+    "options": [
+      "A. a; A",
+      "B. an; The",
+      "C. the; An",
+      "D. /; The"
+    ],
+    "answer": "B",
+    "explanation": "elephant 以元音音素开头，第一次提到用不定冠词 an；第二句再次提到同一头大象，表特指用 The。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_092",
+    "stage": "K12",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "初中·现在完成时（have been / have gone）",
+    "question": "— Where is Mr. Wang? — He ______ Shanghai. He will be back next week.",
+    "options": [
+      "A. has been in",
+      "B. has gone to",
+      "C. had been to",
+      "D. goes to"
+    ],
+    "answer": "B",
+    "explanation": "王先生现在不在说话现场，说明他「去了还没回来」，应用 has gone to。has been (in) to 表示「去过（已回来）」，与「下周才回来」矛盾；本句无过去的时间参照，不用过去完成时故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_093",
+    "stage": "K12",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "初中·形容词最高级",
+    "question": "The Yangtze River is one of ______ rivers in the world.",
+    "options": [
+      "A. longest",
+      "B. the longest",
+      "C. the longer",
+      "D. long"
+    ],
+    "answer": "B",
+    "explanation": "「one of the + 形容词最高级 + 复数名词」是固定结构，最高级前必须加 the，故选 B。A 缺 the；C 是比较级；D 是原级。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_094",
+    "stage": "K12",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "高中·定语从句",
+    "question": "The book ______ I bought yesterday is about artificial intelligence.",
+    "options": [
+      "A. who",
+      "B. what",
+      "C. which",
+      "D. where"
+    ],
+    "answer": "C",
+    "explanation": "先行词 the book 指物，且在从句中作 bought 的宾语，用 which（或 that、可不填）。who 只用于人；what 不能引导定语从句；where 在从句中作状语，而此处缺宾语故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_095",
+    "stage": "K12",
+    "subject": "英语",
+    "type": "单选题",
+    "knowledge": "高中·条件状语从句",
+    "question": "______ you study hard, you will pass the exam.",
+    "options": [
+      "A. Unless",
+      "B. Provided that",
+      "C. In case",
+      "D. Even though"
+    ],
+    "answer": "B",
+    "explanation": "句意为「只要你努力学习，就能通过考试」，provided that 意为「假如、只要」，引导条件状语从句，符合逻辑。Unless 意为「除非」，代入后句意相反；in case 表「万一、以防」，even though 表让步，都不合语境故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_096",
+    "stage": "K12",
+    "subject": "物理",
+    "type": "单选题",
+    "knowledge": "初中·光的反射定律",
+    "question": "一束光线射到平面镜上，入射光线与镜面的夹角为 30°，则反射角为",
+    "options": [
+      "A. 30°",
+      "B. 45°",
+      "C. 60°",
+      "D. 120°"
+    ],
+    "answer": "C",
+    "explanation": "入射角是入射光线与法线的夹角，等于 90° - 30° = 60°；由光的反射定律，反射角等于入射角，故反射角为 60°。错选 30° 是把与镜面的夹角当成了入射角故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_097",
+    "stage": "K12",
+    "subject": "物理",
+    "type": "单选题",
+    "knowledge": "初中·密度公式的应用",
+    "question": "一瓶矿泉水的体积为 500 mL，水的密度取 1.0 g/cm³，这瓶水的质量是",
+    "options": [
+      "A. 50 g",
+      "B. 500 g",
+      "C. 5 000 g",
+      "D. 5 kg"
+    ],
+    "answer": "B",
+    "explanation": "500 mL = 500 cm³，由 m = ρV 得 m = 1.0 g/cm³ × 500 cm³ = 500 g。故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_098",
+    "stage": "K12",
+    "subject": "物理",
+    "type": "单选题",
+    "knowledge": "高中·匀变速直线运动的位移",
+    "question": "汽车以 2 m/s 的初速度、3 m/s² 的加速度做匀加速直线运动，3 s 内通过的位移是",
+    "options": [
+      "A. 13.5 m",
+      "B. 18.0 m",
+      "C. 19.5 m",
+      "D. 31.5 m"
+    ],
+    "answer": "C",
+    "explanation": "由 s = v₀t + (1/2)at²，s = 2 × 3 + 0.5 × 3 × 3² = 6 + 13.5 = 19.5 m。错选 13.5 m 是漏掉了初速度那一项故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_099",
+    "stage": "K12",
+    "subject": "物理",
+    "type": "单选题",
+    "knowledge": "初中·物态变化（液化）",
+    "question": "冬天在室外说话时，嘴里常呼出「白气」，这一现象属于",
+    "options": [
+      "A. 汽化",
+      "B. 液化",
+      "C. 升华",
+      "D. 凝华"
+    ],
+    "answer": "B",
+    "explanation": "呼出的气体中含有较多水蒸气，遇到外界冷空气放热，液化成细小水珠悬浮在空中，看起来就是「白气」。汽化是液态变气态，升华是固态直接变气态，凝华是气态直接变固态，都不符合故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_100",
+    "stage": "K12",
+    "subject": "物理",
+    "type": "单选题",
+    "knowledge": "初中·欧姆定律",
+    "question": "一段导体两端电压为 6 V 时，通过它的电流为 0.3 A，该导体的电阻为",
+    "options": [
+      "A. 0.05 Ω",
+      "B. 1.8 Ω",
+      "C. 20 Ω",
+      "D. 200 Ω"
+    ],
+    "answer": "C",
+    "explanation": "由欧姆定律 I = U/R 得 R = U/I = 6 V ÷ 0.3 A = 20 Ω。电阻由导体本身决定，与电压、电流无关，故不能用 0.3 ÷ 6 = 0.05故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_101",
+    "stage": "K12",
+    "subject": "化学",
+    "type": "单选题",
+    "knowledge": "初中·纯净物与混合物",
+    "question": "下列物质属于纯净物的是",
+    "options": [
+      "A. 食盐水",
+      "B. 液态氧气",
+      "C. 空气",
+      "D. 牛奶"
+    ],
+    "answer": "B",
+    "explanation": "纯净物只由一种物质组成。液态氧气是氧气单质的一种状态，属纯净物。食盐水是水和氯化钠的溶液，空气由氮气、氧气等多种气体组成，牛奶是复杂乳浊液，都是混合物故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_102",
+    "stage": "K12",
+    "subject": "化学",
+    "type": "单选题",
+    "knowledge": "初中·化合价",
+    "question": "二氧化硫（SO₂）中硫元素的化合价是",
+    "options": [
+      "A. +2",
+      "B. +4",
+      "C. -2",
+      "D. +6"
+    ],
+    "answer": "B",
+    "explanation": "化合物中各元素正负化合价代数和为零。氧通常显 -2 价，设硫为 x，则 x + 2×(-2) = 0，x = +4。三氧化硫（SO₃）中硫才是 +6 价故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_103",
+    "stage": "K12",
+    "subject": "化学",
+    "type": "单选题",
+    "knowledge": "初中·物理变化与化学变化",
+    "question": "下列变化属于化学变化的是",
+    "options": [
+      "A. 冰雪融化",
+      "B. 汽油挥发",
+      "C. 铁钉生锈",
+      "D. 玻璃破碎"
+    ],
+    "answer": "C",
+    "explanation": "化学变化的本质特征是有新物质生成。铁钉生锈是铁与氧气、水反应生成铁锈（主要成分为氧化铁的水合物），属于化学变化；融化、挥发、破碎都只是状态或形状改变，属于物理变化故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_104",
+    "stage": "K12",
+    "subject": "化学",
+    "type": "单选题",
+    "knowledge": "高中·物质的量",
+    "question": "0.5 mol CO₂ 中含有的分子数约为",
+    "options": [
+      "A. 3.01 × 10²³",
+      "B. 6.02 × 10²³",
+      "C. 1.204 × 10²⁴",
+      "D. 3.01 × 10²²"
+    ],
+    "answer": "A",
+    "explanation": "分子数 N = n × Nₐ = 0.5 mol × 6.02 × 10²³ /mol ≈ 3.01 × 10²³。同时可算出质量 m = 0.5 × 44 = 22 g故选A。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_105",
+    "stage": "K12",
+    "subject": "生物",
+    "type": "单选题",
+    "knowledge": "初中·动植物细胞结构",
+    "question": "植物细胞有而动物细胞没有的结构是",
+    "options": [
+      "A. 细胞膜",
+      "B. 细胞质",
+      "C. 细胞核",
+      "D. 叶绿体"
+    ],
+    "answer": "D",
+    "explanation": "植物细胞特有细胞壁、叶绿体（绿色部分）和液泡；细胞膜、细胞质、细胞核是动植物细胞共有的基本结构。故选D。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_106",
+    "stage": "K12",
+    "subject": "生物",
+    "type": "单选题",
+    "knowledge": "初中·光合作用",
+    "question": "绿色植物光合作用的实质是",
+    "options": [
+      "A. 分解有机物，释放能量",
+      "B. 制造有机物，储存能量",
+      "C. 吸入氧气，呼出二氧化碳",
+      "D. 吸收无机盐，排出多余水分"
+    ],
+    "answer": "B",
+    "explanation": "光合作用利用光能，把二氧化碳和水合成有机物并释放氧气，同时把光能转变成化学能储存在有机物中，因此是「制造有机物、储存能量」。分解有机物释放能量、吸氧放二氧化碳属于呼吸作用故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_107",
+    "stage": "K12",
+    "subject": "生物",
+    "type": "单选题",
+    "knowledge": "初中·血液循环",
+    "question": "人体体循环的起点是",
+    "options": [
+      "A. 左心房",
+      "B. 右心房",
+      "C. 左心室",
+      "D. 右心室"
+    ],
+    "answer": "C",
+    "explanation": "体循环途径为：左心室→主动脉→全身各级动脉和毛细血管→上下腔静脉→右心房，起点是左心室，终点是右心房。肺循环才以右心室为起点故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_108",
+    "stage": "K12",
+    "subject": "生物",
+    "type": "单选题",
+    "knowledge": "高中·基因的分离定律",
+    "question": "一对夫妇表现型均正常，基因型都是 Aa（a 为致病基因，常染色体隐性遗传）。他们生育患病孩子的概率是",
+    "options": [
+      "A. 0",
+      "B. 1/4",
+      "C. 1/2",
+      "D. 3/4"
+    ],
+    "answer": "B",
+    "explanation": "Aa × Aa 的后代基因型比例为 AA : Aa : aa = 1 : 2 : 1，其中只有 aa 表现为患病，概率为 1/4；表现正常的比例为 3/4。故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_109",
+    "stage": "K12",
+    "subject": "历史",
+    "type": "单选题",
+    "knowledge": "初中·秦的统一",
+    "question": "我国历史上第一个统一的中央集权的封建国家是",
+    "options": [
+      "A. 夏朝",
+      "B. 商朝",
+      "C. 秦朝",
+      "D. 西汉"
+    ],
+    "answer": "C",
+    "explanation": "公元前221年秦王嬴政灭六国，建立秦朝，创立皇帝制度和郡县制，形成中央集权，是我国第一个统一的多民族的中央集权封建国家。夏、商是奴隶制国家且未形成全国范围的中央集权故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_110",
+    "stage": "K12",
+    "subject": "历史",
+    "type": "单选题",
+    "knowledge": "初中·丝绸之路",
+    "question": "西汉时期两次出使西域，为丝绸之路的开通作出突出贡献的是",
+    "options": [
+      "A. 卫青",
+      "B. 霍去病",
+      "C. 张骞",
+      "D. 班超"
+    ],
+    "answer": "C",
+    "explanation": "公元前138年和公元前119年，张骞两次出使西域，沟通了汉朝与西域的联系，史称「凿空」，为丝绸之路开通奠定基础。卫青、霍去病是北击匈奴的将领，班超是东汉经营西域者故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_111",
+    "stage": "K12",
+    "subject": "历史",
+    "type": "单选题",
+    "knowledge": "初中·五四运动",
+    "question": "标志着中国新民主主义革命开端的事件是",
+    "options": [
+      "A. 辛亥革命",
+      "B. 新文化运动",
+      "C. 五四运动",
+      "D. 中国共产党成立"
+    ],
+    "answer": "C",
+    "explanation": "1919年五四运动中，中国工人阶级开始以独立姿态登上政治舞台，促进了马克思主义同中国工人运动的结合，因此被视为旧民主主义革命走向新民主主义革命的转折点。辛亥革命属于旧民主主义革命，中共成立是开天辟地的大事变故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_112",
+    "stage": "K12",
+    "subject": "历史",
+    "type": "单选题",
+    "knowledge": "高中·文艺复兴",
+    "question": "欧洲文艺复兴运动的核心思想是",
+    "options": [
+      "A. 神权至上",
+      "B. 人文主义",
+      "C. 理性主义",
+      "D. 禁欲主义"
+    ],
+    "answer": "B",
+    "explanation": "文艺复兴以复兴古希腊罗马文化为旗号，主张以人为中心而不是以神为中心，肯定人的价值、尊严和现世幸福，其核心思想是人文主义。理性主义是启蒙运动的核心故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_113",
+    "stage": "K12",
+    "subject": "地理",
+    "type": "单选题",
+    "knowledge": "初中·比例尺换算",
+    "question": "在比例尺为 1∶500 000 的地图上，量得甲乙两地图上距离为 2 厘米，两地的实地距离是",
+    "options": [
+      "A. 5 千米",
+      "B. 10 千米",
+      "C. 50 千米",
+      "D. 100 千米"
+    ],
+    "answer": "B",
+    "explanation": "实地距离 = 图上距离 ÷ 比例尺 = 2 cm × 500 000 = 1 000 000 cm。1 km = 100 000 cm，故为 10 千米故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_114",
+    "stage": "K12",
+    "subject": "地理",
+    "type": "单选题",
+    "knowledge": "初中·地球上的五带",
+    "question": "从纬度位置看，我国大部分地区位于",
+    "options": [
+      "A. 热带",
+      "B. 北温带",
+      "C. 南温带",
+      "D. 寒带"
+    ],
+    "answer": "B",
+    "explanation": "我国领土大致位于北纬4度至53度之间，大部分在北回归线与北极圈之间的北温带，小部分在热带，没有寒带和南半球地区，因此四季分明、南北差异大故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_115",
+    "stage": "K12",
+    "subject": "地理",
+    "type": "单选题",
+    "knowledge": "高中·板块构造学说",
+    "question": "喜马拉雅山脉形成的主要原因是",
+    "options": [
+      "A. 太平洋板块与美洲板块的张裂",
+      "B. 亚欧板块与印度洋板块碰撞挤压，地壳隆起抬升",
+      "C. 非洲板块与印度洋板块的张裂",
+      "D. 长期流水侵蚀使周围地面降低"
+    ],
+    "answer": "B",
+    "explanation": "喜马拉雅山位于亚欧板块与印度洋板块的消亡边界，两大板块相向运动、碰撞挤压，使地壳褶皱隆起抬升而成，至今仍在缓慢升高。张裂多形成裂谷或海洋，流水侵蚀是外力作用，不能解释高大山脉的形成故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_116",
+    "stage": "K12",
+    "subject": "地理",
+    "type": "单选题",
+    "knowledge": "初中·黄河的「地上河」",
+    "question": "黄河下游形成「地上河」的主要原因是",
+    "options": [
+      "A. 上游降水增多，水量过大",
+      "B. 中游流经黄土高原水土流失严重，大量泥沙在下游河道沉积，使河床不断抬高",
+      "C. 下游工农业大量引水灌溉",
+      "D. 地壳下沉，河道相对变低"
+    ],
+    "answer": "B",
+    "explanation": "黄河中游携带黄土高原的泥沙，进入下游华北平原后河道变宽、坡度变缓、流速减慢，泥沙大量沉积，河床高出两岸地面，成为「地上悬河」。因此治黄的关键在于中游水土保持故选B。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_117",
+    "stage": "K12",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "初中·人民代表大会制度",
+    "question": "我国的根本政治制度是",
+    "options": [
+      "A. 中国共产党领导的多党合作和政治协商制度",
+      "B. 民族区域自治制度",
+      "C. 人民代表大会制度",
+      "D. 基层群众自治制度"
+    ],
+    "answer": "C",
+    "explanation": "人民代表大会制度是我国的政体，直接体现国家一切权力属于人民，是根本政治制度；政党制度、民族区域自治制度和基层群众自治制度都属于基本政治制度故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_118",
+    "stage": "K12",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "小学·学会自我保护",
+    "question": "独自在家时，有人敲门自称是「物业来修水管的」，最恰当的做法是",
+    "options": [
+      "A. 马上开门让对方进来，自己在旁边看着",
+      "B. 不开门，先打电话告知家长或联系物业核实，必要时拨打110报警",
+      "C. 让他在门外等，自己开门问他情况",
+      "D. 跟着他一起到楼下买工具"
+    ],
+    "answer": "B",
+    "explanation": "未成年人独自在家要有防范意识：不给陌生人开门，先与家长、物业电话联系核实身份，遇到纠缠或可疑情况立即报警。A、C、D 都会让自己处于危险之中故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_119",
+    "stage": "K12",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "初中·宪法规定国家一切权力属于人民",
+    "question": "我国宪法规定：中华人民共和国的一切权力属于",
+    "options": [
+      "A. 公民",
+      "B. 人民",
+      "C. 人民代表大会",
+      "D. 国务院"
+    ],
+    "answer": "B",
+    "explanation": "宪法第二条明确规定：中华人民共和国的一切权力属于人民，人民行使国家权力的机关是全国人民代表大会和地方各级人民代表大会。公民是法律概念，包括被依法剥夺政治权利的人，与人民并不等同故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_120",
+    "stage": "K12",
+    "subject": "政治",
+    "type": "单选题",
+    "knowledge": "初中·友善待人，学会换位思考",
+    "question": "「己所不欲，勿施于人」这句话告诉我们的主要道理是",
+    "options": [
+      "A. 对自己不利的事让别人去做",
+      "B. 自己不喜欢的事就不要让别人做同样事情之外的事",
+      "C. 要学会换位思考、尊重他人",
+      "D. 不要向别人提出任何意见"
+    ],
+    "answer": "C",
+    "explanation": "这句格言要求设身处地为他人着想，不把自己的意志强加于人，体现了尊重、理解与宽容的处世之道，是友善待人的传统美德。A 恰恰相反；B 表述含混且曲解原意；D 说法绝对故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_121",
+    "stage": "职业资格",
+    "subject": "教师资格",
+    "type": "单选题",
+    "knowledge": "综合素质·教师法",
+    "question": "根据《中华人民共和国教师法》，教师的平均工资水平应当（ ）国家公务员的平均工资水平，并逐步提高。",
+    "options": [
+      "A. 低于",
+      "B. 等同于",
+      "C. 不低于或者高于",
+      "D. 大幅高于"
+    ],
+    "answer": "C",
+    "explanation": "《教师法》第二十五条规定：教师的平均工资水平应当不低于或者高于国家公务员的平均工资水平，并逐步提高，建立正常晋级增薪制度。法律用「不低于或者高于」而非「等同于」，故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_122",
+    "stage": "职业资格",
+    "subject": "教师资格",
+    "type": "单选题",
+    "knowledge": "综合素质·中小学教师职业道德规范",
+    "question": "「学高为师，身正为范」 主要强调的教师职业道德规范是",
+    "options": [
+      "A. 终身学习",
+      "B. 为人师表",
+      "C. 关爱学生",
+      "D. 爱国守法"
+    ],
+    "answer": "B",
+    "explanation": "「学高」指学识渊博，「身正」指品行端正、以身作则，两句合起来强调教师要以自身言行示范，对应师德规范中的「为人师表」。「终身学习」强调不断进取更新知识，与此句侧重不同故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_123",
+    "stage": "职业资格",
+    "subject": "教师资格",
+    "type": "单选题",
+    "knowledge": "教育知识·德育过程的基本规律",
+    "question": "「晓之以理、动之以情、持之以恒、导之以行」 体现的德育过程基本规律是",
+    "options": [
+      "A. 德育过程是推动学生思想内部矛盾转化的过程",
+      "B. 德育过程是组织学生开展活动与交往的过程",
+      "C. 德育过程是培养学生知情意行统一发展的过程",
+      "D. 德育过程是长期、反复、逐步提高的过程"
+    ],
+    "answer": "C",
+    "explanation": "理对应道德认识，情对应道德情感，行对应道德行为与习惯，持之以恒对应道德意志，故这句话讲的就是德育要培养学生知、情、意、行统一发展。其余选项虽都是德育规律，但与该表述不对应故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_124",
+    "stage": "职业资格",
+    "subject": "教师资格",
+    "type": "单选题",
+    "knowledge": "教育知识·马斯洛需要层次理论",
+    "question": "按照马斯洛的需要层次理论，下列属于「生长需要」的是",
+    "options": [
+      "A. 生理的需要",
+      "B. 安全的需要",
+      "C. 尊重的需要",
+      "D. 自我实现的需要"
+    ],
+    "answer": "D",
+    "explanation": "马斯洛把需要分为缺失需要与生长需要：生理、安全、归属与爱、尊重属于缺失需要，缺失会引发动机，满足后动机减弱；求知、审美与自我实现属于生长需要，越满足越强烈。故选D。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_125",
+    "stage": "职业资格",
+    "subject": "教师资格",
+    "type": "单选题",
+    "knowledge": "教育知识·课程类型",
+    "question": "以文化遗产为基础、按学科逻辑组织教材的课程类型是",
+    "options": [
+      "A. 活动课程",
+      "B. 学科课程",
+      "C. 隐性课程",
+      "D. 核心课程"
+    ],
+    "answer": "B",
+    "explanation": "学科课程（分科课程）从各学科知识领域选择内容，按学科逻辑体系组织，如语文、数学、物理等，是人类文化遗产的系统传递。活动课程以学生经验与活动为中心，隐性课程指校园环境等潜在影响故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_126",
+    "stage": "职业资格",
+    "subject": "教师资格",
+    "type": "单选题",
+    "knowledge": "教育知识·教学原则",
+    "question": "「不陵节而施」（不超越学习次序而施教）体现的教学原则是",
+    "options": [
+      "A. 启发性原则",
+      "B. 循序渐进原则",
+      "C. 因材施教原则",
+      "D. 巩固性原则"
+    ],
+    "answer": "B",
+    "explanation": "「不陵节而施」出自《学记》，要求教学按照学科逻辑系统和学生认识发展顺序由浅入深、由易到难进行，正是循序渐进原则的体现故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_127",
+    "stage": "职业资格",
+    "subject": "教师资格",
+    "type": "单选题",
+    "knowledge": "综合素质·教师资格的学历条件",
+    "question": "根据《教师法》，取得小学教师资格应当具备的学历是",
+    "options": [
+      "A. 幼儿师范学校毕业及其以上学历",
+      "B. 高等师范专科学校毕业及其以上学历",
+      "C. 中等师范学校毕业及其以上学历",
+      "D. 大学本科毕业及其以上学历"
+    ],
+    "answer": "C",
+    "explanation": "《教师法》第十一条规定：取得小学教师资格，应当具备中等师范学校毕业及其以上学历。幼儿师范学历对应幼儿教师，高等师范专科对应初中教师，本科及以上对应高中、高校教师故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_128",
+    "stage": "职业资格",
+    "subject": "教师资格",
+    "type": "单选题",
+    "knowledge": "综合素质·「以人为本」的学生观",
+    "question": "按照新课程「以人为本」的学生观，学生是",
+    "options": [
+      "A. 学习的工具和被动接受知识的容器",
+      "B. 可以从头随意塑造的「白板」",
+      "C. 缩小版的成人，需要被完全规范",
+      "D. 独特的人、有巨大潜能的发展中的人"
+    ],
+    "answer": "D",
+    "explanation": "「以人为本」的学生观包含三层含义：学生是发展的人（有巨大潜能）、学生是独特的人（有个体差异）、学生是具有独立意义的人（学习的主体）。A、B 是传统「容器」「白板」观，C 忽视儿童的独特性故选D。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_129",
+    "stage": "职业资格",
+    "subject": "法考",
+    "type": "单选题",
+    "knowledge": "民法·民事行为能力",
+    "question": "根据《民法典》，未成年人开始为限制民事行为能力人的年龄界限是已满",
+    "options": [
+      "A. 六周岁",
+      "B. 八周岁",
+      "C. 十周岁",
+      "D. 十四周岁"
+    ],
+    "answer": "B",
+    "explanation": "《民法典》第十九条：八周岁以上的未成年人为限制民事行为能力人，实施民事法律行为由其法定代理人代理或者经其同意、追认（纯获利益或与其年龄智力相适应的除外）。不满八周岁为无民事行为能力人故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_130",
+    "stage": "职业资格",
+    "subject": "法考",
+    "type": "单选题",
+    "knowledge": "民法·诉讼时效",
+    "question": "根据《民法典》，向人民法院请求保护民事权利的普通诉讼时效期间为",
+    "options": [
+      "A. 一年",
+      "B. 二年",
+      "C. 三年",
+      "D. 五年"
+    ],
+    "answer": "C",
+    "explanation": "《民法典》第一百八十八条规定普通诉讼时效期间为三年，自权利人知道或者应当知道权利受到损害以及义务人之日起计算；最长保护期二十年。法律另有规定的除外故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_131",
+    "stage": "职业资格",
+    "subject": "法考",
+    "type": "单选题",
+    "knowledge": "刑法·刑事责任年龄",
+    "question": "根据《刑法》规定，应当对自己实施的犯罪行为负完全刑事责任的年龄是已满",
+    "options": [
+      "A. 十二周岁",
+      "B. 十四周岁",
+      "C. 十六周岁",
+      "D. 十八周岁"
+    ],
+    "answer": "C",
+    "explanation": "《刑法》第十七条：已满十六周岁的人犯罪，应当负刑事责任（完全刑事责任年龄）。已满十四不满十六周岁只对故意杀人、故意伤害致人重伤或死亡、强奸、抢劫、贩卖毒品、放火、爆炸、投放危险物质八类犯罪负责；已满十二不满十四需满足特别条件并经最高检核准追诉故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_132",
+    "stage": "职业资格",
+    "subject": "法考",
+    "type": "单选题",
+    "knowledge": "刑法·特殊正当防卫",
+    "question": "对正在进行行凶、杀人、抢劫、强奸、绑架以及其他严重危及人身安全的暴力犯罪，采取防卫行为造成不法侵害人伤亡的，法律性质是",
+    "options": [
+      "A. 属于防卫过当，应当负刑事责任",
+      "B. 不属于防卫过当，不负刑事责任",
+      "C. 属于紧急避险，应当负民事责任",
+      "D. 构成故意伤害罪，但应当减轻处罚"
+    ],
+    "answer": "B",
+    "explanation": "《刑法》第二十条第三款规定了特殊正当防卫（无限防卫权）：针对严重危及人身安全的暴力犯罪采取防卫，即使造成不法侵害人伤亡，也不属于防卫过当，不负刑事责任。紧急避险须针对正在发生的危险且通常要求损害小于所保护的利益故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_133",
+    "stage": "职业资格",
+    "subject": "法考",
+    "type": "单选题",
+    "knowledge": "民事诉讼法·一般地域管辖",
+    "question": "民事诉讼一般地域管辖确立的原则通常是",
+    "options": [
+      "A. 「原告就被告」，由被告住所地人民法院管辖",
+      "B. 「被告就原告」，由原告住所地人民法院管辖",
+      "C. 由争议标的物所在地法院管辖",
+      "D. 由双方当事人协商选定任意法院"
+    ],
+    "answer": "A",
+    "explanation": "《民事诉讼法》确立「原告就被告」的一般地域管辖原则，民事案件一般由被告住所地法院管辖，被告住所地与经常居住地不一致的由经常居住地法院管辖。法律另有规定时（如特定身份关系诉讼）才适用「被告就原告」故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_134",
+    "stage": "职业资格",
+    "subject": "法考",
+    "type": "单选题",
+    "knowledge": "行政法·具体行政行为",
+    "question": "下列行为属于具体行政行为的是",
+    "options": [
+      "A. 国务院制定行政法规",
+      "B. 某市政府发布未来五年的指导性意见",
+      "C. 市场监管局对某企业作出罚款决定",
+      "D. 全国人大常委会通过一部法律"
+    ],
+    "answer": "C",
+    "explanation": "具体行政行为针对特定的人或事、一次性适用，行政处罚（罚款）即为典型；制定行政法规和规章、通过法律属于抽象（立法）行为或立法活动，指导性意见不产生强制的法律效力故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_135",
+    "stage": "职业资格",
+    "subject": "法考",
+    "type": "单选题",
+    "knowledge": "宪法·宪法修改程序",
+    "question": "我国宪法的修改，由全国人大常委会或者五分之一以上的全国人大代表提议，并由全国人民代表大会以全体代表的（ ）通过。",
+    "options": [
+      "A. 过半数",
+      "B. 三分之二以上的多数",
+      "C. 四分之三以上的多数",
+      "D. 一致同意"
+    ],
+    "answer": "B",
+    "explanation": "《宪法》第六十四条：宪法的修改由全国人民代表大会以全体代表的三分之二以上的多数通过，法律和其他议案由全体代表的过半数通过，可见宪法修改程序严于普通法律故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_136",
+    "stage": "职业资格",
+    "subject": "法考",
+    "type": "单选题",
+    "knowledge": "劳动合同法·书面劳动合同",
+    "question": "根据《劳动合同法》，用人单位与劳动者建立劳动关系，应当订立",
+    "options": [
+      "A. 口头约定",
+      "B. 书面劳动合同",
+      "C. 集体合同",
+      "D. 就业意向书"
+    ],
+    "answer": "B",
+    "explanation": "《劳动合同法》第十条：建立劳动关系应当订立书面劳动合同；已建立劳动关系而未同时订立书面劳动合同的，应当自用工之日起一个月内订立。用人单位自用工之日起即与劳动者建立劳动关系故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_137",
+    "stage": "职业资格",
+    "subject": "财会",
+    "type": "单选题",
+    "knowledge": "会计基础·经济业务对会计等式的影响",
+    "question": "企业以银行存款偿还前欠货款，这一经济业务引起的变动是",
+    "options": [
+      "A. 资产与负债同时增加",
+      "B. 资产与负债同时减少",
+      "C. 一项资产增加，另一项资产减少",
+      "D. 资产增加，所有者权益减少"
+    ],
+    "answer": "B",
+    "explanation": "会计恒等式为「资产 = 负债 + 所有者权益」。偿还欠款时，银行存款（资产）减少，应付账款（负债）减少，等式两边同减仍平衡故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_138",
+    "stage": "职业资格",
+    "subject": "财会",
+    "type": "单选题",
+    "knowledge": "会计基础·权责发生制",
+    "question": "某企业12月销售商品一批，价款5万元已实现收款权利，货款于次年1月才收到。按权责发生制，该笔收入应确认在",
+    "options": [
+      "A. 12月",
+      "B. 次年1月",
+      "C. 两年各确认2.5万元",
+      "D. 实际收到现金的任何月份"
+    ],
+    "answer": "A",
+    "explanation": "权责发生制以「收入和费用归属期」为标准：凡是当期已经实现的收入，不论款项是否收到，都应当作为当期的收入。该笔销售在12月已完成收款权利的形成，故应在12月确认；收付实现制才在1月确认故选A。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_139",
+    "stage": "职业资格",
+    "subject": "财会",
+    "type": "单选题",
+    "knowledge": "财务管理·复利终值",
+    "question": "现在一次性存入 10 000 元，年利率 10%，按复利计息，两年后的本利和是",
+    "options": [
+      "A. 11 000 元",
+      "B. 12 000 元",
+      "C. 12 100 元",
+      "D. 13 310 元"
+    ],
+    "answer": "C",
+    "explanation": "复利终值 F = P(1 + i)ⁿ = 10 000 × (1 + 10%)² = 10 000 × 1.21 = 12 100 元。第一年末利息 1 000 元，第二年末利息为 11 000 × 10% = 1 100 元。12 000 元是单利结果故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_140",
+    "stage": "职业资格",
+    "subject": "财会",
+    "type": "单选题",
+    "knowledge": "税法·企业所得税税率",
+    "question": "根据《企业所得税法》，我国企业所得税的法定基本税率是",
+    "options": [
+      "A. 15%",
+      "B. 20%",
+      "C. 25%",
+      "D. 30%"
+    ],
+    "answer": "C",
+    "explanation": "《企业所得税法》第四条规定企业所得税的税率为25%；符合条件的小型微利企业和高新技术企业等适用优惠税率，15%、20% 均属优惠税率而非常规基本税率故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_141",
+    "stage": "通用",
+    "subject": "逻辑与思维",
+    "type": "单选题",
+    "knowledge": "三段论的规则",
+    "question": "「所有猫都是动物，所有狗都是动物，所以所有狗都是猫」 这一推理的逻辑错误是",
+    "options": [
+      "A. 大项不当扩大",
+      "B. 小项不当扩大",
+      "C. 中项不周延",
+      "D. 四概念（偷换概念）"
+    ],
+    "answer": "C",
+    "explanation": "中项「动物」在两个前提中都只作肯定判断的谓项，均未断言其全部外延，即一次都不周延，无法把大项与小项联系起来。三段论要求中项至少周延一次，故该推理无效，错误为「中项不周延」故选C。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_142",
+    "stage": "通用",
+    "subject": "逻辑与思维",
+    "type": "单选题",
+    "knowledge": "假言命题及其推理",
+    "question": "已知「如果下雨，那么地面湿」为真，则必然为真的是",
+    "options": [
+      "A. 如果地面湿，那么下过雨",
+      "B. 如果没下雨，那么地面不湿",
+      "C. 如果地面不湿，那么没下雨",
+      "D. 下雨与地面湿之间没有联系"
+    ],
+    "answer": "C",
+    "explanation": "原命题与其逆否命题等价：「p→q」等值于「非q→非p」。由「下雨→地面湿」可得「地面不湿→没下雨」，即否定后件必否定前件。A 是肯定后件、B 是否定前件，都不能必然推出故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_143",
+    "stage": "通用",
+    "subject": "逻辑与思维",
+    "type": "单选题",
+    "knowledge": "必要条件假言推理",
+    "question": "「只有年满十八周岁，才有选举权；小张有选举权，所以小张年满十八周岁」 这一推理的形式是",
+    "options": [
+      "A. 充分条件假言推理的肯定前件式",
+      "B. 必要条件假言推理的否定前件式",
+      "C. 必要条件假言推理的肯定后件式（有效式）",
+      "D. 无效的推理形式"
+    ],
+    "answer": "C",
+    "explanation": "「只有p，才q」表示 p 是 q 的必要条件，规则是：肯定后件就要肯定前件，否定前件就要否定后件。题中肯定「有选举权」（后件），必然肯定「年满十八岁」（前件），是有效的肯定后件式故选C。",
+    "difficulty": 3,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_144",
+    "stage": "通用",
+    "subject": "逻辑与思维",
+    "type": "单选题",
+    "knowledge": "类比推理",
+    "question": "「闪电和摩擦产生的电都能使物体带电、都有放电声和发光现象，因此推测闪电与摩擦电本质相同」 ，这种推理属于",
+    "options": [
+      "A. 演绎推理",
+      "B. 完全归纳推理",
+      "C. 类比推理",
+      "D. 选言推理"
+    ],
+    "answer": "C",
+    "explanation": "由两个（或两类）对象在某些属性上相同，推出它们在另一属性上也相同，是类比推理。它属于或然性推理，结论只具有可能性，需要进一步验证；演绎是从一般到个别必然推出，归纳是从个别到一般故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_145",
+    "stage": "通用",
+    "subject": "逻辑与思维",
+    "type": "单选题",
+    "knowledge": "逻辑思维的基本要求",
+    "question": "在同一时间、针对同一对象、从同一方面，同时断定「S 是 P」和「S 不是 P」都为真，违反的逻辑规律是",
+    "options": [
+      "A. 同一律",
+      "B. 矛盾律（不矛盾律）",
+      "C. 排中律",
+      "D. 充足理由律"
+    ],
+    "answer": "B",
+    "explanation": "两个互相否定的判断不能同真，必有一假，这是矛盾律的要求。排中律则要求两个互相矛盾的判断不能同假、必须肯定其中之一（不能「两不可」）。同一律要求概念、判断保持同一，充足理由律要求有真判断作理由故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_146",
+    "stage": "通用",
+    "subject": "计算机与AI基础",
+    "type": "单选题",
+    "knowledge": "进位计数制",
+    "question": "十进制数 13 用二进制表示为",
+    "options": [
+      "A. 1011",
+      "B. 1101",
+      "C. 1110",
+      "D. 1001"
+    ],
+    "answer": "B",
+    "explanation": "用「除2取余」：13÷2=6余1，6÷2=3余0，3÷2=1余1，1÷2=0余1，余数从下往上排列为 1101。验算：1×8 + 1×4 + 0×2 + 1×1 = 13故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_147",
+    "stage": "通用",
+    "subject": "计算机与AI基础",
+    "type": "单选题",
+    "knowledge": "信息计量单位",
+    "question": "计算机中，一个字节（Byte）由若干个二进制位（bit）组成，其位数为",
+    "options": [
+      "A. 4",
+      "B. 8",
+      "C. 16",
+      "D. 32"
+    ],
+    "answer": "B",
+    "explanation": "一个字节等于8位二进制数，可表示 2⁸ = 256 种不同状态；再往上 1 KB = 1024 B，1 MB = 1024 KB，1 GB = 1024 MB。4位称为一个半字节（nibble）故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_148",
+    "stage": "通用",
+    "subject": "计算机与AI基础",
+    "type": "单选题",
+    "knowledge": "Python 列表切片",
+    "question": "执行 print([1, 2, 3, 4, 5][1:4]) 的输出是",
+    "options": [
+      "A. [1, 2, 3]",
+      "B. [2, 3, 4]",
+      "C. [2, 3, 4, 5]",
+      "D. [1, 2, 3, 4]"
+    ],
+    "answer": "B",
+    "explanation": "Python 切片规则是「取下不取右」：起始索引 1 对应第二个元素 2，终止索引 4 不包含，故取索引 1、2、3 三个元素，即 [2, 3, 4]故选B。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_149",
+    "stage": "通用",
+    "subject": "计算机与AI基础",
+    "type": "单选题",
+    "knowledge": "大语言模型基础",
+    "question": "当前主流大语言模型（如 GPT 系列）所基于的核心神经网络架构是",
+    "options": [
+      "A. 卷积神经网络（CNN）",
+      "B. 循环神经网络（RNN）",
+      "C. Transformer",
+      "D. 决策树"
+    ],
+    "answer": "C",
+    "explanation": "Transformer 依靠自注意力机制建模长距离依赖，可以大规模并行训练，是 GPT、BERT 等大模型的骨干架构。CNN 多用于图像，RNN 因序列计算难并行、长距离信息易丢失而不适用于超大模型，决策树属传统机器学习方法故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_150",
+    "stage": "通用",
+    "subject": "计算机与AI基础",
+    "type": "单选题",
+    "knowledge": "个人信息与账号安全",
+    "question": "关于账号与口令安全，下列做法正确的是",
+    "options": [
+      "A. 所有网站使用同一个简单密码，便于记忆",
+      "B. 把密码写在便签上贴在显示器旁",
+      "C. 用生日、手机号作为密码，免得忘记",
+      "D. 为不同重要程度的账号设置各不相同的高强度口令，并启用两步验证"
+    ],
+    "answer": "D",
+    "explanation": "口令复用最危险：一旦某站数据泄露，攻击者会用同一口令去尝试登录其他网站（撞库）。正确做法是每个重要账号使用独立的高强度随机口令（可借助密码管理器）并开启两步验证；生日、手机号属于易被猜测的信息，便签张贴则等于公开故选D。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_151",
+    "stage": "通用",
+    "subject": "心理健康与沟通",
+    "type": "单选题",
+    "knowledge": "学习动机·耶克斯—多德森定律",
+    "question": "根据耶克斯—多德森定律，对于难度较大的学习任务，最有利于完成任务的学习动机（唤醒）水平是",
+    "options": [
+      "A. 尽可能高",
+      "B. 中等偏上",
+      "C. 较低",
+      "D. 与任务难度无关"
+    ],
+    "answer": "C",
+    "explanation": "该定律指出动机强度与工作效率呈倒U型关系，且最佳动机水平随任务难度而变：任务较易时最佳动机水平较高，任务难度中等时适中，任务越难则最佳动机水平越低，因为过高的焦虑会挤占认知资源故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_152",
+    "stage": "通用",
+    "subject": "心理健康与沟通",
+    "type": "单选题",
+    "knowledge": "情绪调节的方法",
+    "question": "感到难过时，找信任的朋友倾诉、把心事写进日记，这种情绪调节方式属于",
+    "options": [
+      "A. 压抑与否认情绪",
+      "B. 合理宣泄并寻求社会支持",
+      "C. 把情绪转嫁发泄到无关的人身上",
+      "D. 逃避现实，长时间刷手机到深夜"
+    ],
+    "answer": "B",
+    "explanation": "倾诉和书写是把情绪以不伤害自己和他人的方式表达出来（合理宣泄／认知加工），并向他人求助属于善用社会支持，是被广泛推荐的调节方式。压抑否认、迁怒他人、报复性熬夜都会造成新的心理负担故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_153",
+    "stage": "通用",
+    "subject": "心理健康与沟通",
+    "type": "单选题",
+    "knowledge": "共情式回应",
+    "question": "朋友说：「我这次面试又没过，觉得自己什么都做不好。」下列回应中最能体现共情的是",
+    "options": [
+      "A. 「你准备得不够充分嘛，下次早点准备。」",
+      "B. 「这有什么大不了，我以前比你还惨。」",
+      "C. 「连续被拒确实很打击人，你为这次面试花了不少心思，现在一定很难受。」",
+      "D. 「别想那么多了，去吃顿好的就好了。」"
+    ],
+    "answer": "C",
+    "explanation": "共情是设身处地体会并说出对方的感受和需要，不急于评价、建议或比惨。A 是指责式建议，B 把话题抢回自己身上，D 是「快速安慰」而否定了对方的感受，只有 C 先接住了情绪故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_154",
+    "stage": "通用",
+    "subject": "心理健康与沟通",
+    "type": "单选题",
+    "knowledge": "非暴力沟通的四个要素",
+    "question": "非暴力沟通（观察—感受—需要—请求）所强调的四个要素依次是",
+    "options": [
+      "A. 批评、指责、命令、抱怨",
+      "B. 事实、结论、判断、评价",
+      "C. 观察、感受、需要、请求",
+      "D. 赞美、讨好、退让、妥协"
+    ],
+    "answer": "C",
+    "explanation": "马歇尔·卢森堡提出的非暴力沟通包含四步：客观说出观察到的事实而不评判，表达由此产生的感受，说明感受背后的需要，最后提出具体可执行的请求。其余三项或以评判代替观察，或以讨好代替真诚表达故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_155",
+    "stage": "通用",
+    "subject": "心理健康与沟通",
+    "type": "单选题",
+    "knowledge": "心理危机识别与求助",
+    "question": "如果发现身边朋友流露出「活着没意思」等消极念头，恰当的做法是",
+    "options": [
+      "A. 完全替他保密，不告诉任何人",
+      "B. 认为他只是开玩笑，不必理会",
+      "C. 认真对待，陪伴倾听，并及时联系其家人、老师或拨打心理援助热线等求助专业力量",
+      "D. 在同学群里公开讨论他的情况"
+    ],
+    "answer": "C",
+    "explanation": "涉及自伤风险时，保密原则要让位于生命安全：不评判、不承诺永久保密，应稳定陪伴并尽快引入其信任的人和专业机构（心理援助热线、医院心理科）。当作玩笑或公开讨论都可能造成伤害故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_156",
+    "stage": "通用",
+    "subject": "科学常识",
+    "type": "单选题",
+    "knowledge": "天文·光年",
+    "question": "天文学中常用的「光年」是",
+    "options": [
+      "A. 时间单位",
+      "B. 长度单位",
+      "C. 速度单位",
+      "D. 质量单位"
+    ],
+    "answer": "B",
+    "explanation": "光年指光在真空中一年所走过的距离，约 9.46 × 10¹² 千米，是计量天体间遥远距离的长度单位。它常被误认为时间单位，实际不表示时间故选B。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_157",
+    "stage": "通用",
+    "subject": "科学常识",
+    "type": "单选题",
+    "knowledge": "空气的成分",
+    "question": "空气中含量最多的气体是",
+    "options": [
+      "A. 氧气",
+      "B. 二氧化碳",
+      "C. 氮气",
+      "D. 稀有气体"
+    ],
+    "answer": "C",
+    "explanation": "按体积计算，空气中氮气约占78%，氧气约占21%，稀有气体约占0.94%，二氧化碳约0.03%，因此含量最多的是氮气故选C。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_158",
+    "stage": "通用",
+    "subject": "科学常识",
+    "type": "单选题",
+    "knowledge": "免疫与疫苗原理",
+    "question": "接种疫苗能够预防相应传染病的主要原理是",
+    "options": [
+      "A. 疫苗可以直接杀灭侵入人体的病原体",
+      "B. 疫苗能全面提高人体对所有疾病的抵抗力",
+      "C. 疫苗作为抗原刺激机体产生特异性免疫和免疫记忆",
+      "D. 疫苗能改变病原体的遗传结构使其变弱"
+    ],
+    "answer": "C",
+    "explanation": "疫苗通常是用灭活或减毒的病原体制成的生物制品，作为抗原有意识地刺激机体产生抗体和记忆细胞；再次接触同种病原体时，免疫应答更快更强，从而获得对该病原体的特异性免疫力。它不直接杀菌，也只对特定病原体有效故选C。",
+    "difficulty": 2,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_159",
+    "stage": "通用",
+    "subject": "科学常识",
+    "type": "单选题",
+    "knowledge": "惯性",
+    "question": "物体的惯性大小只取决于",
+    "options": [
+      "A. 所受外力的大小",
+      "B. 运动速度的大小",
+      "C. 接触面的粗糙程度",
+      "D. 质量的大小"
+    ],
+    "answer": "D",
+    "explanation": "惯性是物体保持原有运动状态的性质，是物体的固有属性，其唯一量度是质量：质量越大惯性越大，与速度、受力、接触面情况都无关。高速行驶难刹停是因为动量大、动能大，不是因为惯性随速度增大故选D。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  },
+  {
+    "id": "qt_160",
+    "stage": "通用",
+    "subject": "科学常识",
+    "type": "单选题",
+    "knowledge": "温室效应",
+    "question": "导致全球气候变暖最主要的温室气体，也是人类排放量最大的是",
+    "options": [
+      "A. 氧气",
+      "B. 臭氧",
+      "C. 氮气",
+      "D. 二氧化碳"
+    ],
+    "answer": "D",
+    "explanation": "化石燃料燃烧和毁林使大气中二氧化碳浓度显著上升，它强烈吸收地表长波辐射，是当前温室效应增强的主要贡献者。甲烷、氧化亚氮等也属温室气体，但总量与作用不及二氧化碳；氧气、氮气不吸收长波辐射，不是温室气体故选D。",
+    "difficulty": 1,
+    "source": "模拟原创题"
+  }
+]
