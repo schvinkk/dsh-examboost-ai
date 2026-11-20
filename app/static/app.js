@@ -355,7 +355,20 @@ async function generateFromMaterial() {
         <div class="mt8"><b>${i+1}. ${esc(q.question)}</b></div>
         <div class="note mt8">${esc(q.explanation||"")}</div></div>`;
     }).join("")}
-    <div class="row mt8"><a class="btn sm sec" href="/api/export">下载离线包（含这些题）</a></div>`;
+    <div class="row mt8"><button class="btn sm sec" id="btnDownloadGrounded">⬇️ 把题目做成离线刷题网页</button></div>
+    <div class="note mt8">点上面按钮会下载一个单独的 HTML 文件，双击就能刷题，答题记录存在浏览器里，下次打开还在，也能发给别人用。</div>`;
+  // Download the REAL offline quiz HTML built from the generated questions.
+  window._groundedHtml = d.html || '';
+  window._groundedTitle = `${mat_name_for_download()}·溯源练习`;
+  $("btnDownloadGrounded").onclick = () => {
+    if (!window._groundedHtml) { toast('没有可下载的内容，请重新生成'); return; }
+    downloadHtml(window._groundedHtml, (window._groundedTitle || '题库') + '.html');
+    toast('已下载，双击打开即可离线刷题');
+  };
+}
+function mat_name_for_download() {
+  const sel = $('genMatId');
+  return (sel && sel.selectedOptions[0] ? sel.selectedOptions[0].text : '我的题库') || '我的题库';
 }
 
 /* ============ v2：资料中枢 ============ */
@@ -394,6 +407,37 @@ async function loadHubFavs() {
     ? favs.map((f) => `<div class="kv"><div><b>${esc(f.title)}</b><div class="note mono">${esc(f.url)}</div></div>
         <a class="btn xs" href="${esc(f.url)}" target="_blank" rel="noopener">打开</a></div>`).join("")
     : '<div class="note">还没有收藏。找到好资料可存这里。</div>';
+}
+
+/* ============ 亮点：把题库做成离线刷题网页 ============ */
+async function openBankSheet() {
+  const d = await api("/api/bank/stats");
+  const facData = await api("/api/offline-bank?subjects=1");
+  const cleanSubjects = facData.subjects || [];
+  openSheet(`
+    <h3>📦 做离线题库网页</h3>
+    <p class="note">下载一个单独的 HTML 文件，双击就能像软件一样刷题。答题记录存在浏览器本地，下次打开还在，可发给别人用。题目自动按科目分栏，可切换。</p>
+    <div class="note mt8">当前题库：内置 ${d.builtin||0} + 我的 ${d.user||0} 题</div>
+    <label class="mt8">打包范围</label>
+    <select id="bankScope">
+      <option value="all">全部题目（内置 + 我的）</option>
+      <option value="mine">只要我的资料/AI 生成的题</option>
+    </select>
+    <label class="mt8">只要某一科（可选）</label>
+    <select id="bankSubject"><option value="">全部科目</option>${cleanSubjects.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('')}</select>
+    <div class="row mt14">
+      <button class="btn" id="btnBankDownload">⬇️ 下载离线题库</button>
+    </div>
+    <button class="btn full mt8" onclick="closeSheet()">关闭</button>`);
+  $("btnBankDownload").onclick = () => {
+    const scope = $("bankScope").value;
+    const subj = $("bankSubject").value;
+    const url = `/api/offline-bank?only=${encodeURIComponent(scope)}&subject=${encodeURIComponent(subj)}`;
+    const a = document.createElement("a");
+    a.href = url; a.download = ""; document.body.appendChild(a); a.click(); a.remove();
+    toast("已开始下载，双击 HTML 即可离线刷题");
+    closeSheet();
+  };
 }
 
 /* ---------------- 首页 ---------------- */
@@ -1175,6 +1219,8 @@ function bind() {
   $("chatInput").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); } });
   // —— v2 新增：画像 / 资料 / 溯源出题 / 资料中枢 ——
   $("btnEditProfile").onclick = startOnboard;
+  $("hlFind").onclick = () => go("sources");
+  $("hlBank").onclick = openBankSheet;
   $("btnRefreshAdvice").onclick = loadHomeAdvice;
   $("btnMatImport").onclick = importMaterial;
   $("matFile").onchange = onFileSelected;

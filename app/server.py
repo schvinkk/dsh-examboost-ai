@@ -32,7 +32,7 @@ import fsrs
 
 APP_DIR = Path(__file__).resolve().parent
 DATA_DIR = APP_DIR / "data"
-VERSION = "2.0.0"
+VERSION = "2.0.1"
 DEFAULT_PORT = 3000
 
 STORE = edata.Store(DATA_DIR)
@@ -535,6 +535,8 @@ class Handler(SimpleHTTPRequestHandler):
                                 "service_count": len(services), "total_favorites": len(favs)})
             elif p == "/api/export":
                 self.handle_export()
+            elif p == "/api/offline-bank":
+                self.handle_offline_bank(q)
             elif p == "/api/bank/stats":
                 self.send_json({"builtin": BANK.builtin_count(),
                                 "user": len(BANK.user_questions()),
@@ -1225,6 +1227,38 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_json({"ok": True})
         else:
             self.send_json({"error": "未知操作"}, 400)
+
+    def handle_offline_bank(self, q):
+        """把所有题目打包成一个多科离线刷题 HTML，直接下载。
+
+        支持 ?subject=行测 过滤；不带参数则打包全部（内置+我的），按科目分栏。
+        这正是用户要的亮点：把题库做成网页版软件，多科可切，进度存本地。
+        """
+        only = str(q.get("only", "") or "")  # all = 只我的题；空 = 全部
+        subject_filter = str(q.get("subject", "") or "").strip()
+        # ?subjects=1 只返回科目列表（给前端下拉用，用题库里真实的 subject 值）
+        if str(q.get("subjects", "")) == "1":
+            names = sorted({str(x.get("subject", "")).strip() for x in BANK.all_questions()
+                            if str(x.get("subject", "")).strip()})
+            self.send_json({"subjects": names})
+            return
+        items = BANK.all_questions() if only != "mine" else BANK.user_questions()
+        if subject_filter:
+            items = [x for x in items if subject_filter in str(x.get("subject", ""))]
+        # 按科目排序，让同科题聚在一起
+        items = sorted(items, key=lambda x: (str(x.get("subject", "")), str(x.get("id", ""))))
+        title = "我的多科题库" if only == "mine" else "ExamBoost 综合题库"
+        if subject_filter:
+            title = f"{subject_filter}题库"
+        html = eqiz.make_quiz_html(title, "综合", items)
+        data = html.encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Disposition",
+                         "attachment; filename*=UTF-8''" + urllib.parse.quote(title + ".html"))
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
 
     def handle_export(self):
         payload = {

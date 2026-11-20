@@ -5,7 +5,7 @@ description: |
 license: MIT
 metadata:
   author: ExamBoost AI
-  version: "2.0.0"
+  version: "2.0.1"
   homepage: github.com/schvinkk/dsh-examboost-ai
   language: zh-CN
 ---

@@ -227,6 +227,9 @@ def normalize(q, fallback_tag="q"):
         "difficulty": diff,
         "source": str(q.get("source") or "模拟原创题").strip(),
         "is_choice": bool(options) and bool(answer),
+        "provenance": str(q.get("provenance") or "").strip(),
+        "source_para": str(q.get("source_para") or "").strip(),
+        "source_material": str(q.get("source_material") or "").strip(),
     }
 
 

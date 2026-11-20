@@ -40,6 +40,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
   color:var(--mu);cursor:pointer;border-radius:999px;white-space:nowrap;font-family:inherit;transition:.15s}
 .bar button.on{background:var(--p);color:#fff;font-weight:600}
 .bar button:not(.on):active{background:var(--bg)}
+.subjbar{display:flex;gap:6px;padding:8px 12px;background:var(--card);border-bottom:1px solid var(--bd);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.subjbar::-webkit-scrollbar{display:none}
+.subjbar button{flex:0 0 auto;padding:5px 12px;border:1px solid var(--bd);border-radius:999px;background:var(--bg);color:var(--mu);font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.subjbar button.on{background:var(--p);color:#fff;border-color:var(--p);font-weight:600}
 .wrap{max-width:820px;margin:0 auto;padding:14px 14px calc(80px + env(safe-area-inset-bottom))}
 .pg{display:none}.pg.on{display:block;animation:fade .2s}
 @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
@@ -123,6 +127,7 @@ label{font-size:12px;color:var(--mu);display:block;margin-bottom:5px;font-weight
   <button data-pg="st">📊 统计</button>
   <button data-pg="set">⚙️ 设置</button>
 </div>
+<div class="subjbar" id="subjbar" style="display:none"></div>
 <div class="wrap">
 
   <div class="pg on" id="pg-do">
@@ -217,6 +222,7 @@ label{font-size:12px;color:var(--mu);display:block;margin-bottom:5px;font-weight
 "use strict";
 window.QUIZ=__QUIZ_JSON__;
 const QS=QUIZ.questions||[];
+const SUBJECTS=[...new Set(QS.map(q=>String(q.subject||'').trim()).filter(Boolean))];
 const KEY='ebq_'+QUIZ.id;
 const $=id=>document.getElementById(id);
 let S=load();
@@ -226,12 +232,13 @@ let cur=0,t0=Date.now(),timer=null;
 function load(){
   try{const d=JSON.parse(localStorage.getItem(KEY)||'null');
     if(d&&d.v===2)return d;}catch(e){}
-  return {v:2,answers:{},wrong:{},cleared:{},flags:{},cards:{},notes:{},
+  return {v:2,answers:{},wrong:{},cleared:{},flags:{},cards:{},notes:{},subj:'',
     settings:{rand:false,instant:true,loop:false},ms:0,order:null};
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('保存失败：浏览器存储已满或被禁用');}}
 function buildOrder(){
   let idx=QS.map((_,i)=>i);
+  if(S.subj)idx=idx.filter(i=>String(QS[i].subject||'').trim()===S.subj);
   if(S.settings.loop&&Object.keys(S.wrong).length){
     const w=Object.keys(S.wrong).map(Number).filter(i=>!S.cleared[i]&&i<idx.length);
     if(w.length)return w;
@@ -252,13 +259,29 @@ let toastT=null;
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('on');
   clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2200);}
 
+// ---------- 科目筛选 ----------
+function renderSubjectBar(){
+  const bar=$('subjbar');
+  if(SUBJECTS.length<2){bar.style.display='none';return;}
+  bar.style.display='flex';
+  const all=['全部',...SUBJECTS];
+  const active=S.subj||'全部';
+  bar.innerHTML=all.map(x=>'<button class="'+(x===active?'on':'')+'" data-s="'+esc(x===active?'':x)+'">'+(x==='全部'?'📚 全部':esc(x))+'</button>').join('');
+  bar.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+    S.subj=b.dataset.s||'';
+    order=buildOrder();cur=0;
+    save();renderSubjectBar();renderDo();
+    const jp=document.getElementById('pg-do');if(jp)window.scrollTo({top:0,behavior:'smooth'});
+  });
+}
+
 // ---------- 刷题 ----------
 function renderDo(){
   if(!QS.length){$('doQ').innerHTML='<div class="empty"><div class="big">📭</div>本卷没有题目</div>';
     $('doOpts').innerHTML='';$('doMeta').textContent='';return;}
   cur=Math.max(0,Math.min(cur,order.length-1));
   const i=real(cur),q=QS[i],a=S.answers[i];
-  $('doMeta').innerHTML='<span class="tag">'+(i+1)+' / '+QS.length+'</span> '+
+  $('doMeta').innerHTML='<span class="tag">'+(cur+1)+' / '+order.length+'</span> '+
     (q.knowledge?'<span class="tag g">'+esc(q.knowledge)+'</span>':'')+
     (q.subject?'<span class="tag">'+esc(q.subject)+'</span>':'')+
     (S.flags[i]?' <span class="tag w">🚩 已标记</span>':'');
@@ -284,10 +307,10 @@ function renderDo(){
     ex.innerHTML='<div class="expl '+(ok?'good':'bad')+'"><div class="h">'+(ok?'✅ 回答正确':'❌ 回答错误 · 正确答案 '+norm(q.answer))+'</div>'+
       (q.explanation?esc(q.explanation):'（本题暂无解析）')+'</div>';
   }else ex.innerHTML='';
-  const done=Object.keys(S.answers).length,pct=QS.length?Math.round(done/QS.length*100):0;
+  const done=order.filter(i=>S.answers[i]!==undefined).length,pct=order.length?Math.round(done/order.length*100):0;
   $('doProg').style.width=pct+'%';
   $('hdPill').textContent=pct+'%';
-  $('hdSub').textContent=QUIZ.subject+' · 共 '+QS.length+' 题 · 已做 '+done;
+  $('hdSub').textContent=(S.subj||QUIZ.subject||'全部')+' · 本页 '+order.length+' 题 · 已做 '+done;
   $('doPrev').disabled=cur===0;
   $('doNext').disabled=cur>=order.length-1;
   $('doFlag').textContent=S.flags[i]?'🚩 取消标记':'🚩 标记';
@@ -309,7 +332,7 @@ function enqueueCard(i){
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function renderJump(){
   const box=$('doJumpList');box.innerHTML='';
-  const max=QS.length>120?120:QS.length;
+  const max=order.length>120?120:order.length;
   for(let k=0;k<max;k++){
     const i=real(k),a=S.answers[i],b=document.createElement('button');
     b.textContent=i+1;
@@ -319,7 +342,7 @@ function renderJump(){
     b.onclick=()=>{cur=k;renderDo();window.scrollTo({top:0,behavior:'smooth'});};
     box.appendChild(b);
   }
-  if(QS.length>120){const s=document.createElement('span');s.className='note';s.textContent='（仅显示前 120 题）';box.appendChild(s);}
+  if(order.length>120){const s=document.createElement('span');s.className='note';s.textContent='（仅显示前 120 题）';box.appendChild(s);}
 }
 
 // ---------- 背题 ----------
@@ -467,6 +490,7 @@ document.addEventListener('keydown',e=>{
   if(S.order&&S.order.length===QS.length){/* 保留上次顺序 */}
   const firstUn=QS.findIndex((q,i)=>S.answers[i]===undefined);
   if(firstUn>=0){const pos=order.indexOf(firstUn);if(pos>=0)cur=pos;}
+  renderSubjectBar();
   renderDo();
   if(!QS.length)$('foot').innerHTML='本卷题目为空，请回到 ExamBoost 重新生成';
 })();
