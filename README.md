@@ -101,6 +101,7 @@ dsh plugin --profile web add /绝对路径/dsh-examboost-ai/dsh-go-plugin
 ```
 dsh-examboost-ai/
 ├── app/                      # 独立软件
+│   ├── README.md             # 包内快速上手（解压后先看这个）
 │   ├── server.py             # HTTP 服务与 API 路由（标准库）
 │   ├── edata.py              # 存储层 + SM-2 / BKT 算法
 │   ├── ellm.py               # 模型接入：探测、回落、限流重试
