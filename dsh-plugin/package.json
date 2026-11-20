@@ -1,0 +1,26 @@
+{
+  "name": "dsh-examboost-ai",
+  "version": "0.2.1",
+  "description": "ExamBoost AI - 综合备考学习引擎，覆盖小学、初中、高中、大学、考公考编、考研、四六级等全学段（行测、申论、职测、综应、公基、公文、面试、时政、报考）",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "dsh-plugin",
+    "ai-study",
+    "exam-prep",
+    "kaogong",
+    "civil-service",
+    "study"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "cordis.patch.yml"
+    },
+    "client": {
+      "entry": "client.js"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

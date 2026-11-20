@@ -1,0 +1,17 @@
+{
+  "name": "ExamBoost AI",
+  "short_name": "ExamBoost",
+  "description": "综合备考学习引擎：覆盖小学、初中、高中、大学、考公考编、考研、四六级等全学段，通用学习 + 智能复习 + 资料检索 + 离线刷题",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/static/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

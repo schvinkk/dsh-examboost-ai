@@ -1,0 +1,8 @@
+# ExamBoost AI DSH 插件挂载配置
+# 借鉴 DSH 官方插件开发规范（DeepSeek Harness，MIT）
+# 参考：dsh-plugin-lookatstudy（Kaiji-Z，MIT）、dsh-plugins-exam-practice（cypher-yht，MIT）
+
+- id: dsh-examboost-ai
+  name: dsh-examboost-ai
+  config:
+    dataRoot: $DSH_HOME/storages/dsh-examboost-ai

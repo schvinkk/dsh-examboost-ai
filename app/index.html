@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/static/icon.svg">
+  <title>ExamBoost AI 综合备考</title>
+  <style>
+    :root {
+      --primary: #4f46e5; --primary-light: #7c73ff; --primary-dark: #3730a3;
+      --bg: #f8fafc; --card: #ffffff; --border: #e2e8f0;
+      --text: #1e293b; --muted: #64748b; --success: #10b981; --error: #ef4444;
+      --warn: #f59e0b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); }
+    .header { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .header h1 { font-size: 18px; font-weight: 700; }
+    .header .badge { background: rgba(255,255,255,.2); padding: 3px 10px; border-radius: 999px; font-size: 11px; }
+    .nav { display: flex; background: var(--card); border-bottom: 1px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .nav button { flex: 1; min-width: 70px; padding: 12px 8px; border: none; background: none; font-size: 13px; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+    .nav button.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+    .container { max-width: 900px; margin: 0 auto; padding: 16px; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+    .card h3 { font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 12px; }
+    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }
+    .stat .num { font-size: 22px; font-weight: 700; color: var(--primary); }
+    .stat .label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .btn { display: inline-block; background: var(--primary); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 14px; cursor: pointer; transition: opacity .15s; }
+    .btn:hover { opacity: .9; }
+    .btn.secondary { background: var(--card); color: var(--primary); border: 1px solid var(--primary); }
+    .btn.danger { background: var(--error); }
+    .btn.sm { padding: 6px 12px; font-size: 12px; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .option { display: block; width: 100%; text-align: left; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 14px; margin-bottom: 8px; cursor: pointer; transition: all .15s; }
+    .option:hover { border-color: var(--primary); }
+    .option.correct { border-color: var(--success); background: #ecfdf5; }
+    .option.wrong { border-color: var(--error); background: #fef2f2; }
+    .explanation { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px; font-size: 13px; line-height: 1.6; margin-top: 10px; }
+    .explanation.err { background: #fef2f2; border-color: #fecaca; }
+    input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; margin-bottom: 10px; font-family: inherit; }
+    label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; }
+    .mistake-item { border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; background: var(--card); }
+    .mistake-item .q { font-size: 13px; line-height: 1.6; }
+    .mistake-item .meta { font-size: 11px; color: var(--muted); margin-top: 6px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { display: inline-block; background: #eef2ff; color: var(--primary); border-radius: 999px; padding: 2px 8px; font-size: 11px; }
+    .tag.warn { background: #fef3c7; color: #b45309; }
+    .tag.ok { background: #d1fae5; color: #047857; }
+    .review-item { border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+    .review-item .q { font-size: 13px; margin-bottom: 8px; }
+    .quality { display: flex; gap: 8px; flex-wrap: wrap; }
+    .quality button { flex: 1; min-width: 56px; padding: 8px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); font-size: 12px; cursor: pointer; }
+    .quality button:hover { border-color: var(--primary); }
+    .plan-phase { border-left: 3px solid var(--primary); padding: 10px 14px; margin-bottom: 10px; background: var(--card); border-radius: 0 8px 8px 0; }
+    .plan-phase .name { font-weight: 600; font-size: 13px; }
+    .plan-phase .range { font-size: 11px; color: var(--muted); }
+    .empty { text-align: center; color: var(--muted); font-size: 13px; padding: 24px; }
+    .footer { text-align: center; padding: 20px; color: var(--muted); font-size: 11px; }
+    @media (max-width: 600px) {
+      .header { padding: 12px 14px; }
+      .header h1 { font-size: 16px; }
+      .container { padding: 12px; }
+      .stat .num { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📚 ExamBoost AI 综合备考</h1>
+    <span class="badge" id="version">v0.2.1</span>
+  </div>
+
+  <nav class="nav">
+    <button class="active" data-page="dashboard">📊 仪表盘</button>
+    <button data-page="practice">✏️ 刷题</button>
+    <button data-page="mistakes">📕 错题本</button>
+    <button data-page="review">⏰ 复习</button>
+    <button data-page="plan">📅 学习计划</button>
+    <button data-page="ai">🤖 AI 助手</button>
+    <button data-page="sources">🌐 资源中心</button>
+    <button data-page="pan">📦 网盘搜</button>
+    <button data-page="generator">🛠️ 生成刷题工具</button>
+    <button data-page="settings">⚙️ 设置</button>
+  </nav>
+
+  <div class="container">
+    <!-- 仪表盘 -->
+    <div class="page active" id="dashboard">
+      <div class="stats-grid">
+        <div class="stat"><div class="num" id="st-answered">0</div><div class="label">已答题</div></div>
+        <div class="stat"><div class="num" id="st-accuracy">0%</div><div class="label">正确率</div></div>
+        <div class="stat"><div class="num" id="st-mistakes">0</div><div class="label">错题数</div></div>
+        <div class="stat"><div class="num" id="st-due">0</div><div class="label">待复习</div></div>
+      </div>
+      <div class="card">
+        <h3>🎯 掌握度</h3>
+        <div id="knowledge-list"><div class="empty">还没有学习记录，先去刷题吧</div></div>
+      </div>
+      <div class="card">
+        <h3>⚡ 薄弱点提示</h3>
+        <p id="weakest-text">暂无数据，完成几道题后这里会提示最薄弱科目。</p>
+      </div>
+    </div>
+
+    <!-- 刷题 -->
+    <div class="page" id="practice">
+      <div class="card">
+        <h3>✏️ 开始刷题</h3>
+        <select id="subject-select">
+          <option value="">全部科目</option>
+          <option value="行测">行测</option>
+          <option value="申论">申论</option>
+          <option value="考研政治">考研政治</option>
+          <option value="英语">英语</option>
+        </select>
+        <button class="btn" id="btn-new-question">抽一题</button>
+      </div>
+      <div class="card" id="question-card" style="display:none">
+        <h3 id="q-meta"></h3>
+        <p id="q-text" style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px"></p>
+        <div id="q-options"></div>
+        <div id="q-result" style="display:none"></div>
+        <button class="btn secondary sm" id="btn-again" style="display:none;margin-top:10px">再抽一题</button>
+      </div>
+    </div>
+
+    <!-- 错题本 -->
+    <div class="page" id="mistakes">
+      <div class="card">
+        <h3>📕 错题本</h3>
+        <div id="mistake-list"><div class="empty">暂无错题，继续努力！</div></div>
+      </div>
+    </div>
+
+    <!-- 复习 -->
+    <div class="page" id="review">
+      <div class="card">
+        <h3>⏰ 到期复习（间隔重复）</h3>
+        <div id="review-list"><div class="empty">暂无到期复习卡片</div></div>
+      </div>
+    </div>
+
+    <!-- 学习计划 -->
+    <div class="page" id="plan">
+      <div class="card">
+        <h3>📅 生成学习计划</h3>
+        <label>考试日期（YYYY-MM-DD）</label>
+        <input type="date" id="plan-date">
+        <label>每日学习时间（小时）</label>
+        <input type="number" id="plan-hours" value="2" min="0.5" max="16" step="0.5">
+        <label>科目 / 考试名称</label>
+        <input type="text" id="plan-subject" value="公务员考试">
+        <button class="btn" id="btn-plan">生成计划</button>
+      </div>
+      <div id="plan-result"></div>
+    </div>
+
+    <!-- AI 助手（调用本地免费模型） -->
+    <div class="page" id="ai">
+      <div class="card">
+        <h3>🤖 AI 助手 <span id="ai-model" class="tag" style="display:none"></span></h3>
+        <div id="chat-box" style="max-height:420px;overflow-y:auto;margin-bottom:10px">
+          <div class="empty" id="chat-empty">还没开始对话。AI 助手需要连接本地免费模型（dsh-our-free-model），请先在「设置」中配置并测试。示例问：帮我出一道理科数量题。</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <input type="text" id="chat-input" placeholder="问 AI 任何备考问题..." style="margin-bottom:0;flex:1">
+          <button class="btn" id="btn-chat">发送</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 资源中心（官方平台 + 培训机构） -->
+    <div class="page" id="sources">
+      <div class="card">
+        <h3>🌐 资源中心 <span id="src-count" class="tag"></span></h3>
+        <p style="margin-bottom:12px">汇聚官方考试平台（公告、考纲）与培训机构网站（资源、资料）。点击即可打开，也可添加你自己的信息源。</p>
+        <div id="src-filters" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+          <button class="btn sm secondary" data-filter="全部">全部</button>
+          <button class="btn sm secondary" data-filter="官方">官方</button>
+          <button class="btn sm secondary" data-filter="培训机构">培训机构</button>
+          <button class="btn sm secondary" data-filter="自定义">自定义</button>
+        </div>
+        <div id="source-list"></div>
+      </div>
+      <div class="card">
+        <h3>➕ 添加自定义信息源</h3>
+        <label>名称</label>
+        <input type="text" id="src-name" placeholder="如：某省人事考试网">
+        <label>网址</label>
+        <input type="text" id="src-url" placeholder="https://...">
+        <label>分类</label>
+        <select id="src-category">
+          <option>官方</option>
+          <option>培训机构</option>
+          <option>自定义</option>
+        </select>
+        <label>适用考试（可选）</label>
+        <input type="text" id="src-exam" placeholder="如：公务员、事业单位、考研">
+        <label>说明（可选）</label>
+        <input type="text" id="src-desc" placeholder="这个网站提供什么">
+        <button class="btn" id="btn-add-source">添加</button>
+        <div id="src-result" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <!-- 网盘搜（聚合网盘资料检索） -->
+    <div class="page" id="pan">
+      <div class="card">
+        <h3>📦 网盘资料搜索</h3>
+        <p style="margin-bottom:12px">一次搜索覆盖阿里云盘、夸克、百度网盘、115、迅雷等全平台网盘资源（学习资料、真题、课程等）。输入关键词，选择搜索服务，即可直达结果。</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input type="text" id="pan-kw" placeholder="输入关键词，如：考研数学 真题 / 公务员 行测 / 高中物理" style="flex:1;min-width:200px">
+          <select id="pan-service" style="width:auto"></select>
+          <button class="btn" id="btn-pan-search">搜索</button>
+        </div>
+        <div id="pan-services-detail" style="margin-top:10px"></div>
+      </div>
+      <div class="card">
+        <h3>🔖 我的网盘资料收藏 <span id="pan-fav-count" class="tag"></span></h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <input type="text" id="pan-fav-title" placeholder="标题（如：考研英语真题）" style="flex:1;min-width:150px">
+          <input type="text" id="pan-fav-url" placeholder="网盘分享链接" style="flex:1;min-width:200px">
+          <button class="btn secondary sm" id="btn-pan-fav">收藏</button>
+        </div>
+        <div id="pan-fav-list"><div class="empty">暂无收藏，搜到的网盘资料可收藏到这里方便以后查看</div></div>
+      </div>
+      <div class="card">
+        <h3>🛠️ 自建网盘搜索服务（可选，Docker 一键部署）</h3>
+        <p style="margin-bottom:8px">想完全自己掌控，可 Docker 部署一个本地网盘搜索服务：</p>
+        <pre style="background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:12px;font-size:12px;overflow-x:auto;line-height:1.6" id="pan-docker-cmds"></pre>
+        <p style="font-size:11px;color:var(--muted);margin-top:8px">部署后在搜索服务下拉框选择「本地部署」即可使用（本机 localhost 地址）。</p>
+      </div>
+    </div>
+
+    <!-- 生成刷题工具（资料→离线网页刷题软件） -->
+    <div class="page" id="generator">
+      <div class="card">
+        <h3>🛠️ 生成离线刷题工具</h3>
+        <p style="margin-bottom:12px">把知识点、考纲、真题喂给 AI，自动出题并生成<b>离线网页刷题软件</b>。点开就像软件一样刷题，记录存本地，下次打开还在。</p>
+        <label>标题</label>
+        <input type="text" id="gen-title" value="模拟试卷">
+        <label>科目 / 学段</label>
+        <input type="text" id="gen-subject" value="公务员行测" placeholder="如：小学三年级数学、高中物理、考研英语、行测">
+        <label>题量</label>
+        <input type="number" id="gen-count" value="10" min="1" max="50">
+        <label>你的知识点 / 考纲 / 真题资料（粘贴文本）</label>
+        <textarea id="gen-text" rows="6" placeholder="把知识点、考纲、真题文本粘贴到这里..."></textarea>
+        <button class="btn" id="btn-gen-ai" style="margin-right:8px">🤖 用 AI 生成题目</button>
+        <button class="btn secondary" id="btn-gen-download" disabled>⬇️ 生成并下载离线网页</button>
+        <div id="gen-result" style="margin-top:12px"></div>
+      </div>
+      <div class="card">
+        <h3>📋 手动导入题目（JSON）</h3>
+        <p style="margin-bottom:12px">也可直接粘贴题目 JSON（格式：{"question":"...","options":["A. ..."],"answer":"A","explanation":"...","knowledge":"..."}），跳过 AI。</p>
+        <textarea id="gen-json" rows="5" placeholder='[{"question":"题干","options":["A.1","B.2","C.3","D.4"],"answer":"B","explanation":"解析","knowledge":"知识点"}]'></textarea>
+        <button class="btn secondary" id="btn-gen-json">从 JSON 生成</button>
+      </div>
+    </div>
+
+    <!-- 设置（LLM 配置） -->
+    <div class="page" id="settings">
+      <div class="card">
+        <h3>⚙️ 本地模型设置（dsh-our-free-model）</h3>
+        <p style="margin-bottom:12px">独立软件通过本地免费模型服务自行调用大模型，不依赖 AI 应用。需先启动 <b>dsh-our-free-model</b> 独立服务（默认端口 18900）或 DSH 插件转发端口（18899）。</p>
+        <label>服务地址（Base URL）</label>
+        <input type="text" id="llm-url" placeholder="http://127.0.0.1:18900/v1">
+        <label>模型 ID（可点「测试连接」查看可用模型）</label>
+        <input type="text" id="llm-model" placeholder="deepseek-v4.1-flash">
+        <label>API Key（本机服务可留空）</label>
+        <input type="password" id="llm-key" placeholder="留空或填本地 Key">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" id="btn-llm-save">保存配置</button>
+          <button class="btn secondary" id="btn-llm-test">测试连接</button>
+        </div>
+        <div id="llm-result" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">ExamBoost AI · 综合备考学习引擎 · 数据仅保存在本地</div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const api = async (path, opts) => {
+      const res = await fetch(path, opts);
+      return res.json();
+    };
+    const POST = (body) => ({ method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+
+    // 导航
+    document.querySelectorAll('.nav button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        $(btn.dataset.page).classList.add('active');
+        if (btn.dataset.page === 'dashboard') loadDashboard();
+        if (btn.dataset.page === 'mistakes') loadMistakes();
+        if (btn.dataset.page === 'review') loadReview();
+        if (btn.dataset.page === 'settings') loadLlmConfig();
+        if (btn.dataset.page === 'sources') loadSources();
+        if (btn.dataset.page === 'pan') loadPan();
+      });
+    });
+
+    // 仪表盘
+    async function loadDashboard() {
+      const d = await api('/api/stats');
+      $('st-answered').textContent = d.total_answered;
+      $('st-accuracy').textContent = d.accuracy + '%';
+      $('st-mistakes').textContent = d.mistakes;
+      const rev = await api('/api/review');
+      $('st-due').textContent = rev.total_due;
+      // 掌握度列表
+      const kl = $('knowledge-list');
+      const k = Object.entries(d.knowledge || {});
+      if (k.length === 0) { kl.innerHTML = '<div class="empty">还没有学习记录，先去刷题吧</div>'; }
+      else {
+        kl.innerHTML = k.map(([subj, info]) => {
+          const pct = Math.round(info.prob * 100);
+          const cls = info.mastered ? 'tag ok' : (pct < 40 ? 'tag warn' : 'tag');
+          return `<div style="margin-bottom:8px"><span class="${cls}">${subj}</span> <span style="font-size:12px;color:var(--muted)">掌握度 ${pct}% ${info.mastered ? '· 已掌握' : ''}</span></div>`;
+        }).join('');
+      }
+      $('weakest-text').textContent = d.weakest
+        ? `最薄弱科目：${d.weakest.subject}（掌握度 ${Math.round(d.weakest.prob*100)}%），建议优先复习。`
+        : '暂无数据，完成几道题后这里会提示最薄弱科目。';
+    }
+
+    // 刷题
+    let currentQuestion = null;
+    $('btn-new-question').addEventListener('click', loadQuestion);
+    $('btn-again').addEventListener('click', () => { $('question-card').style.display = 'none'; loadQuestion(); });
+
+    async function loadQuestion() {
+      const subject = $('subject-select').value;
+      const d = await api('/api/questions' + (subject ? '?subject=' + encodeURIComponent(subject) : ''));
+      if (d.total === 0) { alert('该科目暂无题目'); return; }
+      // 过滤无选项的开放题（独立软件暂只支持选择题）
+      const choices = (d.questions || []).filter(q => q.options && q.options.length > 0);
+      if (choices.length === 0) { alert('该科目暂无选择题'); return; }
+      currentQuestion = choices[0];
+      $('q-meta').innerHTML = `<span class="tag">${currentQuestion.subject}</span> <span class="tag">${currentQuestion.type}</span>`;
+      $('q-text').textContent = currentQuestion.question;
+      const opts = $('q-options');
+      opts.innerHTML = '';
+      $('q-result').style.display = 'none';
+      $('btn-again').style.display = 'none';
+      $('question-card').style.display = 'block';
+      (currentQuestion.options || []).forEach(opt => {
+        const b = document.createElement('button');
+        b.className = 'option';
+        b.textContent = opt;
+        b.onclick = () => submitAnswer(opt);
+        opts.appendChild(b);
+      });
+      if (!currentQuestion.options || currentQuestion.options.length === 0) {
+        opts.innerHTML = '<p style="font-size:13px;color:var(--muted)">开放题，请用文字作答（当前版暂支持选择题）</p>';
+      }
+    }
+
+    async function submitAnswer(choice) {
+      const letter = choice.split('.')[0].trim();
+      const d = await api('/api/answer', POST({
+        id: currentQuestion.id, answer: letter, subject: currentQuestion.subject,
+        knowledge: currentQuestion.knowledge, correct_answer: currentQuestion.answer,
+        question: currentQuestion.question, reason: '未分类'
+      }));
+      // 高亮
+      document.querySelectorAll('.option').forEach(b => {
+        const bl = b.textContent.split('.')[0].trim();
+        if (bl === currentQuestion.answer) b.classList.add('correct');
+        if (bl === letter && !d.correct) b.classList.add('wrong');
+        b.disabled = true;
+      });
+      const r = $('q-result');
+      r.style.display = 'block';
+      r.innerHTML = `<div class="explanation ${d.correct ? '' : 'err'}">${d.correct ? '✅ 回答正确！' : '❌ 回答错误，正确答案：' + currentQuestion.answer}<br>💡 ${currentQuestion.explanation}</div>`;
+      $('btn-again').style.display = 'inline-block';
+      loadDashboard();
+    }
+
+    // 错题本
+    async function loadMistakes() {
+      const d = await api('/api/mistakes');
+      const list = $('mistake-list');
+      if (d.total === 0) { list.innerHTML = '<div class="empty">暂无错题，继续努力！</div>'; return; }
+      list.innerHTML = d.mistakes.slice().reverse().map(m => `
+        <div class="mistake-item">
+          <div class="q">${m.question}</div>
+          <div class="meta">
+            <span class="tag">${m.subject}</span>
+            <span class="tag warn">错因：${m.reason}</span>
+            <span>${new Date(m.created).toLocaleDateString()}</span>
+          </div>
+        </div>`).join('');
+    }
+
+    // 复习（SM-2）
+    async function loadReview() {
+      const d = await api('/api/review');
+      const list = $('review-list');
+      if (d.total_due === 0) { list.innerHTML = '<div class="empty">暂无到期复习卡片</div>'; return; }
+      list.innerHTML = d.due.map(c => `
+        <div class="review-item">
+          <div class="q">📌 ${c.subject || '知识点'}</div>
+          <div class="quality">
+            <button onclick="reviewCard('${c.id}',0)">😵 忘了</button>
+            <button onclick="reviewCard('${c.id}',3)">🤔 勉强</button>
+            <button onclick="reviewCard('${c.id}',5)">😄 熟练</button>
+          </div>
+        </div>`).join('');
+    }
+    async function reviewCard(id, quality) {
+      await api('/api/review', POST({ id, quality }));
+      loadReview(); loadDashboard();
+    }
+
+    // 学习计划
+    $('btn-plan').addEventListener('click', async () => {
+      const d = await api('/api/plan', POST({
+        exam_date: $('plan-date').value,
+        daily_hours: parseFloat($('plan-hours').value),
+        subject: $('plan-subject').value
+      }));
+      const res = $('plan-result');
+      if (d.error) { res.innerHTML = `<div class="explanation err">${d.error}</div>`; return; }
+      res.innerHTML = `<div class="card"><h3>📅 ${d.plan.subject} 学习计划</h3><p>距考试还有 <b>${d.plan.days_left}</b> 天，每日 ${d.plan.daily_hours} 小时</p><div style="margin-top:10px">` +
+        d.plan.phases.map(p => `<div class="plan-phase"><div class="name">${p.name}</div><div class="range">${p.start} ~ ${p.end} · ${p.hours} 小时</div><p>${p.focus}</p></div>`).join('') +
+        `</div></div>`;
+    });
+
+    // 初始化
+    (async () => {
+      const s = await api('/api/status');
+      $('version').textContent = 'v' + s.version;
+      loadDashboard();
+      loadLlmConfig();
+      loadSources();
+      // PWA
+      if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+    })();
+
+    // ---------- AI 助手（调用本地免费模型） ----------
+    const chatHistory = [];
+    $('btn-chat').addEventListener('click', sendChat);
+    $('chat-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(); });
+
+    async function sendChat() {
+      const text = $('chat-input').value.trim();
+      if (!text) return;
+      $('chat-input').value = '';
+      $('chat-empty').style.display = 'none';
+      const box = $('chat-box');
+      // 用户消息
+      box.innerHTML += `<div style="text-align:right;margin:8px 0"><span style="background:var(--primary);color:#fff;border-radius:10px;padding:8px 12px;font-size:13px;display:inline-block;max-width:80%">${escapeHtml(text)}</span></div>`;
+      // AI 回复占位
+      box.innerHTML += `<div style="text-align:left;margin:8px 0" id="ai-loading"><span style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:13px;color:var(--muted)">正在思考...</span></div>`;
+      box.scrollTop = box.scrollHeight;
+      chatHistory.push({ role: 'user', content: text });
+      try {
+        const d = await api('/api/llm/chat', POST({
+          messages: chatHistory.slice(-10),
+          temperature: 0.7
+        }));
+        const loading = $('ai-loading');
+        if (d.ok) {
+          chatHistory.push({ role: 'assistant', content: d.content });
+          if (loading) loading.outerHTML = `<div style="text-align:left;margin:8px 0"><span style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:13px;display:inline-block;max-width:85%;white-space:pre-wrap">${escapeHtml(d.content)}</span></div>`;
+        } else {
+          if (loading) loading.outerHTML = `<div style="text-align:left;margin:8px 0"><span style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px 12px;font-size:13px;color:var(--error)">${escapeHtml(d.error || '调用失败')}（请在设置中确认已连接免费模型）</span></div>`;
+        }
+        box.scrollTop = box.scrollHeight;
+      } catch (e) {
+        const loading = $('ai-loading');
+        if (loading) loading.outerHTML = `<div style="text-align:left;margin:8px 0"><span style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px 12px;font-size:13px;color:var(--error)">连接失败：${escapeHtml(String(e))}</span></div>`;
+      }
+    }
+
+    // ---------- 设置（LLM 配置） ----------
+    async function loadLlmConfig() {
+      try {
+        const d = await api('/api/llm/config');
+        $('llm-url').value = d.base_url;
+        $('llm-model').value = d.model;
+        if (d.has_key) {
+          $('llm-key').placeholder = '已设置（' + d.key_fingerprint + '），留空不变';
+        }
+        if (d.model) {
+          $('ai-model').textContent = d.model;
+          $('ai-model').style.display = '';
+        }
+      } catch (e) { /* 忽略 */ }
+    }
+    $('btn-llm-save').addEventListener('click', async () => {
+      const body = {
+        base_url: $('llm-url').value,
+        model: $('llm-model').value
+      };
+      if ($('llm-key').value) body.api_key = $('llm-key').value;
+      const d = await api('/api/llm/config', POST(body));
+      $('llm-result').innerHTML = `<div class="explanation">✅ 配置已保存</div>`;
+      $('llm-key').value = '';
+      loadLlmConfig();
+    });
+    $('btn-llm-test').addEventListener('click', async () => {
+      // 先保存再测试
+      const body = { base_url: $('llm-url').value, model: $('llm-model').value };
+      if ($('llm-key').value) body.api_key = $('llm-key').value;
+      await api('/api/llm/config', POST(body));
+      $('llm-result').innerHTML = '<div class="explanation">正在测试连接...</div>';
+      const d = await api('/api/llm/test', {});
+      if (d.ok) {
+        $('llm-result').innerHTML = `<div class="explanation">✅ 连接成功！可用模型（${d.count}个）：<br>${(d.models || []).map(m => '<span class="tag">' + m + '</span>').join(' ')}</div>`;
+        if (d.models && d.models.length > 0 && !$('llm-model').value) {
+          $('llm-model').value = d.models[0];
+        }
+      } else {
+        $('llm-result').innerHTML = `<div class="explanation err">❌ ${d.error}<br>${d.hint || ''}</div>`;
+      }
+    });
+
+    // 工具函数
+    function escapeHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ---------- 资源中心（信息源） ----------
+    let allSources = [];
+    let currentFilter = '全部';
+    async function loadSources() {
+      try {
+        const d = await api('/api/sources');
+        allSources = d.sources || [];
+        $('src-count').textContent = d.sources.length + ' 个源';
+        renderSources();
+      } catch (e) { /* 忽略 */ }
+    }
+    function renderSources() {
+      const list = $('source-list');
+      const filtered = currentFilter === '全部' ? allSources : allSources.filter(s => (s.category || '自定义') === currentFilter);
+      if (filtered.length === 0) { list.innerHTML = '<div class="empty">该分类暂无信息源</div>'; return; }
+      const official = filtered.filter(s => s.category === '官方');
+      const training = filtered.filter(s => s.category === '培训机构');
+      const custom = filtered.filter(s => s.category === '自定义' || s.custom);
+      let html = '';
+      if (official.length) html += '<p style="font-size:12px;color:var(--muted);margin-bottom:6px">🏛️ 官方考试平台（公告/考纲）</p>' + official.map(srcItem).join('');
+      if (training.length) html += '<p style="font-size:12px;color:var(--muted);margin-bottom:6px;margin-top:12px">🎓 培训机构（资源/资料）</p>' + training.map(srcItem).join('');
+      if (custom.length) html += '<p style="font-size:12px;color:var(--muted);margin-bottom:6px;margin-top:12px">➕ 自定义</p>' + custom.map(srcItem).join('');
+      list.innerHTML = html;
+    }
+    function srcItem(s) {
+      return `<div class="card" style="padding:12px;margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+          <b style="font-size:14px">${escapeHtml(s.name)}</b>
+          <span class="tag">${escapeHtml(s.exam || s.category)}</span>
+        </div>
+        <p style="margin-top:6px">${escapeHtml(s.desc || '')}</p>
+        ${s.note ? `<p style="font-size:11px;color:var(--warn);margin-top:4px">⚠️ ${escapeHtml(s.note)}</p>` : ''}
+        <div style="margin-top:8px"><a class="btn sm" href="${escapeHtml(s.url)}" target="_blank" rel="noopener">打开 ↗</a></div>
+      </div>`;
+    }
+    document.querySelectorAll('#src-filters button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentFilter = btn.dataset.filter;
+        document.querySelectorAll('#src-filters button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderSources();
+      });
+    });
+    $('btn-add-source').addEventListener('click', async () => {
+      const name = $('src-name').value.trim();
+      const url = $('src-url').value.trim();
+      if (!name || !url) { $('src-result').innerHTML = '<div class="explanation err">名称和网址必填</div>'; return; }
+      const d = await api('/api/sources', POST({
+        name, url, category: $('src-category').value,
+        exam: $('src-exam').value.trim(), desc: $('src-desc').value.trim()
+      }));
+      if (d.ok) {
+        $('src-result').innerHTML = '<div class="explanation">✅ 已添加</div>';
+        $('src-name').value = ''; $('src-url').value = ''; $('src-exam').value = ''; $('src-desc').value = '';
+        loadSources();
+      } else {
+        $('src-result').innerHTML = `<div class="explanation err">${escapeHtml(d.error || '添加失败')}</div>`;
+      }
+    });
+    // ---------- 网盘搜（聚合网盘资料检索） ----------
+    let panServices = [];
+    async function loadPan() {
+      try {
+        const d = await api('/api/pan-search');
+        panServices = d.services || [];
+        const sel = $('pan-service');
+        sel.innerHTML = '';
+        panServices.forEach(s => {
+          const o = document.createElement('option');
+          o.value = s.id; o.textContent = s.name + '（' + (s.repo ? s.author : '') + '）';
+          sel.appendChild(o);
+        });
+        // 本地部署选项
+        const local = document.createElement('option');
+        local.value = 'local'; local.textContent = '本地部署（http://localhost:4000）';
+        sel.appendChild(local);
+        // 服务详情 + docker 命令
+        $('pan-services-detail').innerHTML = panServices.map(s =>
+          `<div style="margin-bottom:8px;font-size:12px">· <b>${escapeHtml(s.name)}</b>（${escapeHtml(s.author)}，${escapeHtml(s.license)}）：${escapeHtml(s.desc)}</div>`
+        ).join('');
+        $('pan-docker-cmds').textContent = panServices.map(s => s.docker).join('\n\n');
+        // 收藏
+        renderPanFav(d.favorites || []);
+      } catch (e) { /* 忽略 */ }
+    }
+    function renderPanFav(favs) {
+      $('pan-fav-count').textContent = favs.length + ' 条';
+      const list = $('pan-fav-list');
+      if (!favs.length) { list.innerHTML = '<div class="empty">暂无收藏，搜到的网盘资料可收藏到这里方便以后查看</div>'; return; }
+      list.innerHTML = favs.slice().reverse().map(f => `
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--bd);border-radius:8px;padding:10px;margin-bottom:8px;flex-wrap:wrap">
+          <div style="flex:1;min-width:150px"><b style="font-size:13px">${escapeHtml(f.title)}</b>${f.desc ? `<div style="font-size:11px;color:var(--muted)">${escapeHtml(f.desc)}</div>` : ''}</div>
+          <div style="display:flex;gap:6px">
+            <a class="btn sm" href="${escapeHtml(f.url)}" target="_blank" rel="noopener">打开 ↗</a>
+            <button class="btn sm danger" onclick="delPanFav('${f.id}')">删除</button>
+          </div>
+        </div>`).join('');
+    }
+    async function delPanFav(id) {
+      await api('/api/pan-search', POST({ action: 'delete', id }));
+      loadPan();
+    }
+    $('btn-pan-search').addEventListener('click', () => {
+      const kw = $('pan-kw').value.trim();
+      if (!kw) { alert('请输入搜索关键词'); return; }
+      const sid = $('pan-service').value;
+      if (sid === 'local') {
+        window.open('http://localhost:4000/', '_blank');
+        return;
+      }
+      const svc = panServices.find(s => s.id === sid);
+      if (!svc) return;
+      const url = (svc.search || svc.home).replace('{kw}', encodeURIComponent(kw));
+      window.open(url, '_blank');
+    });
+    $('pan-kw').addEventListener('keydown', e => { if (e.key === 'Enter') $('btn-pan-search').click(); });
+    $('btn-pan-fav').addEventListener('click', async () => {
+      const title = $('pan-fav-title').value.trim();
+      const url = $('pan-fav-url').value.trim();
+      if (!title || !url) { alert('标题和链接必填'); return; }
+      const d = await api('/api/pan-search', POST({ action: 'add', title, url }));
+      if (d.ok) { $('pan-fav-title').value = ''; $('pan-fav-url').value = ''; loadPan(); }
+    });
+
+    // ---------- 生成刷题工具 ----------
+    let lastGeneratedHtml = null;
+    $('btn-gen-ai').addEventListener('click', async () => {
+      const text = $('gen-text').value.trim();
+      if (!text) { $('gen-result').innerHTML = '<div class="explanation err">请先粘贴知识点/考纲/真题资料</div>'; return; }
+      $('gen-result').innerHTML = '<div class="explanation">AI 正在根据资料出题，请稍候（可能需要1-2分钟）...</div>';
+      $('btn-gen-ai').disabled = true;
+      try {
+        const d = await api('/api/generate-from-text', POST({
+          text, count: parseInt($('gen-count').value) || 10,
+          subject: $('gen-subject').value, title: $('gen-title').value
+        }));
+        if (d.ok) {
+          lastGeneratedHtml = d.html;
+          $('gen-result').innerHTML = `<div class="explanation">✅ 生成 ${d.count} 道题！点击下方下载，双击即可离线刷题。</div>`;
+          $('btn-gen-download').disabled = false;
+        } else {
+          $('gen-result').innerHTML = `<div class="explanation err">${escapeHtml(d.error || '生成失败')}</div>`;
+        }
+      } catch (e) {
+        $('gen-result').innerHTML = `<div class="explanation err">连接失败：${escapeHtml(String(e))}</div>`;
+      }
+      $('btn-gen-ai').disabled = false;
+    });
+
+    function downloadHtml(html, filename) {
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    }
+
+    $('btn-gen-download').addEventListener('click', () => {
+      if (!lastGeneratedHtml) return;
+      const name = ($('gen-title').value || '模拟试卷').replace(/[\\/:*?"<>|]/g, '_') + '.html';
+      downloadHtml(lastGeneratedHtml, name);
+    });
+
+    $('btn-gen-json').addEventListener('click', async () => {
+      let questions;
+      try { questions = JSON.parse($('gen-json').value.trim()); }
+      catch (e) { $('gen-result').innerHTML = '<div class="explanation err">JSON 格式错误：' + escapeHtml(String(e)) + '</div>'; return; }
+      if (!Array.isArray(questions) || questions.length === 0) { $('gen-result').innerHTML = '<div class="explanation err">题目数组为空</div>'; return; }
+      $('gen-result').innerHTML = '<div class="explanation">正在生成...</div>';
+      const d = await api('/api/generate-tool', POST({
+        title: $('gen-title').value, subject: $('gen-subject').value, questions
+      }));
+      if (d.ok) {
+        lastGeneratedHtml = d.html;
+        $('gen-result').innerHTML = `<div class="explanation">✅ 生成 ${d.count} 道题！点击下方下载。</div>`;
+        $('btn-gen-download').disabled = false;
+      } else {
+        $('gen-result').innerHTML = `<div class="explanation err">${escapeHtml(d.error || '生成失败')}</div>`;
+      }
+    });
+  </script>
+</body>
+</html>

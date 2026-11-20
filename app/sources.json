@@ -1,0 +1,101 @@
+[
+  {
+    "id": "guokao",
+    "name": "国考专题网站",
+    "category": "官方",
+    "exam": "公务员",
+    "url": "https://bm.scs.gov.cn/kl2027",
+    "desc": "中央机关及其直属机构考试录用公务员专题：招考公告、职位表、报考指南、报名、成绩查询",
+    "note": "国家公务员局官网(scs.gov.cn)已下线，招考信息以此专题网站为准"
+  },
+  {
+    "id": "scs_gongxuan",
+    "name": "中央机关公开遴选选调专题",
+    "category": "官方",
+    "exam": "公务员",
+    "url": "https://subb.scs.gov.cn/pp/gkweb/core/web/ui/business/home/lxhome.html",
+    "desc": "中央机关公开遴选和公开选调公务员公告、职位查询、报名、成绩",
+    "note": "国家公务员局官网下线后此专题网站仍可用"
+  },
+  {
+    "id": "yanzhao",
+    "name": "研招网",
+    "category": "官方",
+    "exam": "考研",
+    "url": "https://yz.chsi.com.cn/",
+    "desc": "中国研究生招生信息网：考研公告、招生单位、专业目录、考试大纲、报名、调剂",
+    "note": "教育部学生服务与素质发展中心主办"
+  },
+  {
+    "id": "neea_cet",
+    "name": "中国教育考试网（四六级）",
+    "category": "官方",
+    "exam": "四六级",
+    "url": "https://cet.neea.edu.cn/",
+    "desc": "全国大学英语四、六级考试：报名、考试安排、成绩查询",
+    "note": "教育部教育考试院"
+  },
+  {
+    "id": "neea_ntce",
+    "name": "中小学教师资格考试",
+    "category": "官方",
+    "exam": "教师资格",
+    "url": "https://ntce.neea.edu.cn/",
+    "desc": "中小学教师资格考试：报名、考试大纲、成绩、合格证明",
+    "note": "教育部教育考试院"
+  },
+  {
+    "id": "neea_main",
+    "name": "中国教育考试网（总站）",
+    "category": "官方",
+    "exam": "通用",
+    "url": "https://www.neea.edu.cn/",
+    "desc": "教育部教育考试院：各类教育考试项目、公告、政策",
+    "note": "含四六级、教师资格、计算机等级、普通话等"
+  },
+  {
+    "id": "cpta",
+    "name": "中国人事考试网",
+    "category": "官方",
+    "exam": "职业资格",
+    "url": "https://cpta.mohrss.gov.cn/",
+    "desc": "专业技术人员职业资格考试：公告、考试大纲、报名、成绩、证书",
+    "note": "人力资源和社会保障部人事考试中心，覆盖50余项资格考试"
+  },
+  {
+    "id": "gaokao_chsi",
+    "name": "阳光高考信息平台",
+    "category": "官方",
+    "exam": "高考",
+    "url": "https://gaokao.chsi.com.cn/",
+    "desc": "教育部阳光高考信息平台：高考政策、招生章程、录取查询",
+    "note": "学信网主办"
+  },
+  {
+    "id": "huatu",
+    "name": "华图教育",
+    "category": "培训机构",
+    "exam": "公务员/事业单位",
+    "url": "https://www.huatu.com/",
+    "desc": "公务员、事业单位、教师等考试培训：公告、真题、备考资料",
+    "note": "培训资源，需自行甄别质量"
+  },
+  {
+    "id": "offcn",
+    "name": "中公教育",
+    "category": "培训机构",
+    "exam": "公务员/事业单位",
+    "url": "https://www.offcn.com/",
+    "desc": "公职考试培训：公告、职位分析、备考资料、时政",
+    "note": "培训资源，需自行甄别质量"
+  },
+  {
+    "id": "fenbi",
+    "name": "粉笔",
+    "category": "培训机构",
+    "exam": "公务员/事业单位",
+    "url": "https://www.fenbi.com/",
+    "desc": "公考、事业单位、教师、四六级等刷题与课程",
+    "note": "培训资源，需自行甄别质量"
+  }
+]

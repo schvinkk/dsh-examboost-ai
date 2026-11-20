@@ -1,0 +1,46 @@
+[
+  {
+    "id": "panseek",
+    "name": "PanSeek",
+    "desc": "聚合网盘搜索：覆盖阿里云盘、夸克、百度、115、迅雷、UC、天翼、PikPak、123 等 13 种网盘 + 磁力/电驴，Telegram 140+ 频道 + 68 插源",
+    "home": "https://panseek.bx9y.com.cn",
+    "search": "https://panseek.bx9y.com.cn/search?q={kw}",
+    "docker": "docker run --name panseek -p 4000:4000 -d ghcr.io/huanyu-a/panseek:latest",
+    "author": "huanyu-a",
+    "license": "MIT",
+    "repo": "https://github.com/huanyu-a/panseek"
+  },
+  {
+    "id": "panhub",
+    "name": "PanHub",
+    "desc": "网盘聚合搜索：夸克/阿里云盘/百度/115/迅雷等 + 80+ Telegram 频道，聚合去重、智能排序、链接失效检测",
+    "home": "https://panhub.shenzjd.com",
+    "search": "https://panhub.shenzjd.com/search?q={kw}",
+    "docker": "docker run --name panhub -p 4000:4000 -d ghcr.io/wu529778790/panhub.shenzjd.com:latest",
+    "author": "caiysmy 等（社区）",
+    "license": "MIT",
+    "repo": "https://github.com/caiysmy/panhub"
+  },
+  {
+    "id": "pansou",
+    "name": "PanSou",
+    "desc": "网盘聚合搜索：阿里云盘、夸克、百度网盘、115、迅雷等，多源命中去重排序",
+    "home": "https://pansou.app",
+    "search": "https://pansou.app/?q={kw}",
+    "docker": "docker run --name pansou -p 4000:4000 -d ghcr.io/gailzhangjy/pansou.app:latest",
+    "author": "GailZhangJY",
+    "license": "MIT",
+    "repo": "https://github.com/GailZhangJY/PanSou"
+  },
+  {
+    "id": "panxiaozi",
+    "name": "盘小子",
+    "desc": "一站式网盘资源搜索引擎：夸克、百度、阿里云盘三大平台，快速精准，一键直达",
+    "home": "https://pan.xiaozi.cc",
+    "search": "https://pan.xiaozi.cc/search?q={kw}",
+    "docker": "详见仓库（Next.js 部署）",
+    "author": "towelong",
+    "license": "MIT",
+    "repo": "https://github.com/towelong/panxiaozi"
+  }
+]
